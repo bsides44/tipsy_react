@@ -1,0 +1,109 @@
+body {
+	font-size: 85%;
+	background-color: #F7F8E0;
+  text-decoration-color: #7E7C74;
+}
+
+h1 {
+  font-size: 40px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  word-spacing: 10px;
+  text-shadow: 3px 2px #FFFFFF;
+  font-family:  "Verdana", monospace;
+  text-align: center;
+  margin-top: 60px;
+}
+
+h2 {
+  font-size: 18px;
+  letter-spacing: 2px;
+  font-family: "Verdana", monospace;
+  text-align: center;
+}
+h3 {
+	  font-size: 28px;
+		font-family: "Calibri", monospace;
+		position: fixed;
+		right: -.1em;
+		top: 60px;
+		width: 1em;
+		line-height: 0.8;
+		text-align: center;
+		text-transform: uppercase;
+		word-wrap: break-word;
+		text-shadow: 0 0 28px rgba(0,0,0,0.3);
+	}
+
+p {
+  font-size: 15px;
+  font-family:  "Verdana", monospace;
+  letter-spacing: 3px;
+  line-height: 30px;
+}
+
+#hero {
+max-width: 30%;
+}
+
+button {
+  padding: 40px;
+  border-radius: 12px;
+  font-size: 30px;
+  font-family: "Calibri", monospace;
+  box-shadow: 3px 2px #7E7C74;
+  margin-top: 40px;
+  position: fixed;
+  bottom: 300px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+button:hover {
+  background-color: #e8f0ff;
+  color: rgb(66, 60, 60);
+}
+
+form {
+  align-content: center;
+  padding: 20px
+}
+
+/* iphone 4. 5s */
+@media only screen and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+  h1 {font-size: 90px;
+    margin-top: 200px;}
+  button {font-size: 90px;
+    position: fixed;
+    bottom: 180px;
+    left: 50%;
+    transform: translate(-50%, 0);}
+}
+
+/* iPhone 6+, 7, 7+, 8, 8+ */
+@media only screen 
+and (min-device-width : 414px) 
+and (max-device-height: 736px) {
+  h1 {font-size: 100px;
+    margin-top: 200px;}
+  button {font-size: 90px;
+    position: fixed;
+    bottom: 350px;
+    left: 50%;
+    transform: translate(-50%, 0);}
+}
+
+
+/* iPhone 6 */
+@media only screen 
+and (min-device-width : 375px)
+and (max-device-height: 667px) {
+  h1 {font-size: 100px;
+    margin-top: 200px;}
+  button {font-size: 90px;
+    position: fixed;
+    bottom: 350px;
+    left: 50%;
+    transform: translate(-50%, 0);}
+}
