@@ -12,22 +12,23 @@ class NewUser extends React.Component {
             email:'',
             profilepic:''
         }
+        
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
-    }
-handleSubmit(e) {
+    } 
+
+    handleSubmit(e) {
     e.preventDefault()
-    console.log(e)
+
 }
 
 handleChange(e) {
     let key = e.target.name 
     let value = e.target.value 
     this.setState ({[key] : value})
-    console.log("change")
 }
 
-render(){
+render(){console.log(this.state)
     return <form onSubmit={this.handleSubmit}>
     <input onChange={this.handleChange} name="firstname" type="text" placeholder="Firstname"/><br/>
     <input onChange={this.handleChange} name="lastname" type="text" placeholder="Lastname"/><br/>

@@ -24790,6 +24790,7 @@ var NewUser = function (_React$Component) {
             email: '',
             profilepic: ''
         };
+
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.handleChange = _this.handleChange.bind(_this);
         return _this;
@@ -24799,7 +24800,6 @@ var NewUser = function (_React$Component) {
         key: 'handleSubmit',
         value: function handleSubmit(e) {
             e.preventDefault();
-            console.log(e);
         }
     }, {
         key: 'handleChange',
@@ -24807,11 +24807,11 @@ var NewUser = function (_React$Component) {
             var key = e.target.name;
             var value = e.target.value;
             this.setState(_defineProperty({}, key, value));
-            console.log("change");
         }
     }, {
         key: 'render',
         value: function render() {
+            console.log(this.state);
             return _react2.default.createElement(
                 'form',
                 { onSubmit: this.handleSubmit },
