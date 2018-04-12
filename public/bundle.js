@@ -20928,8 +20928,8 @@ var App = function App() {
         null,
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Login2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/user/new', component: _NewUser2.default }),
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/user/:id', component: _User2.default }),
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/user/:id/edit', component: _EditUser2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/user/1', component: _User2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/user/1/edit', component: _EditUser2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/profiles', component: _AllProfiles2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/profiles/view', component: _OneProfile2.default })
       )
@@ -24761,6 +24761,16 @@ var Login = function Login() {
                     null,
                     'Add new user'
                 )
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/profiles/' },
+                _react2.default.createElement(
+                    'button',
+                    null,
+                    'Profiles'
+                )
             )
         )
     );
@@ -24783,6 +24793,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24847,10 +24859,14 @@ var NewUser = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            console.log(this.state);
             return _react2.default.createElement(
                 'form',
                 { onSubmit: this.handleSubmit },
+                _react2.default.createElement(
+                    'h4',
+                    { id: 'formTitle' },
+                    'NewYo\'Self'
+                ),
                 _react2.default.createElement('input', { onChange: this.handleChange, name: 'firstname', type: 'text', placeholder: 'Firstname' }),
                 _react2.default.createElement('br', null),
                 _react2.default.createElement('input', { onChange: this.handleChange, name: 'lastname', type: 'text', placeholder: 'Lastname' }),
@@ -24870,7 +24886,17 @@ var NewUser = function (_React$Component) {
                 _react2.default.createElement('br', null),
                 _react2.default.createElement('input', { onChange: this.handleChange, name: 'profilepic', type: 'text', placeholder: 'Profile Pic URL' }),
                 _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { type: 'submit', value: 'Let\'s go!' })
+                _react2.default.createElement('input', { type: 'submit', value: 'Let\'s go!' }),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { to: '/' },
+                    _react2.default.createElement(
+                        'button',
+                        null,
+                        'Back'
+                    )
+                )
             );
         }
     }]);
@@ -24917,11 +24943,54 @@ var AllProfiles = function AllProfiles() {
                 null,
                 _react2.default.createElement(
                     _reactRouterDom.Link,
-                    { to: '/user/:id' },
+                    { to: '/user/1' },
                     _react2.default.createElement(
                         'button',
                         null,
                         'Your Profile'
+                    )
+                ),
+                _react2.default.createElement('br', null)
+            ),
+            _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { to: '/user/1/edit' },
+                    _react2.default.createElement(
+                        'button',
+                        null,
+                        'Edit profile'
+                    )
+                ),
+                _react2.default.createElement('br', null)
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { to: '/profiles/view/' },
+                    _react2.default.createElement(
+                        'button',
+                        null,
+                        'View Profile'
+                    )
+                ),
+                _react2.default.createElement('br', null)
+            ),
+            _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { to: '/' },
+                    _react2.default.createElement(
+                        'button',
+                        null,
+                        'Back'
                     )
                 ),
                 _react2.default.createElement('br', null)
@@ -24961,15 +25030,19 @@ var OneProfile = function OneProfile() {
             _react2.default.createElement(
                 'h4',
                 null,
-                ' This person '
+                ' Yo\'Mate! '
             ),
             _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: '/profiles/' },
+                'div',
+                null,
                 _react2.default.createElement(
-                    'button',
-                    null,
-                    'Back'
+                    _reactRouterDom.Link,
+                    { to: '/profiles/' },
+                    _react2.default.createElement(
+                        'button',
+                        null,
+                        'Back'
+                    )
                 )
             )
         )
@@ -25007,15 +25080,32 @@ var Login = function Login() {
             _react2.default.createElement(
                 'h4',
                 null,
-                ' Hello User! '
+                ' View Yo\'Self '
             ),
             _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: '/user/edit/' },
+                'div',
+                null,
                 _react2.default.createElement(
-                    'button',
-                    null,
-                    'Edit Profile'
+                    _reactRouterDom.Link,
+                    { to: '/user/1/edit/' },
+                    _react2.default.createElement(
+                        'button',
+                        null,
+                        'Edit Profile'
+                    )
+                )
+            ),
+            _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { to: '/profiles/' },
+                    _react2.default.createElement(
+                        'button',
+                        null,
+                        'Back'
+                    )
                 )
             )
         )
@@ -25034,6 +25124,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -25042,31 +25134,113 @@ var _reactRouterDom = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var EditUser = function EditUser() {
-    return _react2.default.createElement(
-        _react2.default.Fragment,
-        null,
-        _react2.default.createElement(
-            'center',
-            null,
-            _react2.default.createElement('br', null),
-            _react2.default.createElement(
-                'h4',
-                null,
-                ' Edit Yo\'Self '
-            ),
-            _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: '/profiles' },
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var EditUser = function (_React$Component) {
+    _inherits(EditUser, _React$Component);
+
+    function EditUser(props) {
+        _classCallCheck(this, EditUser);
+
+        var _this = _possibleConstructorReturn(this, (EditUser.__proto__ || Object.getPrototypeOf(EditUser)).call(this, props));
+
+        _this.state = {
+            firstname: '',
+            lastname: '',
+            tagline: '',
+            language: [],
+            email: '',
+            profilepic: ''
+        };
+
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleLanguage = _this.handleLanguage.bind(_this);
+
+        return _this;
+    }
+
+    _createClass(EditUser, [{
+        key: 'handleSubmit',
+        value: function handleSubmit(e) {
+            e.preventDefault();
+        }
+    }, {
+        key: 'handleChange',
+        value: function handleChange(e) {
+            var key = e.target.name;
+            var value = e.target.value;
+            console.log({ key: key, value: value });
+            this.setState(_defineProperty({}, key, value));
+        }
+    }, {
+        key: 'handleLanguage',
+        value: function handleLanguage(e) {
+            var language = this.state.language;
+            console.log(e.target.value);
+            if (language.find(function (language) {
+                return language == e.target.value;
+            })) language = language.filter(function (language) {
+                return language != e.target.value;
+            });else language.push(e.target.value);
+            console.log(language);
+            this.setState({ language: language });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            console.log(this.state);
+            return _react2.default.createElement(
+                'form',
+                { onSubmit: this.handleSubmit },
                 _react2.default.createElement(
-                    'button',
-                    null,
-                    'Home'
+                    'h4',
+                    { id: 'formTitle' },
+                    ' Edit Yo\'Self '
+                ),
+                _react2.default.createElement('input', { onChange: this.handleChange, name: 'firstname', type: 'text', placeholder: 'Firstname' }),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement('input', { onChange: this.handleChange, name: 'lastname', type: 'text', placeholder: 'Lastname' }),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement('input', { onChange: this.handleChange, name: 'tagline', type: 'text', placeholder: 'Tagline' }),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'english', value: 'english', type: 'checkbox' }),
+                ' English',
+                _react2.default.createElement('br', null),
+                _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'spanish', value: 'spanish', type: 'checkbox' }),
+                ' Spanish',
+                _react2.default.createElement('br', null),
+                _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'te_reo', value: 'te_reo', type: 'checkbox' }),
+                ' Te reo M\u0101ori',
+                _react2.default.createElement('br', null),
+                _react2.default.createElement('input', { onChange: this.handleChange, name: 'email', type: 'text', placeholder: 'Email' }),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement('input', { onChange: this.handleChange, name: 'profilepic', type: 'text', placeholder: 'Profile Pic URL' }),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement('input', { type: 'submit', value: 'Let\'s go!' }),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { to: '/profiles' },
+                    _react2.default.createElement(
+                        'button',
+                        null,
+                        'Home'
+                    )
                 )
-            )
-        )
-    );
-};
+            );
+        }
+    }]);
+
+    return EditUser;
+}(_react2.default.Component);
+
 exports.default = EditUser;
 
 /***/ })

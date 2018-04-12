@@ -53,10 +53,6 @@ button {
   font-family: "Calibri", monospace;
   box-shadow: 3px 2px #7E7C74;
   margin-top: 40px;
-  position: fixed;
-  bottom: 300px;
-  left: 50%;
-  transform: translate(-50%, 0);
 }
 
 button:hover {
@@ -67,6 +63,10 @@ button:hover {
 form {
   align-content: center;
   padding: 20px
+}
+
+#formTitle {
+  padding-left: 20px;
 }
 
 /* iphone 4. 5s */

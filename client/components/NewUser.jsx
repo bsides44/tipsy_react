@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 class NewUser extends React.Component {
     constructor(props) {
@@ -39,8 +40,9 @@ handleLanguage(e) {
     this.setState({language})
 }
 
-render(){console.log(this.state)
+render(){
     return <form onSubmit={this.handleSubmit}>
+    <h4 id="formTitle">NewYo'Self</h4>
     <input onChange={this.handleChange} name="firstname" type="text" placeholder="Firstname"/><br/>
     <input onChange={this.handleChange} name="lastname" type="text" placeholder="Lastname"/><br/>
     <input onChange={this.handleChange} name="tagline" type="text" placeholder="Tagline"/><br/>
@@ -50,6 +52,7 @@ render(){console.log(this.state)
     <input onChange={this.handleChange} name="email" type="text" placeholder="Email"/><br/>
     <input onChange={this.handleChange} name="profilepic" type="text" placeholder="Profile Pic URL"/><br/>
     <input type="submit" value="Let's go!"/>
+    <br/><Link to='/'><button>Back</button></Link>
 </form>
 }
 }

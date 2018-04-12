@@ -7,10 +7,11 @@ const AllProfiles = () => {
             <center>
                 <br/>
                 <h4> Welcome </h4>
-                <div><Link to='/user/:id'><button>Your Profile</button></Link><br/></div>
-                {/* <div><Link to='/user/:id/edit'><button>Edit profile</button></Link><br/></div>
-                <div><Link to='/profiles/view/'><button>View Profile</button></Link><br/></div> */}
-                
+                <div><Link to='/user/1'><button>Your Profile</button></Link><br/></div>
+                <div><Link to='/user/1/edit'><button>Edit profile</button></Link><br/></div>
+                <br/>
+                <div><Link to='/profiles/view/'><button>View Profile</button></Link><br/></div>
+                <div><Link to='/'><button>Back</button></Link><br/></div>
             </center>
         </React.Fragment>
     )

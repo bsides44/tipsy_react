@@ -6,8 +6,8 @@ const OneProfile = () => {
         <React.Fragment>
             <center>
                 <br/>
-                <h4> This person </h4>
-                <Link to='/profiles/'><button>Back</button></Link>
+                <h4> Yo'Mate! </h4>
+                <div><Link to='/profiles/'><button>Back</button></Link></div>
             </center>
         </React.Fragment>
     )

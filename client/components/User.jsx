@@ -6,10 +6,12 @@ const Login = () => {
         <React.Fragment>
             <center>
                 <br/>
-                <h4> Hello User! </h4>
+                <h4> View Yo'Self </h4>
 
 
-                <Link to='/user/edit/'><button>Edit Profile</button></Link>
+                <div><Link to='/user/1/edit/'><button>Edit Profile</button></Link></div>
+
+                <div><Link to='/profiles/'><button>Back</button></Link></div>
                 
             </center>
         </React.Fragment>
