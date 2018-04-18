@@ -19,6 +19,7 @@ export function newUserData (user, callback) {
         callback(err)
     })
 }
+//callback is not a function
 
 export function getProfiles(callback) {
     request

@@ -22,7 +22,11 @@ class NewUser extends React.Component {
     } 
 
 addUser(e){
- newUserData(this.state)
+ newUserData(this.state, this.props.redirect)
+}
+
+redirect(){
+    console.log('what')
 }
 
 handleChange(e) {
