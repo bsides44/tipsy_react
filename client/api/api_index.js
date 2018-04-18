@@ -20,4 +20,10 @@ export function newUserData (user, callback) {
     })
 }
 
-// export function allProfiles
+export function getProfiles(callback) {
+    request
+    .get(urlThing + '/profiles')
+    .end((err, res) => {
+        callback(err, res.body)
+    })
+}

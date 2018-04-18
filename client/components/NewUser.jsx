@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import { newUserData } from '../api/api_index';
 
 class NewUser extends React.Component {
     constructor(props) {

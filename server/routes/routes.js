@@ -17,42 +17,42 @@ router.get('/', function (req, res) {
 })
 
 //Add new user page
-router.get('/user/new', function (req, res) {
-    res.render('newUser')
-})
+// router.get('/user/new', function (req, res) {
+//     res.render('newUser')
+// })
 
 //put new user data in db
-router.post('/user/new', function (req, res) {
-    var userData = req.body
-    var languageArray = req.body.language
-    db.insertLanguage(languageArray)
-        .then(id => {
-            db.getProfiles()
-                .insert({firstname: userData.firstname,
-                    lastname: userData.lastname,
-                    tagline: userData.tagline,
-                    email: userData.email,
-                    profilepic: userData.profilepic
-                })
-                .then(newProfile => {
-                   res.redirect('/profiles/' + newProfile)
-            })
-        })
+// router.post('/user/new', function (req, res) {
+//     var userData = req.body
+//     var languageArray = req.body.language
+//     db.insertLanguage(languageArray)
+//         .then(id => {
+//             db.getProfiles()
+//                 .insert({firstname: userData.firstname,
+//                     lastname: userData.lastname,
+//                     tagline: userData.tagline,
+//                     email: userData.email,
+//                     profilepic: userData.profilepic
+//                 })
+//                 .then(newProfile => {
+//                    res.redirect('/profiles/' + newProfile)
+//             })
+//         })
   
-})
+// })
 
 
 
 // User can view all profiles to match
-router.get('/profiles/:id', function (req, res) {
-    db.getProfileByID(req.params.id)
-    .then(loggedInUser => {
+router.get('/profiles/', function (req, res) {
+    // db.getProfileByID(req.params.id)
+    // .then(loggedInUser => {
         db.getProfiles()
         .then(allProfiles => {
-            res.render('allProfiles', {loggedInUser: loggedInUser, allProfiles: allProfiles})
+            res.json(allProfiles)
         })
     })
-})
+// })
 
 //user can view a particular profile
 router.get("/profiles/:id/view", function (req, res) {
@@ -139,3 +139,19 @@ router.get('/user/:id/edit', function (req, res) {
 
 
 module.exports = router
+
+router.post('/', function (req, res) {
+    var userData = req.body
+    var languageArray = req.body.language
+    db.insertLanguage(languageArray)
+        .then(id => {
+            db.getProfiles()
+                .insert({firstname: userData.firstname,
+                    lastname: userData.lastname,
+                    tagline: userData.tagline,
+                    email: userData.email,
+                    profilepic: userData.profilepic
+                })
+            res.sendStatus(200)
+        })
+})
