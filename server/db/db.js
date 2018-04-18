@@ -1,6 +1,6 @@
 const path = require('path')
 var environment = process.env.NODE_ENV || 'development'
-var config = require('./knexfile')[environment]
+var config = require('../../knexfile')[environment]
 var db = require('knex')(config)
 
 function getLibbyProfile () {

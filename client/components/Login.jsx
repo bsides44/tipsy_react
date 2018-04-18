@@ -8,29 +8,29 @@ class Login extends React.Component {
         this.state = {
             libby: ""
         }
-        this.getLibby = this.getLibby.bind(this)
+        this.saveLibby = this.saveLibby.bind(this)
     }
 
+    componentDidMount(){
+        getLibbyProfile(this.saveLibby)
+    }
 
-getLibby() {
-    return getLibbyProfile()
-    .then(libby => {
-        console.log("login page")
-        console.log(libby)
-        this.setState({libby: libby})
-    })
-    .catch(err => {
-    this.setState({errorMessage: err.message})
-    })
+    saveLibby(err, libby) {
+    console.log("login page")
+        this.setState({
+            error: err,
+            libby: libby
+        })
 }
+
 
 render () {
     return (
             <React.Fragment>
                 <center>
                     <h4> Who are you? </h4>
-                    {this.state.libby.name}
-                    <img src ={this.state.libby.profilepic} width="200px" />
+                    <h4>{this.state.libby.firstname}</h4>
+                    <p><img src ={this.state.libby.profilepic} width="200px" /></p>
 
                     <Link to='/user/new/'><button>Add new user</button></Link><br/>
                     <Link to='/profiles/'><button>Profiles</button></Link>

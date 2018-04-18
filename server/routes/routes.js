@@ -1,7 +1,7 @@
 var environment = process.env.NODE_ENV || 'development'
-var config = require('./knexfile')[environment]
-const db = require('./db')
-const server = require('./server')
+
+const db = require('../db/db')
+const server = require('../server')
 const express = require('express')
 const router = express.Router()
 
@@ -15,7 +15,6 @@ router.get('/', function (req, res) {
     })
 
 })
-//change render to json and delete views
 
 //Add new user page
 router.get('/user/new', function (req, res) {

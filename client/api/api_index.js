@@ -1,16 +1,23 @@
 import request from 'superagent'
-
+const urlThing = 'http://localhost:3000/api/v1/'
 
 //functions go here
 
-export function getLibbyProfile () {
-    return request.get('/')
-    .then(data => {
-        console.log("app index page")
-        console.log(data)
-        return data})
-    .catch(err => {
-        throw Error('Cannot GET Posts!')
+export function getLibbyProfile (callback) {
+    request
+    .get(urlThing)
+    .end((err, res) => {
+        callback(err, res.body)
     })
 }
-//chaange url to fancy one
+
+export function newUserData (user, callback) {
+    request
+    .post(urlThing)
+    .send(user)
+    .end((err, res) => {
+        callback(err)
+    })
+}
+
+// export function allProfiles

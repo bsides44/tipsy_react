@@ -14,14 +14,14 @@ class NewUser extends React.Component {
             profilepic:''
         }
         
-        this.handleSubmit = this.handleSubmit.bind(this)
+        this.addUser = this.addUser.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleLanguage = this.handleLanguage.bind(this)
 
     } 
 
-    handleSubmit(e) {
-    e.preventDefault()
+addUser(e){
+ newUserData(this.state)
 }
 
 handleChange(e) {
@@ -51,12 +51,12 @@ render(){
         <input onChange={this.handleLanguage}name="language" id="te_reo" value="te_reo" type="checkbox" /> Te reo Māori<br />
     <input onChange={this.handleChange} name="email" type="text" placeholder="Email"/><br/>
     <input onChange={this.handleChange} name="profilepic" type="text" placeholder="Profile Pic URL"/><br/>
-    <input type="submit" value="Let's go!"/>
+    <input type="submit" onClick={this.addUser} value="Let's go!"/>
     <br/><Link to='/'><button>Back</button></Link>
 </form>
 }
 }
-
+//post posting to route in rerouter file - need all routes in same file and to direct router there in server.js 
 export default NewUser
 
 
