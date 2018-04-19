@@ -20,18 +20,22 @@ function getProfileByID (id) {
     .select().first()
 }
 
-function getProfileByQuery (id) {
+function getProfileByQuery (query) {
     // const conn = testDb || db
     return db("profiles")
-    .where ("id", id.id)
+    .where ("id", query.id)
     .select().first()
 }
 
-function getProfileByTrickyID (id) {
-    // const conn = testDb || db
-    return db("profiles")
-    .where("id", id)
-    .select().first()
+function checkForMatch (id, query) {
+    console.log("id ", id)
+    var queryPieces = query.split("")
+    var queryNum = queryPieces[4]
+    console.log("queryNum ", queryNum)
+    //find the current user
+      return db("profiles")
+        .where ("id", id)
+        .select().first()
 }
 
 function insertLanguage (languageArray) {
@@ -83,10 +87,10 @@ function pushMatch (user, profile) {
         .insert({"user_id": user, "match_id": profile})
 }
 
-function checkMatches (user, profile) {
+function checkMatches (userid, profileid) {
     return db("matches")
-    .where("match_id", "like", user )
-    .where("user_id", "like", profile)
+    .where("match_id", userid )
+    .where("user_id", profileid)
 
 }
 
@@ -95,7 +99,7 @@ module.exports = {
     getProfiles,
     getProfileByID,
     getProfileByQuery,
-    getProfileByTrickyID,
+    checkForMatch,
     insertLanguage,
     getLanguageByID,
     updateLanguage,

@@ -49,10 +49,9 @@ router.get('/profiles/:id', function (req, res) {
 //user can view a particular profile
 router.get("/profiles/:id/view", function (req, res) {
     var query = req.query
-    var id = req.params.id
     db.getProfileByQuery(query)
     .then(profile=> {
-        res.json({profile, id})
+        res.json(profile)
     })
 })
 
@@ -60,29 +59,27 @@ router.get("/profiles/:id/view", function (req, res) {
 
 //user can match with other users
 router.post("/profiles/:id/view", function (req, res) {
-    var id = req.params.id
+    var id = req.body.id
+    var query = req.body.query
+    var queryPieces = query.split("")
+    var queryNum = queryPieces[4]
 
-    // gets the user id of the match profile from query in url
-    var query = req.query
-    var queryArray = Object.entries(query)
-    var queryItem = queryArray[0][0]
-    var queryPieces = queryItem.split("")
-    var queryNum = queryPieces[0]
-   
-        db.getProfileByTrickyID(id)
-        .then(subject => {
-            db.pushMatch(id, queryNum)
-            .then(thing => {
-                db.checkMatches(id, queryNum)
-                .then(success => {
-                    if (success[0]){
-                        res.redirect("/success")}
-                    else res.redirect("/profiles/" + req.params.id)
-                     })
-                })
+    db.checkForMatch(id, query)
+    .then(user => {
+     db.pushMatch(id, queryNum)
+     .then(irrelevantID => {
+         db.checkMatches(id, queryNum)
+        .then(success => {
+            console.log("route success ", success)
+            if (success[0]){
+                res.sendStatus(200)}
+            else res.sendStatus(204)
             })
-     
+        })
     })
+})
+//working, now need to sort out responses in api_index
+//check matches not working
 
 //success page
 router.get("/success/", function (req, res) {

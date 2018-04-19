@@ -25,15 +25,22 @@ export function getProfiles(id, callback) {
     .get(urlThing + '/profiles/' + id)
     .end((err, res) => {
         callback(err, res.body)
-        console.log("api", res.body)
     })
 }
 
-export function getProfileById(id, query, callback) {
+export function getProfileByQuery(query, callback) {
     request
-    .get(urlThing + '/profiles/' + id + '/view?id=' + query)
+    .get(urlThing + '/profiles/:id/view' + query)
     .end((err, res) => {
         callback(err, res.body)
-        console.log("api", res.body)
+    })
+}
+
+export function checkForMatch (body, callback) {
+    request
+    .post(urlThing + '/profiles/:id/view')
+    .send(body)
+    .end((err, res) => {
+        callback(err, res.body)
     })
 }

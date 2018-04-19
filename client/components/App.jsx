@@ -5,8 +5,8 @@ import {HashRouter as Router, Route} from 'react-router-dom'
 import Login from './Login'
 import NewUser from './NewUser'
 import AllProfiles from './AllProfiles'
-// import OneProfile from './OneProfile'
-import User from './User'
+import OneProfile from './OneProfile'
+// import User from './User'
 // import EditUser from './EditUser'
 
 
