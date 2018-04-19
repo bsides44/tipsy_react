@@ -13,18 +13,27 @@ export function getLibbyProfile (callback) {
 
 export function newUserData (user, callback) {
     request
-    .post(urlThing)
+    .post(urlThing + '/user/new')
     .send(user)
     .end((err, res) => {
-        callback(err)
+        callback(err, res.body)
     })
 }
-//callback is not a function
 
-export function getProfiles(callback) {
+export function getProfiles(id, callback) {
     request
-    .get(urlThing + '/profiles')
+    .get(urlThing + '/profiles/' + id)
     .end((err, res) => {
         callback(err, res.body)
+        console.log("api", res.body)
+    })
+}
+
+export function getProfileById(id, query, callback) {
+    request
+    .get(urlThing + '/profiles/' + id + '/view?id=' + query)
+    .end((err, res) => {
+        callback(err, res.body)
+        console.log("api", res.body)
     })
 }

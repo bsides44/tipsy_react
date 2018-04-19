@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import { newUserData } from '../api/api_index';
 
 class NewUser extends React.Component {
@@ -7,6 +7,7 @@ class NewUser extends React.Component {
         super(props)
 
         this.state = {
+            id: '',
             firstname: '',
             lastname:'',
             tagline:'',
@@ -18,35 +19,38 @@ class NewUser extends React.Component {
         this.addUser = this.addUser.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleLanguage = this.handleLanguage.bind(this)
-
+        this.redirect = this.redirect.bind(this)
     } 
 
 addUser(e){
- newUserData(this.state, this.props.redirect)
+    e.preventDefault()
+    newUserData(this.state, this.redirect)
 }
 
-redirect(){
-    console.log('what')
+redirect(err, userID){
+    this.setState({
+        "id": userID
+    })
+    this.props.history.push('/profiles/' + userID)
+    
 }
 
 handleChange(e) {
     let key = e.target.name 
     let value = e.target.value 
-    console.log({key, value})
     this.setState ({[key] : value})
 }
 
 handleLanguage(e) {
     let language = this.state.language
-    console.log(e.target.value)
     if (language.find(language => language == e.target.value)) language = language.filter(language => language != e.target.value)
     else language.push(e.target.value)
-    console.log(language)
     this.setState({language})
 }
 
 render(){
-    return <form onSubmit={this.handleSubmit}>
+    return <form action="post">
+    <h3>TIPSY</h3>
     <h4 id="formTitle">NewYo'Self</h4>
     <input onChange={this.handleChange} name="firstname" type="text" placeholder="Firstname"/><br/>
     <input onChange={this.handleChange} name="lastname" type="text" placeholder="Lastname"/><br/>
@@ -61,7 +65,7 @@ render(){
 </form>
 }
 }
-//post posting to route in rerouter file - need all routes in same file and to direct router there in server.js 
+
 export default NewUser
 
 

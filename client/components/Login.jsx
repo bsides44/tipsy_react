@@ -27,13 +27,13 @@ class Login extends React.Component {
 render () {
     return (
             <React.Fragment>
+            <h3> TIPSY</h3>
                 <center>
                     <h4> Who are you? </h4>
-                    <h4>{this.state.libby.firstname}</h4>
-                    <p><img src ={this.state.libby.profilepic} width="200px" /></p>
+                    <Link to='/profiles/1'><h4>{this.state.libby.firstname}</h4>
+                    <p><img src ={this.state.libby.profilepic} width="200px" /></p></Link>
 
                     <Link to='/user/new/'><button>Add new user</button></Link><br/>
-                    <Link to='/profiles/'><button>Profiles</button></Link>
 
                 </center>
             </React.Fragment>
