@@ -38,8 +38,7 @@ class OneProfile extends React.Component {
  }
 
  redirect(err, body){
-     console.log("body ", body)
-   if (body = 200) {
+   if (body == "true") {
         alert("IT'S A MATCH!")
    }
     this.props.history.push('/profiles/' + this.state.id) 

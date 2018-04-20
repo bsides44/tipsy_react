@@ -41,6 +41,7 @@ export function checkForMatch (body, callback) {
     .post(urlThing + '/profiles/:id/view')
     .send(body)
     .end((err, res) => {
+        console.log("api ", res.body)
         callback(err, res.body)
     })
 }

@@ -72,14 +72,13 @@ router.post("/profiles/:id/view", function (req, res) {
         .then(success => {
             console.log("route success ", success)
             if (success[0]){
-                res.sendStatus(200)}
-            else res.sendStatus(204)
+                res.json("true")
+            }
+            else res.json("false")
             })
         })
     })
 })
-//working, now need to sort out responses in api_index
-//check matches not working
 
 //success page
 router.get("/success/", function (req, res) {

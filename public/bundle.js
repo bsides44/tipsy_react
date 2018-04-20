@@ -1045,6 +1045,7 @@ function getProfileByQuery(query, callback) {
 
 function checkForMatch(body, callback) {
     _superagent2.default.post(urlThing + '/profiles/:id/view').send(body).end(function (err, res) {
+        console.log("api ", res.body);
         callback(err, res.body);
     });
 }
@@ -27199,8 +27200,7 @@ var OneProfile = function (_React$Component) {
     }, {
         key: 'redirect',
         value: function redirect(err, body) {
-            console.log("body ", body);
-            if (body = 200) {
+            if (body == "true") {
                 alert("IT'S A MATCH!");
             }
             this.props.history.push('/profiles/' + this.state.id);

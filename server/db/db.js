@@ -90,8 +90,7 @@ function pushMatch (user, profile) {
 function checkMatches (userid, profileid) {
     return db("matches")
     .where("match_id", userid )
-    .where("user_id", profileid)
-
+    .andWhere("user_id", profileid)
 }
 
 module.exports = {
