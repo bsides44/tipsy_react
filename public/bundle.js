@@ -27194,7 +27194,9 @@ var OneProfile = function (_React$Component) {
             id: _this.props.match.params.id,
             query: _this.props.location.search,
             userProfile: {},
-            languages: []
+            language1: '',
+            language2: '',
+            language3: ''
         };
         _this.saveProfile = _this.saveProfile.bind(_this);
         _this.runMatch = _this.runMatch.bind(_this);
@@ -27216,7 +27218,9 @@ var OneProfile = function (_React$Component) {
             this.setState({
                 error: err,
                 userProfile: databall.user,
-                languages: databall.langArray
+                language1: databall.langArray.includes("english"),
+                language2: databall.langArray.includes("spanish"),
+                language3: databall.langArray.includes("te_reo")
             });
         }
 
@@ -27240,9 +27244,6 @@ var OneProfile = function (_React$Component) {
             }
             this.props.history.push('/profiles/' + this.state.id);
         }
-
-        //add languages visible if true ie  <h5 visible={this.state.languages.includes("spanish")} >Spanish</h5>
-
     }, {
         key: 'render',
         value: function render() {
@@ -27265,7 +27266,7 @@ var OneProfile = function (_React$Component) {
                         ' Yo\'Mate '
                     ),
                     _react2.default.createElement(
-                        'h5',
+                        'h4',
                         null,
                         this.state.userProfile.firstname,
                         ' ',
@@ -27277,6 +27278,26 @@ var OneProfile = function (_React$Component) {
                         '"',
                         this.state.userProfile.tagline,
                         '"'
+                    ),
+                    _react2.default.createElement(
+                        'h4',
+                        null,
+                        'I speak:'
+                    ),
+                    _react2.default.createElement(
+                        'h5',
+                        { className: this.state.language1 ? "visible" : "hidden" },
+                        'English'
+                    ),
+                    _react2.default.createElement(
+                        'h5',
+                        { className: this.state.language2 ? "visible" : "hidden" },
+                        'Spanish'
+                    ),
+                    _react2.default.createElement(
+                        'h5',
+                        { className: this.state.language3 ? "visible" : "hidden" },
+                        'Te reo M\u0101ori'
                     ),
                     _react2.default.createElement('img', { src: this.state.userProfile.profilepic, width: '300px' }),
                     _react2.default.createElement('br', null),
@@ -27308,8 +27329,6 @@ var OneProfile = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = OneProfile;
-
-// action={'/profiles/' + id + '/view?' + userProfile.id}
 
 /***/ }),
 /* 86 */
@@ -27350,7 +27369,9 @@ var User = function (_React$Component) {
 
         _this.state = {
             userProfile: {},
-            languages: []
+            language1: '',
+            language2: '',
+            language3: ''
         };
         _this.saveProfile = _this.saveProfile.bind(_this);
 
@@ -27368,12 +27389,15 @@ var User = function (_React$Component) {
             this.setState({
                 error: err,
                 userProfile: databall.user,
-                languages: databall.langArray
+                language1: databall.langArray.includes("english"),
+                language2: databall.langArray.includes("spanish"),
+                language3: databall.langArray.includes("te_reo")
             });
         }
     }, {
         key: 'render',
         value: function render() {
+            console.log("state ", this.state);
             return _react2.default.createElement(
                 _react2.default.Fragment,
                 null,
@@ -27401,12 +27425,32 @@ var User = function (_React$Component) {
                         '"'
                     ),
                     _react2.default.createElement(
-                        'h5',
+                        'h4',
                         null,
-                        this.state.userProfile.email
+                        'I speak:'
+                    ),
+                    _react2.default.createElement(
+                        'h5',
+                        { className: this.state.language1 ? "visible" : "hidden" },
+                        'English'
+                    ),
+                    _react2.default.createElement(
+                        'h5',
+                        { className: this.state.language2 ? "visible" : "hidden" },
+                        'Spanish'
+                    ),
+                    _react2.default.createElement(
+                        'h5',
+                        { className: this.state.language3 ? "visible" : "hidden" },
+                        'Te reo M\u0101ori'
                     ),
                     _react2.default.createElement('img', { src: this.state.userProfile.profilepic, width: '300px' }),
                     _react2.default.createElement('br', null),
+                    _react2.default.createElement(
+                        'h6',
+                        null,
+                        this.state.userProfile.email
+                    ),
                     _react2.default.createElement('br', null),
                     _react2.default.createElement(
                         _reactRouterDom.Link,

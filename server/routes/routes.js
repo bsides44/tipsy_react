@@ -10,7 +10,7 @@ router.get('/', function (req, res) {
     db.getLibbyProfile()
     .then(user1 => {
         res.json(user1)
-    })
+    }) 
 
 })
 
@@ -52,9 +52,12 @@ router.get("/profiles/:id/view", function (req, res) {
     var query = req.query
     db.getProfileByQuery(query)
         .then(user => {
-        db.getLanguageByID(user.id)
+            console.log({user})
+        db.getLanguages(user)
         .then(languages=> {
+            console.log({languages})
             const langArray = changeObjectToArray(languages)
+            console.log({langArray})
             res.json({user, langArray})
         })
     })
@@ -112,7 +115,7 @@ router.get('/user/:id/edit', function (req, res) {
     router.put('/user/:id/edit', function (req, res) {
         var userData = req.body
         var languageArray = req.body.language
-        db.getLanguageByID(userData.id)
+        db.getLanguages(userData)
             .then(user => {
                 db.updateLanguage(languageArray, user.id)
                     .then(id => {

@@ -57,12 +57,12 @@ function insertLanguage (languageArray) {
     }
 }
 
-function getLanguageByID (id) {
-    return db("profiles")
-     .join("languages", "profiles.id", "languages.id")
-     .where("profiles.id", id)
-     .select().first()
-}
+// function getLanguageByID (id) {
+//     return db("languages")
+//      .join("languages", "profiles.id", "languages.id")
+//      .where("profiles.id", id)
+//      .select().first()
+// }
 
 
 function updateLanguage (languageArray, id) {
@@ -104,7 +104,7 @@ module.exports = {
     getProfileByQuery,
     checkForMatch,
     insertLanguage,
-    getLanguageByID,
+    // getLanguageByID,
     updateLanguage,
     pushMatch,
     checkMatches

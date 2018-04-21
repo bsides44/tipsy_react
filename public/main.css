@@ -69,6 +69,15 @@ form {
   padding-left: 25px;
 }
 
+.visible {
+  visibility: visible
+}
+
+.hidden {
+  visibility: hidden;
+  line-height: 0px
+}
+
 /* iphone 4. 5s */
 @media only screen and (min-device-width : 320px) 
 and (max-device-width : 480px) {
