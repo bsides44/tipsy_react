@@ -17,7 +17,6 @@ class AllProfiles extends React.Component {
 }
 
     saveProfiles(err, databall) {
-    console.log("databall", databall)
         this.setState({
             error: err,
             userProfile: databall.userProfile,

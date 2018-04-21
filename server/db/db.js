@@ -25,6 +25,15 @@ function getProfileByQuery (query) {
     return db("profiles")
     .where ("id", query.id)
     .select().first()
+    .then(user => {
+        db.getLanguages
+    })
+}
+
+function getLanguages (user) {
+    return db("languages")
+    .where("id", user.language_id)
+    .select().first()
 }
 
 function checkForMatch (id, query) {
@@ -97,6 +106,7 @@ module.exports = {
     getLibbyProfile,
     getProfiles,
     getProfileByID,
+    getLanguages,
     getProfileByQuery,
     checkForMatch,
     insertLanguage,

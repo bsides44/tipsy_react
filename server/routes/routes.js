@@ -92,10 +92,14 @@ router.get("/user/:id", function (req, res) {
 router.get('/user/:id/edit', function (req, res) {
    db.getProfileByID(req.params.id)
    .then(user => {
-       res.render('form', user)
+       console.log("route user ", user)
+       db.getLanguages(user)
+       .then(languages => {
+           console.log("route languages ", languages)
+            res.json({user, languages})
+       })
    })
 })
-//need to have form prefilled out instead of placeholder
 
 
 //user can edit their existing user data in db

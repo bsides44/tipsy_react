@@ -48,7 +48,7 @@ export function checkForMatch (body, callback) {
 
 export function getUser(id, callback) {
     request
-    .get(urlThing + '/user/' + id)
+    .get(urlThing + '/user/' + id + '/edit')
     .end((err, res) => {
         callback(err, res.body)
     })
