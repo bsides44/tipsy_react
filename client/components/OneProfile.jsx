@@ -1,6 +1,6 @@
 import React from 'react'
-// import {HashRouter as Router, Route, Link} from 'react-router-dom'
-import {Link} from 'react-router-dom'
+import {HashRouter as Router, Route, Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 import { getProfileByQuery } from '../api/api_index'
 import { checkForMatch } from '../api/api_index';
 
@@ -25,7 +25,6 @@ class OneProfile extends React.Component {
 }
 // view the profile
     saveProfile(err, databall) {
-        console.log({databall})
         this.setState({
             error: err,
             userProfile: databall.user,
@@ -48,11 +47,12 @@ class OneProfile extends React.Component {
  redirect(err, body){
    if (body == "true") {
         alert("IT'S A MATCH!")
+        this.props.history.push('/chat/' + this.state.id + this.state.query) 
    }
-    this.props.history.push('/profiles/' + this.state.id) 
+    // this.props.history.push('/profiles/' + this.state.id) 
 }
 
-render () { console.log("state ", this.state)
+render () { 
     return (
         <React.Fragment>
             <h3> TIPSY</h3>

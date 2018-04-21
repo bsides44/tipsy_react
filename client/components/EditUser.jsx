@@ -74,7 +74,7 @@ redirect(err, thing){
 }
 
 render() {
-    return <form action="put">
+    return <form action="put" id="niceform">
     <h4 id="formTitle"> Edit Yo'Self </h4>
     <input onChange={this.handleChange} name="firstname" type="text" placeholder={this.state.firstname}/><br/>
     <input onChange={this.handleChange} name="lastname" type="text" placeholder={this.state.lastname}/><br/>

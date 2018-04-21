@@ -60,7 +60,7 @@ button:hover {
   color: rgb(66, 60, 60);
 }
 
-form {
+#niceform {
   align-content: center;
   padding: 20px
 }

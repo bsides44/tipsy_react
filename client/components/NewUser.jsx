@@ -49,7 +49,7 @@ handleLanguage(e) {
 }
 
 render(){
-    return <form action="post">
+    return <form action="post" id="niceform">
     <h3>TIPSY</h3>
     <h4 id="formTitle">NewYo'Self</h4>
     <input onChange={this.handleChange} name="firstname" type="text" placeholder="First Name"/><br/>

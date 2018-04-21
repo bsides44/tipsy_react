@@ -52,13 +52,12 @@ filterProfiles() {
                 }
                 else return false
                 })
-                console.log({hablo})
                 this.setState ({
                     filteredProfiles: hablo
                 })
 }
 
-render () { console.log("state ", this.state)
+render () { 
     return (
         <React.Fragment>
             <h3> TIPSY</h3>

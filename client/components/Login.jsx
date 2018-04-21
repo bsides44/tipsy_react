@@ -16,7 +16,6 @@ class Login extends React.Component {
     }
 
     saveLibby(err, libby) {
-    console.log("login page")
         this.setState({
             error: err,
             libby: libby
