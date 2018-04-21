@@ -96,32 +96,49 @@ router.get('/user/:id/edit', function (req, res) {
        db.getLanguages(user)
        .then(languages => {
            console.log("route languages ", languages)
-            res.json({user, languages})
+           const langArray = changeObjectToArray(languages)
+            res.json({user, langArray})
        })
    })
 })
 
-
 //user can edit their existing user data in db
-    router.post('/user/:id/edit', function (req, res) {
+    router.put('/user/:id/edit', function (req, res) {
         var userData = req.body
+        console.log({userData})
         var languageArray = req.body.language
-        db.getLanguageByID(req.params.id)
+        console.log({languageArray})
+        db.getLanguageByID(userData.id)
             .then(user => {
+                console.log({user})
                 db.updateLanguage(languageArray, user.id)
                     .then(id => {
-                        db.getProfileByID (req.params.id)
+                        console.log({id})
+                        db.getProfileByID (userData.id)
                                 .update({firstname: userData.firstname,
                                 lastname: userData.lastname,
                                 tagline: userData.tagline,
                                 email: userData.email,
                                 profilepic: userData.profilepic})
                                 .then(userId => {
-                                res.redirect('/profiles/1')
+                                console.log({userId})  
+                                res.sendStatus(201)
                                 })
                         })
                 })
 })
+
+function changeObjectToArray(obj) {
+    const arr = Object.keys(obj)
+    const langArr = arr.filter(item => {
+        if(item === 'id'){
+            return false
+        } else if (obj[item]) {
+            return item
+        }
+    })
+    return langArr
+}
 
 
 module.exports = router

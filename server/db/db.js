@@ -64,20 +64,21 @@ function insertLanguage (languageArray) {
 
 function getLanguageByID (id) {
     return db("profiles")
-     .join("languages", "profiles.id", "languages.user_id")
+     .join("languages", "profiles.id", "languages.id")
      .where("profiles.id", id)
      .select().first()
 }
 
 
 function updateLanguage (languageArray, id) {
+    console.log("updateLanguage ", languageArray)
     if (typeof languageArray == "string") {
         var english = languageArray.includes("english")
         var spanish = languageArray.includes("spanish")
         var te_reo = languageArray.includes("te_reo")
-        console.log(english)
+        console.log({english})
         return db("languages")
-            .where("user_id", id)
+            .where("id", id)
             .update({english, spanish, te_reo})
         }
     else {
@@ -85,7 +86,7 @@ function updateLanguage (languageArray, id) {
         var spanish = !!languageArray.find(language => language == 'spanish')
         var te_reo = !!languageArray.find(language => language == 'te_reo')
         return db("languages")
-            .where("user_id", id)
+            .where("id", id)
             .update({english, spanish, te_reo})
     }
 }

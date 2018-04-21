@@ -53,3 +53,14 @@ export function getUser(id, callback) {
         callback(err, res.body)
     })
 }
+
+export function editUserData (user, callback) {
+    console.log("api ", user)
+    request
+    .put(urlThing + '/user/:id/edit')
+    .send(user)
+    .end((err, res) => {
+        callback(err, res.body)
+        console.log("api body ", res.body)
+    })
+}

@@ -545,6 +545,7 @@ exports.getProfiles = getProfiles;
 exports.getProfileByQuery = getProfileByQuery;
 exports.checkForMatch = checkForMatch;
 exports.getUser = getUser;
+exports.editUserData = editUserData;
 
 var _superagent = __webpack_require__(77);
 
@@ -590,6 +591,14 @@ function checkForMatch(body, callback) {
 function getUser(id, callback) {
     _superagent2.default.get(urlThing + '/user/' + id + '/edit').end(function (err, res) {
         callback(err, res.body);
+    });
+}
+
+function editUserData(user, callback) {
+    console.log("api ", user);
+    _superagent2.default.put(urlThing + '/user/:id/edit').send(user).end(function (err, res) {
+        callback(err, res.body);
+        console.log("api body ", res.body);
     });
 }
 
@@ -27437,6 +27446,8 @@ var _api_index = __webpack_require__(7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -27452,10 +27463,18 @@ var EditUser = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (EditUser.__proto__ || Object.getPrototypeOf(EditUser)).call(this, props));
 
         _this.state = {
-            userProfile: {},
-            languages: []
+            firstname: '',
+            lastname: '',
+            language: [],
+            tagline: '',
+            email: '',
+            profilepic: ''
         };
         _this.saveProfile = _this.saveProfile.bind(_this);
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleLanguage = _this.handleLanguage.bind(_this);
+        _this.editUser = _this.editUser.bind(_this);
+        _this.redirect = _this.redirect.bind(_this);
         return _this;
     }
 
@@ -27469,62 +27488,98 @@ var EditUser = function (_React$Component) {
         value: function saveProfile(err, databall) {
             this.setState({
                 error: err,
-                userProfile: databall.user,
-                languages: databall.languages
+                firstname: databall.user.firstname,
+                lastname: databall.user.lastname,
+                tagline: databall.user.tagline,
+                email: databall.user.email,
+                profilepic: databall.user.profilepic,
+                language: databall.langArray
             });
         }
-
-        // handleChange(e) {
-        //     let key = e.target.name 
-        //     let value = e.target.value 
-        //     console.log({key, value})
-        //     this.setState ({[key] : value})
-        // }
-
-        // handleLanguage(e) {
-        //     let language = this.state.language
-        //     console.log(e.target.value)
-        //     if (language.find(language => language == e.target.value)) language = language.filter(language => language != e.target.value)
-        //     else language.push(e.target.value)
-        //     console.log(language)
-        //     this.setState({language})
-        // }
-
+    }, {
+        key: 'handleChange',
+        value: function handleChange(e) {
+            var key = e.target.name;
+            var value = e.target.value;
+            console.log({ key: key, value: value });
+            this.setState(_defineProperty({}, key, value));
+            console.log(this.state);
+        }
+    }, {
+        key: 'handleLanguage',
+        value: function handleLanguage(e) {
+            var language = this.state.language;
+            if (language.find(function (language) {
+                return language == e.target.value;
+            })) language = language.filter(function (language) {
+                return language != e.target.value;
+            });else language.push(e.target.value);
+            console.log(language);
+            this.setState({ language: language });
+        }
+    }, {
+        key: 'editUser',
+        value: function editUser(e) {
+            e.preventDefault();
+            var editUserBomb = {
+                id: this.props.match.params.id,
+                firstname: this.state.firstname,
+                lastname: this.state.lastname,
+                tagline: this.state.tagline,
+                email: this.state.email,
+                profilepic: this.state.profilepic,
+                language: this.state.language
+            };
+            console.log({ editUserBomb: editUserBomb });
+            (0, _api_index.editUserData)(editUserBomb, this.redirect);
+        }
+    }, {
+        key: 'redirect',
+        value: function redirect(err, thing) {
+            this.props.history.push('/profiles/' + this.props.match.params.id);
+        }
     }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
                 'form',
-                { onSubmit: this.handleSubmit },
+                { action: 'put' },
                 _react2.default.createElement(
                     'h4',
                     { id: 'formTitle' },
                     ' Edit Yo\'Self '
                 ),
-                _react2.default.createElement('input', { onChange: this.handleChange, name: 'firstname', type: 'text', value: this.state.userProfile.firstname }),
+                _react2.default.createElement(
+                    'p',
+                    { id: 'formTitle' },
+                    'Fill in your ',
+                    _react2.default.createElement('br', null),
+                    'details below'
+                ),
+                _react2.default.createElement('input', { onChange: this.handleChange, name: 'firstname', type: 'text', placeholder: this.state.firstname }),
                 _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleChange, name: 'lastname', type: 'text', value: this.state.userProfile.lastname }),
+                _react2.default.createElement('input', { onChange: this.handleChange, name: 'lastname', type: 'text', placeholder: this.state.lastname }),
                 _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleChange, name: 'tagline', type: 'text', value: this.state.userProfile.tagline }),
+                _react2.default.createElement('input', { onChange: this.handleChange, name: 'tagline', type: 'text', placeholder: this.state.tagline }),
                 _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'english', value: 'english', type: 'checkbox', checked: this.state.languages.english }),
+                _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'english', value: 'english', type: 'checkbox', checked: this.state.language.includes("english") }),
                 ' English',
                 _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'spanish', value: 'spanish', type: 'checkbox', checked: this.state.languages.spanish }),
+                _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'spanish', value: 'spanish', type: 'checkbox', checked: this.state.language.includes("spanish") }),
                 ' Spanish',
                 _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'te_reo', value: 'te_reo', type: 'checkbox', checked: this.state.languages.te_reo }),
+                _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'te_reo', value: 'te_reo', type: 'checkbox', checked: this.state.language.includes("te_reo") }),
                 ' Te reo M\u0101ori',
                 _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleChange, name: 'email', type: 'text', value: this.state.userProfile.email }),
+                _react2.default.createElement('input', { onChange: this.handleChange, name: 'email', type: 'text', placeholder: this.state.email }),
                 _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleChange, name: 'profilepic', type: 'text', value: this.state.userProfile.profilepic }),
+                _react2.default.createElement('input', { onChange: this.handleChange, name: 'profilepic', type: 'text', placeholder: this.state.profilepic }),
                 _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { type: 'submit', value: 'Let\'s go!' }),
+                _react2.default.createElement('input', { type: 'submit', onClick: this.editUser, value: 'I\'m awesome!' }),
                 _react2.default.createElement('br', null),
                 _react2.default.createElement(
                     _reactRouterDom.Link,
-                    { to: '/profiles/' + this.state.userProfile.id },
+                    { to: '/profiles/' + this.props.match.params.id },
                     _react2.default.createElement(
                         'button',
                         null,
@@ -27539,6 +27594,20 @@ var EditUser = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = EditUser;
+
+// return <form action="put">
+// <h4 id="formTitle"> Edit Yo'Self </h4>
+// <input onChange={this.handleChange} name="firstname" type="text" value={this.state.userProfile.firstname}/><br/>
+// <input onChange={this.handleChange} name="lastname" type="text" value={this.state.userProfile.lastname}/><br/>
+// <input onChange={this.handleChange} name="tagline" type="text" value={this.state.userProfile.tagline}/><br/>
+//     <input onChange={this.handleLanguage} name="language" id="english" value="english" type="checkbox" checked={this.state.languages.english}/> English<br />
+//     <input onChange={this.handleLanguage}name="language" id="spanish" value="spanish" type="checkbox" checked={this.state.languages.spanish}/> Spanish<br />
+//     <input onChange={this.handleLanguage}name="language" id="te_reo" value="te_reo" type="checkbox" checked={this.state.languages.te_reo}/> Te reo Māori<br />
+// <input onChange={this.handleChange} name="email" type="text" value={this.state.userProfile.email}/><br/>
+// <input onChange={this.handleChange} name="profilepic" type="text" value={this.state.userProfile.profilepic}/><br/>
+// <input type="submit" onClick={this.editUser} value="I'm awesome!"/>
+// <br/><Link to={'/profiles/' + this.state.userProfile.id}><button>Home</button></Link>
+// </form>
 
 /***/ })
 /******/ ]);
