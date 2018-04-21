@@ -545,6 +545,7 @@ exports.getProfiles = getProfiles;
 exports.getProfileByQuery = getProfileByQuery;
 exports.checkForMatch = checkForMatch;
 exports.getUser = getUser;
+exports.getUserToEdit = getUserToEdit;
 exports.editUserData = editUserData;
 
 var _superagent = __webpack_require__(77);
@@ -576,8 +577,10 @@ function getProfiles(id, callback) {
 }
 
 function getProfileByQuery(query, callback) {
+    console.log({ query: query });
     _superagent2.default.get(urlThing + '/profiles/:id/view' + query).end(function (err, res) {
         callback(err, res.body);
+        console.log("api ", res.body);
     });
 }
 
@@ -589,6 +592,12 @@ function checkForMatch(body, callback) {
 }
 
 function getUser(id, callback) {
+    _superagent2.default.get(urlThing + '/user/' + id).end(function (err, res) {
+        callback(err, res.body);
+    });
+}
+
+function getUserToEdit(id, callback) {
     _superagent2.default.get(urlThing + '/user/' + id + '/edit').end(function (err, res) {
         callback(err, res.body);
     });
@@ -26951,9 +26960,9 @@ var NewUser = function (_React$Component) {
                     { id: 'formTitle' },
                     'NewYo\'Self'
                 ),
-                _react2.default.createElement('input', { onChange: this.handleChange, name: 'firstname', type: 'text', placeholder: 'Firstname' }),
+                _react2.default.createElement('input', { onChange: this.handleChange, name: 'firstname', type: 'text', placeholder: 'First Name' }),
                 _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleChange, name: 'lastname', type: 'text', placeholder: 'Lastname' }),
+                _react2.default.createElement('input', { onChange: this.handleChange, name: 'lastname', type: 'text', placeholder: 'Last Name' }),
                 _react2.default.createElement('br', null),
                 _react2.default.createElement('input', { onChange: this.handleChange, name: 'tagline', type: 'text', placeholder: 'Tagline' }),
                 _react2.default.createElement('br', null),
@@ -27170,6 +27179,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// import {HashRouter as Router, Route, Link} from 'react-router-dom'
+
 
 var OneProfile = function (_React$Component) {
     _inherits(OneProfile, _React$Component);
@@ -27182,7 +27193,8 @@ var OneProfile = function (_React$Component) {
         _this.state = {
             id: _this.props.match.params.id,
             query: _this.props.location.search,
-            userProfile: {}
+            userProfile: {},
+            languages: []
         };
         _this.saveProfile = _this.saveProfile.bind(_this);
         _this.runMatch = _this.runMatch.bind(_this);
@@ -27199,10 +27211,12 @@ var OneProfile = function (_React$Component) {
 
     }, {
         key: 'saveProfile',
-        value: function saveProfile(err, userProfile) {
+        value: function saveProfile(err, databall) {
+            console.log({ databall: databall });
             this.setState({
                 error: err,
-                userProfile: userProfile
+                userProfile: databall.user,
+                languages: databall.langArray
             });
         }
 
@@ -27226,9 +27240,13 @@ var OneProfile = function (_React$Component) {
             }
             this.props.history.push('/profiles/' + this.state.id);
         }
+
+        //add languages visible if true ie  <h5 visible={this.state.languages.includes("spanish")} >Spanish</h5>
+
     }, {
         key: 'render',
         value: function render() {
+            console.log("state ", this.state);
             return _react2.default.createElement(
                 _react2.default.Fragment,
                 null,
@@ -27259,11 +27277,6 @@ var OneProfile = function (_React$Component) {
                         '"',
                         this.state.userProfile.tagline,
                         '"'
-                    ),
-                    _react2.default.createElement(
-                        'h5',
-                        null,
-                        this.state.userProfile.email
                     ),
                     _react2.default.createElement('img', { src: this.state.userProfile.profilepic, width: '300px' }),
                     _react2.default.createElement('br', null),
@@ -27336,7 +27349,8 @@ var User = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).call(this, props));
 
         _this.state = {
-            userProfile: {}
+            userProfile: {},
+            languages: []
         };
         _this.saveProfile = _this.saveProfile.bind(_this);
 
@@ -27350,10 +27364,11 @@ var User = function (_React$Component) {
         }
     }, {
         key: 'saveProfile',
-        value: function saveProfile(err, userProfile) {
+        value: function saveProfile(err, databall) {
             this.setState({
                 error: err,
-                userProfile: userProfile
+                userProfile: databall.user,
+                languages: databall.langArray
             });
         }
     }, {
@@ -27481,7 +27496,7 @@ var EditUser = function (_React$Component) {
     _createClass(EditUser, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            (0, _api_index.getUser)(this.props.match.params.id, this.saveProfile);
+            (0, _api_index.getUserToEdit)(this.props.match.params.id, this.saveProfile);
         }
     }, {
         key: 'saveProfile',
@@ -27548,13 +27563,6 @@ var EditUser = function (_React$Component) {
                     'h4',
                     { id: 'formTitle' },
                     ' Edit Yo\'Self '
-                ),
-                _react2.default.createElement(
-                    'p',
-                    { id: 'formTitle' },
-                    'Fill in your ',
-                    _react2.default.createElement('br', null),
-                    'details below'
                 ),
                 _react2.default.createElement('input', { onChange: this.handleChange, name: 'firstname', type: 'text', placeholder: this.state.firstname }),
                 _react2.default.createElement('br', null),

@@ -52,8 +52,8 @@ render(){
     return <form action="post">
     <h3>TIPSY</h3>
     <h4 id="formTitle">NewYo'Self</h4>
-    <input onChange={this.handleChange} name="firstname" type="text" placeholder="Firstname"/><br/>
-    <input onChange={this.handleChange} name="lastname" type="text" placeholder="Lastname"/><br/>
+    <input onChange={this.handleChange} name="firstname" type="text" placeholder="First Name"/><br/>
+    <input onChange={this.handleChange} name="lastname" type="text" placeholder="Last Name"/><br/>
     <input onChange={this.handleChange} name="tagline" type="text" placeholder="Tagline"/><br/>
         <input onChange={this.handleLanguage} name="language" id="english" value="english" type="checkbox" /> English<br />
         <input onChange={this.handleLanguage}name="language" id="spanish" value="spanish" type="checkbox" /> Spanish<br />

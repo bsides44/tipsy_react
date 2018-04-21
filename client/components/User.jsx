@@ -7,7 +7,8 @@ class User extends React.Component {
     constructor (props) {
         super (props)
         this.state = {
-            userProfile: {}
+            userProfile: {},
+            languages: []
         }
         this.saveProfile = this.saveProfile.bind(this)
 
@@ -16,10 +17,11 @@ class User extends React.Component {
         getUser(this.props.match.params.id, this.saveProfile)
 }
 
-saveProfile(err, userProfile) {
+saveProfile(err, databall) {
     this.setState({
         error: err,
-        userProfile: userProfile
+        userProfile: databall.user,
+        languages: databall.langArray
     })
 }
 

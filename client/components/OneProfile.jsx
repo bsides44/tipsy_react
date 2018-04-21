@@ -1,5 +1,6 @@
 import React from 'react'
-import {HashRouter as Router, Route, Link} from 'react-router-dom'
+// import {HashRouter as Router, Route, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import { getProfileByQuery } from '../api/api_index'
 import { checkForMatch } from '../api/api_index';
 
@@ -11,6 +12,7 @@ class OneProfile extends React.Component {
             id: this.props.match.params.id,
             query: this.props.location.search,
             userProfile: {},
+            languages: []
         }
         this.saveProfile = this.saveProfile.bind(this)
         this.runMatch = this.runMatch.bind(this)
@@ -20,10 +22,12 @@ class OneProfile extends React.Component {
         getProfileByQuery(this.props.location.search, this.saveProfile)
 }
 // view the profile
-    saveProfile(err, userProfile) {
+    saveProfile(err, databall) {
+        console.log({databall})
         this.setState({
             error: err,
-            userProfile: userProfile
+            userProfile: databall.user,
+            languages: databall.langArray
         })
 }
 
@@ -44,8 +48,8 @@ class OneProfile extends React.Component {
     this.props.history.push('/profiles/' + this.state.id) 
 }
 
-
-render () {
+//add languages visible if true ie  <h5 visible={this.state.languages.includes("spanish")} >Spanish</h5>
+render () { console.log("state ", this.state)
     return (
         <React.Fragment>
             <h3> TIPSY</h3>
@@ -54,11 +58,9 @@ render () {
                 <h4> Yo'Mate </h4>
                 <h5>{this.state.userProfile.firstname} {this.state.userProfile.lastname}</h5> 
                 <h5>"{this.state.userProfile.tagline}"</h5> 
-                <h5>{this.state.userProfile.email}</h5> 
                 <img src={this.state.userProfile.profilepic} width = "300px" />
                 <br />
                 <br />
-
                 <form action="post" >
                 <input type='submit' onClick={this.runMatch} value="MATCH" />
                 </form>

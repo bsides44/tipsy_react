@@ -1,5 +1,5 @@
 exports.up = function(knex, Promise) {
-    return knex.schema.createTableIfNotExists('profiles', (table) => {
+    return knex.schema.createTable('profiles', (table) => {
         table.increments('id').primary()
         table.string('firstname')
         table.string('lastname')

@@ -29,10 +29,12 @@ export function getProfiles(id, callback) {
 }
 
 export function getProfileByQuery(query, callback) {
+    console.log({query})
     request
     .get(urlThing + '/profiles/:id/view' + query)
     .end((err, res) => {
         callback(err, res.body)
+        console.log("api ", res.body)
     })
 }
 
@@ -47,6 +49,14 @@ export function checkForMatch (body, callback) {
 }
 
 export function getUser(id, callback) {
+    request
+    .get(urlThing + '/user/' + id)
+    .end((err, res) => {
+        callback(err, res.body)
+    })
+}
+
+export function getUserToEdit(id, callback) {
     request
     .get(urlThing + '/user/' + id + '/edit')
     .end((err, res) => {

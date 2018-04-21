@@ -25,7 +25,8 @@ router.post('/user/new', function (req, res) {
                     lastname: userData.lastname,
                     tagline: userData.tagline,
                     email: userData.email,
-                    profilepic: userData.profilepic
+                    profilepic: userData.profilepic,
+                    language_id: id[0]
                 }).then(id => {
                     res.json(id[0])
                 })
@@ -50,8 +51,12 @@ router.get('/profiles/:id', function (req, res) {
 router.get("/profiles/:id/view", function (req, res) {
     var query = req.query
     db.getProfileByQuery(query)
-    .then(profile=> {
-        res.json(profile)
+        .then(user => {
+        db.getLanguageByID(user.id)
+        .then(languages=> {
+            const langArray = changeObjectToArray(languages)
+            res.json({user, langArray})
+        })
     })
 })
 
@@ -70,7 +75,6 @@ router.post("/profiles/:id/view", function (req, res) {
      .then(irrelevantID => {
          db.checkMatches(id, queryNum)
         .then(success => {
-            console.log("route success ", success)
             if (success[0]){
                 res.json("true")
             }
@@ -83,19 +87,21 @@ router.post("/profiles/:id/view", function (req, res) {
 //user can view own profile
 router.get("/user/:id", function (req, res) {
     db.getProfileByID(req.params.id)
-        .then(user => {
-            res.json(user)
+    .then(user => {
+        db.getLanguages(user)
+        .then(languages => {
+            const langArray = changeObjectToArray(languages)
+             res.json({user, langArray})
         })
+    })
 })
 
 // user can view edit form to edit own profile
 router.get('/user/:id/edit', function (req, res) {
    db.getProfileByID(req.params.id)
    .then(user => {
-       console.log("route user ", user)
        db.getLanguages(user)
        .then(languages => {
-           console.log("route languages ", languages)
            const langArray = changeObjectToArray(languages)
             res.json({user, langArray})
        })
@@ -105,15 +111,11 @@ router.get('/user/:id/edit', function (req, res) {
 //user can edit their existing user data in db
     router.put('/user/:id/edit', function (req, res) {
         var userData = req.body
-        console.log({userData})
         var languageArray = req.body.language
-        console.log({languageArray})
         db.getLanguageByID(userData.id)
             .then(user => {
-                console.log({user})
                 db.updateLanguage(languageArray, user.id)
                     .then(id => {
-                        console.log({id})
                         db.getProfileByID (userData.id)
                                 .update({firstname: userData.firstname,
                                 lastname: userData.lastname,
@@ -121,7 +123,6 @@ router.get('/user/:id/edit', function (req, res) {
                                 email: userData.email,
                                 profilepic: userData.profilepic})
                                 .then(userId => {
-                                console.log({userId})  
                                 res.sendStatus(201)
                                 })
                         })

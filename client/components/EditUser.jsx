@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {getUser} from '../api/api_index'
+import {getUserToEdit} from '../api/api_index'
 import {editUserData} from '../api/api_index'
 
 class EditUser extends React.Component {
@@ -22,7 +22,7 @@ class EditUser extends React.Component {
     }
 
     componentDidMount(){
-        getUser(this.props.match.params.id, this.saveProfile)
+        getUserToEdit(this.props.match.params.id, this.saveProfile)
 }
 
 saveProfile(err, databall) {
@@ -76,7 +76,6 @@ redirect(err, thing){
 render() {
     return <form action="put">
     <h4 id="formTitle"> Edit Yo'Self </h4>
-    <p id="formTitle">Fill in your <br/>details below</p>
     <input onChange={this.handleChange} name="firstname" type="text" placeholder={this.state.firstname}/><br/>
     <input onChange={this.handleChange} name="lastname" type="text" placeholder={this.state.lastname}/><br/>
     <input onChange={this.handleChange} name="tagline" type="text" placeholder={this.state.tagline}/><br/>

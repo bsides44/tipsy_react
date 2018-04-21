@@ -25,9 +25,6 @@ function getProfileByQuery (query) {
     return db("profiles")
     .where ("id", query.id)
     .select().first()
-    .then(user => {
-        db.getLanguages
-    })
 }
 
 function getLanguages (user) {
@@ -37,10 +34,8 @@ function getLanguages (user) {
 }
 
 function checkForMatch (id, query) {
-    console.log("id ", id)
     var queryPieces = query.split("")
     var queryNum = queryPieces[4]
-    console.log("queryNum ", queryNum)
     //find the current user
       return db("profiles")
         .where ("id", id)
@@ -71,12 +66,10 @@ function getLanguageByID (id) {
 
 
 function updateLanguage (languageArray, id) {
-    console.log("updateLanguage ", languageArray)
     if (typeof languageArray == "string") {
         var english = languageArray.includes("english")
         var spanish = languageArray.includes("spanish")
         var te_reo = languageArray.includes("te_reo")
-        console.log({english})
         return db("languages")
             .where("id", id)
             .update({english, spanish, te_reo})
