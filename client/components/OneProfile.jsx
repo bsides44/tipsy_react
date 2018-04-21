@@ -53,7 +53,7 @@ render () {
                 <br/>
                 <h4> Yo'Mate </h4>
                 <h5>{this.state.userProfile.firstname} {this.state.userProfile.lastname}</h5> 
-                <h5>{this.state.userProfile.tagline}</h5> 
+                <h5>"{this.state.userProfile.tagline}"</h5> 
                 <h5>{this.state.userProfile.email}</h5> 
                 <img src={this.state.userProfile.profilepic} width = "300px" />
                 <br />

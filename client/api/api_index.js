@@ -45,3 +45,11 @@ export function checkForMatch (body, callback) {
         callback(err, res.body)
     })
 }
+
+export function getUser(id, callback) {
+    request
+    .get(urlThing + '/user/' + id)
+    .end((err, res) => {
+        callback(err, res.body)
+    })
+}

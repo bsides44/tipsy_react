@@ -80,17 +80,11 @@ router.post("/profiles/:id/view", function (req, res) {
     })
 })
 
-//success page
-router.get("/success/", function (req, res) {
-    res.render("success")
-})
-
-
 //user can view own profile
 router.get("/user/:id", function (req, res) {
     db.getProfileByID(req.params.id)
         .then(user => {
-            res.render("user", user)
+            res.json(user)
         })
 })
 

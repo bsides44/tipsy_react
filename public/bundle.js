@@ -1008,6 +1008,7 @@ exports.newUserData = newUserData;
 exports.getProfiles = getProfiles;
 exports.getProfileByQuery = getProfileByQuery;
 exports.checkForMatch = checkForMatch;
+exports.getUser = getUser;
 
 var _superagent = __webpack_require__(77);
 
@@ -1046,6 +1047,12 @@ function getProfileByQuery(query, callback) {
 function checkForMatch(body, callback) {
     _superagent2.default.post(urlThing + '/profiles/:id/view').send(body).end(function (err, res) {
         console.log("api ", res.body);
+        callback(err, res.body);
+    });
+}
+
+function getUser(id, callback) {
+    _superagent2.default.get(urlThing + '/user/' + id).end(function (err, res) {
         callback(err, res.body);
     });
 }
@@ -24646,9 +24653,12 @@ var _OneProfile = __webpack_require__(85);
 
 var _OneProfile2 = _interopRequireDefault(_OneProfile);
 
+var _User = __webpack_require__(86);
+
+var _User2 = _interopRequireDefault(_User);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import User from './User'
 // import EditUser from './EditUser'
 
 
@@ -24664,6 +24674,7 @@ var App = function App() {
         null,
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Login2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/user/new', component: _NewUser2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/user/:id', component: _User2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/profiles/:id', component: _AllProfiles2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/profiles/:id/view', component: _OneProfile2.default })
       )
@@ -27235,7 +27246,9 @@ var OneProfile = function (_React$Component) {
                     _react2.default.createElement(
                         'h5',
                         null,
-                        this.state.userProfile.tagline
+                        '"',
+                        this.state.userProfile.tagline,
+                        '"'
                     ),
                     _react2.default.createElement(
                         'h5',
@@ -27274,6 +27287,131 @@ var OneProfile = function (_React$Component) {
 exports.default = OneProfile;
 
 // action={'/profiles/' + id + '/view?' + userProfile.id}
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(6);
+
+var _api_index = __webpack_require__(14);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var User = function (_React$Component) {
+    _inherits(User, _React$Component);
+
+    function User(props) {
+        _classCallCheck(this, User);
+
+        var _this = _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).call(this, props));
+
+        _this.state = {
+            userProfile: {}
+        };
+        _this.saveProfile = _this.saveProfile.bind(_this);
+
+        return _this;
+    }
+
+    _createClass(User, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            (0, _api_index.getUser)(this.props.match.params.id, this.saveProfile);
+        }
+    }, {
+        key: 'saveProfile',
+        value: function saveProfile(err, userProfile) {
+            this.setState({
+                error: err,
+                userProfile: userProfile
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                _react2.default.Fragment,
+                null,
+                _react2.default.createElement(
+                    'center',
+                    null,
+                    _react2.default.createElement(
+                        'h3',
+                        null,
+                        ' TIPSY '
+                    ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement(
+                        'h4',
+                        null,
+                        this.state.userProfile.firstname,
+                        ' ',
+                        this.state.userProfile.lastname
+                    ),
+                    _react2.default.createElement(
+                        'h5',
+                        null,
+                        '"',
+                        this.state.userProfile.tagline,
+                        '"'
+                    ),
+                    _react2.default.createElement(
+                        'h5',
+                        null,
+                        this.state.userProfile.email
+                    ),
+                    _react2.default.createElement('img', { src: this.state.userProfile.profilepic, width: '300px' }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { to: "/user/" + this.state.userProfile.id + "/edit" },
+                        _react2.default.createElement(
+                            'button',
+                            null,
+                            'Edit Profile'
+                        )
+                    ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { to: "/profiles/" + this.state.userProfile.id },
+                        _react2.default.createElement(
+                            'button',
+                            null,
+                            'Back'
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return User;
+}(_react2.default.Component);
+
+exports.default = User;
 
 /***/ })
 /******/ ]);
