@@ -40,12 +40,17 @@ router.post('/user/new', function (req, res) {
 router.get('/profiles/:id', function (req, res) {
     db.getProfileByID(req.params.id)
      .then(userProfile => {
-        db.getProfiles()
+        db.getProfilesAndLanguages()
         .then(allProfiles => {
-            res.json({userProfile, allProfiles})
+            console.log(allProfiles)
+            db.getLanguages(userProfile)
+            .then(languages=> {
+                const langArray = changeObjectToArray(languages)
+                    res.json({userProfile, allProfiles, langArray})
+            })
         })
     })
-    })
+})
 
 //user can view a particular profile
 router.get("/profiles/:id/view", function (req, res) {
@@ -132,6 +137,7 @@ router.get('/user/:id/edit', function (req, res) {
                 })
 })
 
+//utils
 function changeObjectToArray(obj) {
     const arr = Object.keys(obj)
     const langArr = arr.filter(item => {

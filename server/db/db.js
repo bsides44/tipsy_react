@@ -9,6 +9,12 @@ function getLibbyProfile () {
     .select().first()
 }
 
+function getProfilesAndLanguages() {
+    return db("profiles")
+    .join("languages", "profiles.language_id", "languages.id")
+    .select()
+}
+
 function getProfiles() {
     return db("profiles")
 }
@@ -104,7 +110,7 @@ module.exports = {
     getProfileByQuery,
     checkForMatch,
     insertLanguage,
-    // getLanguageByID,
+    getProfilesAndLanguages,
     updateLanguage,
     pushMatch,
     checkMatches

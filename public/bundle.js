@@ -27038,9 +27038,12 @@ var AllProfiles = function (_React$Component) {
 
         _this.state = {
             userProfile: {},
-            allProfiles: []
+            allProfiles: [],
+            languages: [],
+            filteredProfiles: []
         };
         _this.saveProfiles = _this.saveProfiles.bind(_this);
+        _this.filterProfiles = _this.filterProfiles.bind(_this);
         return _this;
     }
 
@@ -27055,14 +27058,49 @@ var AllProfiles = function (_React$Component) {
             this.setState({
                 error: err,
                 userProfile: databall.userProfile,
-                allProfiles: databall.allProfiles
+                allProfiles: databall.allProfiles,
+                languages: databall.langArray
+            });
+            this.filterProfiles();
+        }
+
+        //working for one language but not more
+
+    }, {
+        key: 'filterProfiles',
+        value: function filterProfiles() {
+            var _this2 = this;
+
+            var hablo = this.state.allProfiles.filter(function (profile) {
+                var keysArray = Object.keys(profile);
+                var langKeys = keysArray.filter(function (key) {
+                    if (key === 'id') {
+                        return false;
+                    } else if (profile[key]) {
+                        return key;
+                    }
+                });
+                if (langKeys.includes(_this2.state.languages[0])) {
+                    return langKeys;
+                }
+                if (langKeys.includes(_this2.state.languages[1])) {
+                    return langKeys;
+                }
+                if (langKeys.includes(_this2.state.languages[2])) {
+                    return langKeys;
+                } else return false;
+            });
+            console.log({ hablo: hablo });
+            this.setState({
+                filteredProfiles: hablo
             });
         }
     }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
+            var _this3 = this;
 
+            console.log("state ", this.state);
             return _react2.default.createElement(
                 _react2.default.Fragment,
                 null,
@@ -27111,13 +27149,13 @@ var AllProfiles = function (_React$Component) {
                         _react2.default.createElement('br', null)
                     ),
                     _react2.default.createElement('br', null),
-                    this.state.allProfiles.map(function (profile, i) {
+                    this.state.filteredProfiles.map(function (profile, i) {
                         return _react2.default.createElement(
                             'div',
                             { key: i },
                             _react2.default.createElement(
                                 _reactRouterDom.Link,
-                                { to: '/profiles/' + _this2.state.userProfile.id + '/view?id=' + profile.id },
+                                { to: '/profiles/' + _this3.state.userProfile.id + '/view?id=' + profile.id },
                                 _react2.default.createElement(
                                     'h4',
                                     null,
@@ -27646,20 +27684,6 @@ var EditUser = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = EditUser;
-
-// return <form action="put">
-// <h4 id="formTitle"> Edit Yo'Self </h4>
-// <input onChange={this.handleChange} name="firstname" type="text" value={this.state.userProfile.firstname}/><br/>
-// <input onChange={this.handleChange} name="lastname" type="text" value={this.state.userProfile.lastname}/><br/>
-// <input onChange={this.handleChange} name="tagline" type="text" value={this.state.userProfile.tagline}/><br/>
-//     <input onChange={this.handleLanguage} name="language" id="english" value="english" type="checkbox" checked={this.state.languages.english}/> English<br />
-//     <input onChange={this.handleLanguage}name="language" id="spanish" value="spanish" type="checkbox" checked={this.state.languages.spanish}/> Spanish<br />
-//     <input onChange={this.handleLanguage}name="language" id="te_reo" value="te_reo" type="checkbox" checked={this.state.languages.te_reo}/> Te reo Māori<br />
-// <input onChange={this.handleChange} name="email" type="text" value={this.state.userProfile.email}/><br/>
-// <input onChange={this.handleChange} name="profilepic" type="text" value={this.state.userProfile.profilepic}/><br/>
-// <input type="submit" onClick={this.editUser} value="I'm awesome!"/>
-// <br/><Link to={'/profiles/' + this.state.userProfile.id}><button>Home</button></Link>
-// </form>
 
 /***/ })
 /******/ ]);
