@@ -52,7 +52,9 @@ class Chatroom extends React.Component {
         databall.moreChats.map(obj => {
             chats.push(obj)
         })
-        console.log("chats ", chats)
+        chats.sort(function(a, b) {
+            return  +new Date(a.created_at) - +new Date(b.created_at)
+        })
         this.setState ({
             error: err,
             chats: chats,
@@ -91,7 +93,7 @@ class Chatroom extends React.Component {
         console.log("success")
     }
 
-    render() {  (console.log("state ", this.state))
+    render() {  console.log("state ", this.state)
         const firstname = this.state.firstname
         const { chats } = this.state;
 

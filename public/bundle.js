@@ -604,7 +604,6 @@ function getUserForChat(id, callback) {
 }
 
 function getChats(chatters, callback) {
-    console.log("apitop", chatters.id, chatters.query);
     _superagent2.default.get(urlThing + '/profiles/' + chatters.id + '/chatwith/' + chatters.query).end(function (err, res) {
         callback(err, res.body);
         console.log("api", res.body);
@@ -27805,7 +27804,9 @@ var Chatroom = function (_React$Component) {
             databall.moreChats.map(function (obj) {
                 chats.push(obj);
             });
-            console.log("chats ", chats);
+            chats.sort(function (a, b) {
+                return +new Date(a.created_at) - +new Date(b.created_at);
+            });
             this.setState({
                 error: err,
                 chats: chats

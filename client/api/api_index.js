@@ -62,7 +62,6 @@ export function getUserForChat(id, callback) {
 }
 
 export function getChats(chatters, callback) {
-    console.log("apitop", chatters.id, chatters.query)
     request
     .get(urlThing + '/profiles/' + chatters.id + '/chatwith/' + chatters.query)
     .end((err, res) => {
