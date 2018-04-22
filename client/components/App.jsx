@@ -7,7 +7,7 @@ import AllProfiles from './AllProfiles'
 import OneProfile from './OneProfile'
 import User from './User'
 import EditUser from './EditUser'
-import Chatbox from './Chatbox'
+import Chatroom from './Chatroom'
 
 
 const App = () => {
@@ -19,9 +19,9 @@ const App = () => {
           <Route exact path='/user/new' component= {NewUser} />
           <Route exact path='/user/:id' component= {User} />
           <Route exact path='/user/:id/edit' component= {EditUser} />
+          <Route exact path='/profiles/:id/chat' component= {Chatroom} />
           <Route exact path='/profiles/:id' component= {AllProfiles} />
           <Route exact path='/profiles/:id/view' component= {OneProfile} />
-          <Route exact path='/chat/:id' component= {Chatbox} />
         </div>
       </Router>
 

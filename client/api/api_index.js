@@ -53,6 +53,33 @@ export function getUser(id, callback) {
     })
 }
 
+export function getUserForChat(id, callback) {
+    request
+    .get(urlThing + '/profiles/' + id + '/chat')
+    .end((err, res) => {
+        callback(err, res.body)
+    })
+}
+
+export function getChats(chatters, callback) {
+    console.log("apitop", chatters.id, chatters.query)
+    request
+    .get(urlThing + '/profiles/' + chatters.id + '/chatwith/' + chatters.query)
+    .end((err, res) => {
+        callback(err, res.body)
+        console.log("api", res.body)
+    })
+}
+
+export function pushMessageToDb (message, callback) {
+    request
+    .post(urlThing + '/profiles/:id/chat')
+    .send(message)
+    .end((err, res) => {
+        callback(err, res.body)
+    })
+}
+
 export function getUserToEdit(id, callback) {
     request
     .get(urlThing + '/user/' + id + '/edit')
@@ -69,3 +96,4 @@ export function editUserData (user, callback) {
         callback(err, res.body)
     })
 }
+

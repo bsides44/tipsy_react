@@ -40,8 +40,6 @@ function getLanguages (user) {
 }
 
 function checkForMatch (id, query) {
-    var queryPieces = query.split("")
-    var queryNum = queryPieces[4]
     //find the current user
       return db("profiles")
         .where ("id", id)
@@ -102,6 +100,34 @@ function checkMatches (userid, profileid) {
     .andWhere("user_id", profileid)
 }
 
+function getFirstChats (userid, profileid) {
+    return db("chats")
+    .join("profiles", "chats.user_id", "profiles.id")
+    // .join("profiles", "chats.match_id", "profiles.id")
+    .where("match_id", userid)
+    .andWhere("user_id", profileid)
+} 
+
+function getSecondChats (userid, profileid) {
+    return db("chats")
+    .join("profiles", "chats.user_id", "profiles.id")
+    // .join("profiles", "chats.match_id", "profiles.id")
+    .where("match_id", profileid)
+    .andWhere("user_id", userid)
+} 
+
+function messageToDatabase (message) {
+    var query = message.query
+    var queryPieces = query.split("")
+    var queryNum = queryPieces[4]
+    return db("chats")
+    .insert ({
+        user_id: message.id,
+        match_id: queryNum,
+        message: message.message,
+    })
+}
+
 module.exports = {
     getLibbyProfile,
     getProfiles,
@@ -113,6 +139,9 @@ module.exports = {
     getProfilesAndLanguages,
     updateLanguage,
     pushMatch,
-    checkMatches
+    checkMatches,
+    getFirstChats,
+    getSecondChats,
+    messageToDatabase
 }
 

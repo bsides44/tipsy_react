@@ -545,6 +545,9 @@ exports.getProfiles = getProfiles;
 exports.getProfileByQuery = getProfileByQuery;
 exports.checkForMatch = checkForMatch;
 exports.getUser = getUser;
+exports.getUserForChat = getUserForChat;
+exports.getChats = getChats;
+exports.pushMessageToDb = pushMessageToDb;
 exports.getUserToEdit = getUserToEdit;
 exports.editUserData = editUserData;
 
@@ -590,6 +593,26 @@ function checkForMatch(body, callback) {
 
 function getUser(id, callback) {
     _superagent2.default.get(urlThing + '/user/' + id).end(function (err, res) {
+        callback(err, res.body);
+    });
+}
+
+function getUserForChat(id, callback) {
+    _superagent2.default.get(urlThing + '/profiles/' + id + '/chat').end(function (err, res) {
+        callback(err, res.body);
+    });
+}
+
+function getChats(chatters, callback) {
+    console.log("apitop", chatters.id, chatters.query);
+    _superagent2.default.get(urlThing + '/profiles/' + chatters.id + '/chatwith/' + chatters.query).end(function (err, res) {
+        callback(err, res.body);
+        console.log("api", res.body);
+    });
+}
+
+function pushMessageToDb(message, callback) {
+    _superagent2.default.post(urlThing + '/profiles/:id/chat').send(message).end(function (err, res) {
         callback(err, res.body);
     });
 }
@@ -24674,9 +24697,9 @@ var _EditUser = __webpack_require__(87);
 
 var _EditUser2 = _interopRequireDefault(_EditUser);
 
-var _Chatbox = __webpack_require__(88);
+var _Chatroom = __webpack_require__(88);
 
-var _Chatbox2 = _interopRequireDefault(_Chatbox);
+var _Chatroom2 = _interopRequireDefault(_Chatroom);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24694,9 +24717,9 @@ var App = function App() {
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/user/new', component: _NewUser2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/user/:id', component: _User2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/user/:id/edit', component: _EditUser2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/profiles/:id/chat', component: _Chatroom2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/profiles/:id', component: _AllProfiles2.default }),
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/profiles/:id/view', component: _OneProfile2.default }),
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/chat/:id', component: _Chatbox2.default })
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/profiles/:id/view', component: _OneProfile2.default })
       )
     )
   );
@@ -24781,29 +24804,37 @@ var Login = function (_React$Component) {
                         ' Who are you? '
                     ),
                     _react2.default.createElement(
-                        _reactRouterDom.Link,
-                        { to: '/profiles/1' },
+                        'div',
+                        null,
                         _react2.default.createElement(
-                            'h4',
-                            null,
-                            this.state.libby.firstname
-                        ),
-                        _react2.default.createElement(
-                            'p',
-                            null,
-                            _react2.default.createElement('img', { src: this.state.libby.profilepic, width: '200px' })
+                            _reactRouterDom.Link,
+                            { to: '/profiles/1' },
+                            _react2.default.createElement(
+                                'h4',
+                                null,
+                                this.state.libby.firstname
+                            ),
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                _react2.default.createElement('img', { src: this.state.libby.profilepic, width: '200px' })
+                            )
                         )
                     ),
                     _react2.default.createElement(
-                        _reactRouterDom.Link,
-                        { to: '/user/new/' },
+                        'div',
+                        null,
                         _react2.default.createElement(
-                            'button',
-                            null,
-                            'Add new user'
-                        )
-                    ),
-                    _react2.default.createElement('br', null)
+                            _reactRouterDom.Link,
+                            { to: '/user/new/' },
+                            _react2.default.createElement(
+                                'button',
+                                null,
+                                'Add new user'
+                            )
+                        ),
+                        _react2.default.createElement('br', null)
+                    )
                 )
             );
         }
@@ -27049,6 +27080,7 @@ var AllProfiles = function (_React$Component) {
     _createClass(AllProfiles, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
+            console.log(this.props);
             (0, _api_index.getProfiles)(this.props.match.params.id, this.saveProfiles);
         }
     }, {
@@ -27274,10 +27306,9 @@ var OneProfile = function (_React$Component) {
         key: 'redirect',
         value: function redirect(err, body) {
             if (body == "true") {
-                alert("IT'S A MATCH!");
-                this.props.history.push('/chat/' + this.state.id + this.state.query);
-            }
-            // this.props.history.push('/profiles/' + this.state.id) 
+                alert("IT'S A MATCH! \n\nYou can chat now");
+                this.props.history.push('/profiles/' + this.state.id + '/chat' + this.state.query);
+            } else this.props.history.push('/profiles/' + this.state.id);
         }
     }, {
         key: 'render',
@@ -27689,44 +27720,6 @@ exports.default = EditUser;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(5);
-
-var _Chatroom = __webpack_require__(89);
-
-var _Chatroom2 = _interopRequireDefault(_Chatroom);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Chatbox = function Chatbox() {
-  return _react2.default.createElement(
-    _react2.default.Fragment,
-    null,
-    _react2.default.createElement(
-      'h2',
-      null,
-      'Chatroom'
-    ),
-    _react2.default.createElement(_Chatroom2.default, null)
-  );
-};
-
-exports.default = Chatbox;
-
-/***/ }),
-/* 89 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
@@ -27740,9 +27733,11 @@ var _reactDom = __webpack_require__(23);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Message = __webpack_require__(90);
+var _Message = __webpack_require__(89);
 
 var _Message2 = _interopRequireDefault(_Message);
+
+var _api_index = __webpack_require__(7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27763,86 +27758,58 @@ var Chatroom = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Chatroom.__proto__ || Object.getPrototypeOf(Chatroom)).call(this, props));
 
         _this.state = {
-            chats: [{
-                username: "Kevin Hsu",
-                content: _react2.default.createElement(
-                    'p',
-                    null,
-                    'Hello World!'
-                ),
-                img: "http://i.imgur.com/Tj5DGiO.jpg"
-            }, {
-                username: "Alice Chen",
-                content: _react2.default.createElement(
-                    'p',
-                    null,
-                    'Love it! :heart:'
-                ),
-                img: "http://i.imgur.com/Tj5DGiO.jpg"
-            }, {
-                username: "Kevin Hsu",
-                content: _react2.default.createElement(
-                    'p',
-                    null,
-                    'Check out my Github at https://github.com/WigoHunter'
-                ),
-                img: "http://i.imgur.com/Tj5DGiO.jpg"
-            }, {
-                username: "KevHs",
-                content: _react2.default.createElement(
-                    'p',
-                    null,
-                    'Lorem ipsum dolor sit amet, nibh ipsum. Cum class sem inceptos incidunt sed sed. Tempus wisi enim id, arcu sed lectus aliquam, nulla vitae est bibendum molestie elit risus.'
-                ),
-                img: "http://i.imgur.com/ARbQZix.jpg"
-            }, {
-                username: "Kevin Hsu",
-                content: _react2.default.createElement(
-                    'p',
-                    null,
-                    'So'
-                ),
-                img: "http://i.imgur.com/Tj5DGiO.jpg"
-            }, {
-                username: "Kevin Hsu",
-                content: _react2.default.createElement(
-                    'p',
-                    null,
-                    'Chilltime is going to be an app for you to view videos with friends'
-                ),
-                img: "http://i.imgur.com/Tj5DGiO.jpg"
-            }, {
-                username: "Kevin Hsu",
-                content: _react2.default.createElement(
-                    'p',
-                    null,
-                    'You can sign-up now to try out our private beta!'
-                ),
-                img: "http://i.imgur.com/Tj5DGiO.jpg"
-            }, {
-                username: "Alice Chen",
-                content: _react2.default.createElement(
-                    'p',
-                    null,
-                    'Definitely! Sounds great!'
-                ),
-                img: "http://i.imgur.com/Tj5DGiO.jpg"
-            }]
+            id: _this.props.match.params.id,
+            query: _this.props.location.search,
+            chats: [],
+            firstname: "",
+            profilepic: "",
+            languages: []
         };
 
         _this.submitMessage = _this.submitMessage.bind(_this);
+        _this.saveUser = _this.saveUser.bind(_this);
+        _this.saveChats = _this.saveChats.bind(_this);
+        _this.pushMessage = _this.pushMessage.bind(_this);
+        _this.nothing = _this.nothing.bind(_this);
         return _this;
     }
 
     _createClass(Chatroom, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
+            var id = this.state.id;
+            var query = this.state.query;
+            var chatters = { id: id, query: query };
+            (0, _api_index.getUserForChat)(this.props.match.params.id, this.saveUser);
+            (0, _api_index.getChats)(chatters, this.saveChats);
             this.scrollToBot();
         }
     }, {
-        key: 'componentDidUpdate',
-        value: function componentDidUpdate() {
-            this.scrollToBot();
+        key: 'saveUser',
+        value: function saveUser(err, databall) {
+            this.setState({
+                error: err,
+                firstname: databall.user.firstname,
+                profilepic: databall.user.profilepic,
+                languages: databall.langArray
+            });
+        }
+    }, {
+        key: 'saveChats',
+        value: function saveChats(err, databall) {
+            console.log({ databall: databall });
+            var chats = [];
+            databall.chats.map(function (obj) {
+                chats.push(obj);
+            });
+            databall.moreChats.map(function (obj) {
+                chats.push(obj);
+            });
+            console.log("chats ", chats);
+            this.setState({
+                error: err,
+                chats: chats
+            });
         }
     }, {
         key: 'scrollToBot',
@@ -27855,27 +27822,44 @@ var Chatroom = function (_React$Component) {
             var _this2 = this;
 
             e.preventDefault();
-
             this.setState({
                 chats: this.state.chats.concat([{
-                    username: "Kevin Hsu",
-                    content: _react2.default.createElement(
+                    firstname: this.state.firstname,
+                    message: _react2.default.createElement(
                         'p',
                         null,
                         _reactDom2.default.findDOMNode(this.refs.msg).value
                     ),
-                    img: "http://i.imgur.com/Tj5DGiO.jpg"
+                    profilepic: this.state.profilepic
                 }])
             }, function () {
                 _reactDom2.default.findDOMNode(_this2.refs.msg).value = "";
             });
+            this.pushMessage();
+        }
+    }, {
+        key: 'pushMessage',
+        value: function pushMessage() {
+            var message = {
+                id: this.state.id,
+                query: this.state.query,
+                message: _reactDom2.default.findDOMNode(this.refs.msg).value
+            };
+            console.log("msg ", message);
+            (0, _api_index.pushMessageToDb)(message, this.nothing);
+        }
+    }, {
+        key: 'nothing',
+        value: function nothing(err, callback) {
+            console.log("success");
         }
     }, {
         key: 'render',
         value: function render() {
             var _this3 = this;
 
-            var username = "Kevin Hsu";
+            console.log("state ", this.state);
+            var firstname = this.state.firstname;
             var chats = this.state.chats;
 
 
@@ -27886,7 +27870,7 @@ var Chatroom = function (_React$Component) {
                     'ul',
                     { className: 'chats', ref: 'chats' },
                     chats.map(function (chat) {
-                        return _react2.default.createElement(_Message2.default, { chat: chat, user: username });
+                        return _react2.default.createElement(_Message2.default, { chat: chat, user: firstname });
                     })
                 ),
                 _react2.default.createElement(
@@ -27906,8 +27890,10 @@ var Chatroom = function (_React$Component) {
 
 exports.default = Chatroom;
 
+//Thanks "Kevin Hsu" for the chat framework: https://github.com/WigoHunter
+
 /***/ }),
-/* 90 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27928,9 +27914,15 @@ var Message = function Message(_ref) {
         user = _ref.user;
     return _react2.default.createElement(
         "li",
-        { className: "chat " + (user === chat.username ? "right" : "left") },
-        user !== chat.username && _react2.default.createElement("img", { src: chat.img, alt: chat.username + "'s profile pic" }),
-        chat.content
+        { className: "chat " + (user === chat.firstname ? "right" : "left") },
+        _react2.default.createElement("img", { src: chat.profilepic }),
+        _react2.default.createElement(
+            "h6",
+            null,
+            chat.firstname,
+            ":"
+        ),
+        chat.message
     );
 };
 

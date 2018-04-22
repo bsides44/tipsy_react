@@ -42,7 +42,6 @@ router.get('/profiles/:id', function (req, res) {
      .then(userProfile => {
         db.getProfilesAndLanguages()
         .then(allProfiles => {
-            console.log(allProfiles)
             db.getLanguages(userProfile)
             .then(languages=> {
                 const langArray = changeObjectToArray(languages)
@@ -57,18 +56,13 @@ router.get("/profiles/:id/view", function (req, res) {
     var query = req.query
     db.getProfileByQuery(query)
         .then(user => {
-            console.log({user})
         db.getLanguages(user)
         .then(languages=> {
-            console.log({languages})
             const langArray = changeObjectToArray(languages)
-            console.log({langArray})
             res.json({user, langArray})
         })
     })
 })
-
-
 
 //user can match with other users
 router.post("/profiles/:id/view", function (req, res) {
@@ -77,7 +71,7 @@ router.post("/profiles/:id/view", function (req, res) {
     var queryPieces = query.split("")
     var queryNum = queryPieces[4]
 
-    db.checkForMatch(id, query)
+    db.checkForMatch(id, queryNum)
     .then(user => {
      db.pushMatch(id, queryNum)
      .then(irrelevantID => {
@@ -91,6 +85,46 @@ router.post("/profiles/:id/view", function (req, res) {
         })
     })
 })
+
+//user can chat with matches
+router.get('/profiles/:id/chat', function (req, res) {
+    db.getProfileByID(req.params.id)
+    .then(user => {
+        db.getLanguages(user)
+        .then(languages => {
+            const langArray = changeObjectToArray(languages)
+             res.json({user, langArray})
+        })
+    })
+})
+
+//get chat history
+router.get('/profiles/:id/chatwith', function (req, res) {
+    const id = req.params.id
+    var query = req.query
+    var queryNum = query.id
+        db.getFirstChats(id, queryNum)
+        .then(chats => {
+            console.log("route 1chats ", chats)
+            db.getSecondChats(id, queryNum)
+            .then(moreChats => {
+                console.log("route 2chats ", moreChats)
+                res.json({chats, moreChats})
+        })
+    })
+})
+
+//push chat message into chat db
+router.post('/profiles/:id/chat', function (req, res) {
+    let message = req.body
+    db.messageToDatabase(message)
+    .then(chatId => {
+        console.log({chatId})
+        res.json(200)
+    })
+
+})
+
 
 //user can view own profile
 router.get("/user/:id", function (req, res) {

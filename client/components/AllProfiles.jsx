@@ -16,6 +16,7 @@ class AllProfiles extends React.Component {
         this.filterProfiles = this.filterProfiles.bind(this)
     }
     componentDidMount(){
+        console.log(this.props)
         getProfiles(this.props.match.params.id, this.saveProfiles)
 }
 

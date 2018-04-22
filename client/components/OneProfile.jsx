@@ -46,10 +46,10 @@ class OneProfile extends React.Component {
 
  redirect(err, body){
    if (body == "true") {
-        alert("IT'S A MATCH!")
-        this.props.history.push('/chat/' + this.state.id + this.state.query) 
+        alert("IT'S A MATCH! \n\nYou can chat now") 
+        this.props.history.push('/profiles/' + this.state.id + '/chat' + this.state.query)
    }
-    // this.props.history.push('/profiles/' + this.state.id) 
+    else this.props.history.push('/profiles/' + this.state.id) 
 }
 
 render () { 

@@ -2,56 +2,61 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import '/chat.css';
 import Message from './Message.js';
+import { getUserForChat } from '../api/api_index.js';
+import { getChats } from '../api/api_index.js';
+import { pushMessageToDb } from '../api/api_index.js';
 
 class Chatroom extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            chats: [{
-                username: "Kevin Hsu",
-                content: <p>Hello World!</p>,
-                img: "http://i.imgur.com/Tj5DGiO.jpg",
-            }, {
-                username: "Alice Chen",
-                content: <p>Love it! :heart:</p>,
-                img: "http://i.imgur.com/Tj5DGiO.jpg",
-            }, {
-                username: "Kevin Hsu",
-                content: <p>Check out my Github at https://github.com/WigoHunter</p>,
-                img: "http://i.imgur.com/Tj5DGiO.jpg",
-            }, {
-                username: "KevHs",
-                content: <p>Lorem ipsum dolor sit amet, nibh ipsum. Cum class sem inceptos incidunt sed sed. Tempus wisi enim id, arcu sed lectus aliquam, nulla vitae est bibendum molestie elit risus.</p>,
-                img: "http://i.imgur.com/ARbQZix.jpg",
-            }, {
-                username: "Kevin Hsu",
-                content: <p>So</p>,
-                img: "http://i.imgur.com/Tj5DGiO.jpg",
-            }, {
-                username: "Kevin Hsu",
-                content: <p>Chilltime is going to be an app for you to view videos with friends</p>,
-                img: "http://i.imgur.com/Tj5DGiO.jpg",
-            }, {
-                username: "Kevin Hsu",
-                content: <p>You can sign-up now to try out our private beta!</p>,
-                img: "http://i.imgur.com/Tj5DGiO.jpg",
-            }, {
-                username: "Alice Chen",
-                content: <p>Definitely! Sounds great!</p>,
-                img: "http://i.imgur.com/Tj5DGiO.jpg",
-            }]
+            id: this.props.match.params.id,
+            query: this.props.location.search,
+            chats: [],
+            firstname: "",
+            profilepic: "",
+            languages: [],
         };
 
         this.submitMessage = this.submitMessage.bind(this);
+        this.saveUser = this.saveUser.bind(this);
+        this.saveChats = this.saveChats.bind(this);
+        this.pushMessage = this.pushMessage.bind(this);
+        this.nothing = this.nothing.bind(this);
     }
-
     componentDidMount() {
+        const id = this.state.id
+        const query = this.state.query
+        let chatters = ({id, query})
+        getUserForChat(this.props.match.params.id, this.saveUser);
+        getChats(chatters, this.saveChats)
         this.scrollToBot();
     }
 
-    componentDidUpdate() {
-        this.scrollToBot();
+    saveUser(err, databall){
+        this.setState ({
+            error: err,
+            firstname: databall.user.firstname,
+            profilepic: databall.user.profilepic,
+            languages: databall.langArray
+        })
+    }
+
+    saveChats(err, databall){
+        console.log({databall})
+        let chats = []
+        databall.chats.map(obj => {
+            chats.push(obj)
+        })
+        databall.moreChats.map(obj => {
+            chats.push(obj)
+        })
+        console.log("chats ", chats)
+        this.setState ({
+            error: err,
+            chats: chats,
+        })
     }
 
     scrollToBot() {
@@ -60,28 +65,42 @@ class Chatroom extends React.Component {
 
     submitMessage(e) {
         e.preventDefault();
-
         this.setState({
             chats: this.state.chats.concat([{
-                username: "Kevin Hsu",
-                content: <p>{ReactDOM.findDOMNode(this.refs.msg).value}</p>,
-                img: "http://i.imgur.com/Tj5DGiO.jpg",
+                firstname: this.state.firstname,
+                message: <p>{ReactDOM.findDOMNode(this.refs.msg).value}</p>,
+                profilepic: this.state.profilepic,
             }])
         }, () => {
             ReactDOM.findDOMNode(this.refs.msg).value = "";
-        });
+        })
+        this.pushMessage()
+    }
+  
+    pushMessage() {
+        let message = {
+            id: this.state.id,
+            query: this.state.query,
+            message: ReactDOM.findDOMNode(this.refs.msg).value,
+        }
+        console.log("msg ", message)
+        pushMessageToDb(message, this.nothing)
     }
 
-    render() {
-        const username = "Kevin Hsu";
+    nothing(err, callback) {
+        console.log("success")
+    }
+
+    render() {  (console.log("state ", this.state))
+        const firstname = this.state.firstname
         const { chats } = this.state;
 
-        return (
+        return ( 
             <div className="chatroom">
                 <ul className="chats" ref="chats">
                     {
                         chats.map((chat) => 
-                            <Message chat={chat} user={username} />
+                            <Message chat={chat} user={firstname}/>
                         )
                     }
                 </ul>
@@ -95,3 +114,5 @@ class Chatroom extends React.Component {
 }
 
 export default Chatroom
+
+//Thanks "Kevin Hsu" for the chat framework: https://github.com/WigoHunter

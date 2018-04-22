@@ -1,11 +1,10 @@
 import React from 'react';
 
 const Message = ({chat, user}) => (
-    <li className={`chat ${user === chat.username ? "right" : "left"}`}>
-        {user !== chat.username
-            && <img src={chat.img} alt={`${chat.username}'s profile pic`} />
-        }
-        {chat.content}
+    <li className={`chat ${user === chat.firstname ? "right" : "left"}`}>
+         <img src={chat.profilepic} />
+         <h6>{chat.firstname}:</h6>
+        {chat.message}
     </li>
 );
 

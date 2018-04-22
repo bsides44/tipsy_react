@@ -29,10 +29,10 @@ render () {
             <h3> TIPSY</h3>
                 <center>
                     <h4> Who are you? </h4>
-                    <Link to='/profiles/1'><h4>{this.state.libby.firstname}</h4>
-                    <p><img src ={this.state.libby.profilepic} width="200px" /></p></Link>
+                    <div><Link to='/profiles/1'><h4>{this.state.libby.firstname}</h4>
+                    <p><img src ={this.state.libby.profilepic} width="200px" /></p></Link></div>
 
-                    <Link to='/user/new/'><button>Add new user</button></Link><br/>
+                    <div><Link to='/user/new/'><button>Add new user</button></Link><br/></div>
 
                 </center>
             </React.Fragment>
