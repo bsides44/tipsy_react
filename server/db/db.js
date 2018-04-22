@@ -116,6 +116,7 @@ function messageToDatabase (message) {
 
 function getMatches (user) {
     return db("matches")
+    .join("profiles", "matches.match_id", "profiles.id")
     .where("user_id", user.id)
 }
 
@@ -139,6 +140,6 @@ module.exports = {
     getSecondChats,
     messageToDatabase,
     getMatches,
-    getMatchBacks
+    getMatchBacks,
 }
 

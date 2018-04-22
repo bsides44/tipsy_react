@@ -84,7 +84,7 @@ router.post("/profiles/:id/view", function (req, res) {
     })
 
 
-//user can chat with matches
+//user can view and chat with matches
 router.get('/profiles/:id/chat', function (req, res) {
     let matchMania = []
     db.getProfileByID(req.params.id)
@@ -100,10 +100,11 @@ router.get('/profiles/:id/chat', function (req, res) {
                         }
                     })
                 })
-                db.getLanguages(user)
-                .then(languages => {
-                    const langArray = changeObjectToArray(languages)
-                    res.json({user, langArray, matchMania})
+                    console.log({matchMania})
+                    db.getLanguages(user)
+                    .then(languages => {
+                        const langArray = changeObjectToArray(languages)
+                        res.json({user, langArray, matchMania})
                 })
             }) 
         })

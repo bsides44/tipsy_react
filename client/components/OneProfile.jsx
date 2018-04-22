@@ -1,6 +1,5 @@
 import React from 'react'
 import {HashRouter as Router, Route, Link} from 'react-router-dom'
-// import {Link} from 'react-router-dom'
 import { getProfileByQuery } from '../api/api_index'
 import { checkForMatch } from '../api/api_index';
 
@@ -72,7 +71,7 @@ render () {
                 <input type='submit' onClick={this.runMatch} value="MATCH" />
                 </form>
 
-                <div><Link to={'/profiles/' + this.state.id}><button>Back</button></Link></div>
+                <div><Link to={'/profiles/' + this.state.id}><button>Home</button></Link></div>
                 
             </center>
         </React.Fragment>

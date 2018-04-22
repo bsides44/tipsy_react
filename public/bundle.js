@@ -27245,8 +27245,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import {Link} from 'react-router-dom'
-
 
 var OneProfile = function (_React$Component) {
     _inherits(OneProfile, _React$Component);
@@ -27380,7 +27378,7 @@ var OneProfile = function (_React$Component) {
                             _react2.default.createElement(
                                 'button',
                                 null,
-                                'Back'
+                                'Home'
                             )
                         )
                     )
@@ -27732,6 +27730,8 @@ var _reactDom = __webpack_require__(23);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _reactRouterDom = __webpack_require__(5);
+
 var _Message = __webpack_require__(89);
 
 var _Message2 = _interopRequireDefault(_Message);
@@ -27745,8 +27745,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import '/chat.css';
-
 
 var Chatroom = function (_React$Component) {
     _inherits(Chatroom, _React$Component);
@@ -27880,7 +27878,7 @@ var Chatroom = function (_React$Component) {
                     _react2.default.createElement(
                         'ul',
                         { className: 'chats', ref: 'chats' },
-                        chats.map(function (chat) {
+                        chats.map(function (chat, i) {
                             return _react2.default.createElement(
                                 'div',
                                 { key: i },
@@ -27896,6 +27894,56 @@ var Chatroom = function (_React$Component) {
                         _react2.default.createElement('input', { type: 'text', ref: 'msg' }),
                         _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
                     )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'matches' },
+                    this.state.matches.map(function (profile, i) {
+                        return _react2.default.createElement(
+                            'div',
+                            { key: i },
+                            _react2.default.createElement(
+                                'h4',
+                                null,
+                                profile.firstname
+                            ),
+                            _react2.default.createElement('img', { src: profile.profilepic, width: '200px' }),
+                            _react2.default.createElement('br', null),
+                            _react2.default.createElement(
+                                _reactRouterDom.Link,
+                                { to: '/profiles/' + _this3.state.id + '/view?id=' + profile.id },
+                                _react2.default.createElement(
+                                    'button',
+                                    null,
+                                    'View Profile'
+                                )
+                            ),
+                            _react2.default.createElement('br', null),
+                            _react2.default.createElement(
+                                _reactRouterDom.Link,
+                                { to: '/profiles/' + _this3.state.id + '/chat?id=' + profile.id },
+                                _react2.default.createElement(
+                                    'button',
+                                    null,
+                                    'Chat'
+                                )
+                            )
+                        );
+                    }),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            _reactRouterDom.Link,
+                            { to: '/' },
+                            _react2.default.createElement(
+                                'button',
+                                null,
+                                'Home'
+                            )
+                        ),
+                        _react2.default.createElement('br', null)
+                    )
                 )
             );
         }
@@ -27905,15 +27953,6 @@ var Chatroom = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Chatroom;
-
-
-{} /* <div className="matches">
-   {this.state.matches.map((profile, i) => <div key={i}>
-          <Link to={'/profiles/' + this.state.userProfile.id + '/view?id=' + profile.id}><h4>{profile.firstname}</h4> 
-          <img src={profile.profilepic} width="200px"/></Link>
-          </div>)}
-      <div><Link to='/'><button>Back</button></Link><br/></div>
-   </div> */
 
 //Thanks "Kevin Hsu" for the chat framework: https://github.com/WigoHunter
 

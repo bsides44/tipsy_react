@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import '/chat.css';
+import {Link} from 'react-router-dom'
 import Message from './Message.js';
 import { getUserForChat } from '../api/api_index.js';
 import { getChats } from '../api/api_index.js';
@@ -105,7 +105,7 @@ class Chatroom extends React.Component {
             <div className="chatroom">
                 <ul className="chats" ref="chats">
                     {
-                        chats.map((chat) => <div key={i}>
+                        chats.map((chat, i) => <div key={i}>
                             <Message chat={chat} user={firstname}/>
                             </div>)
                     }
@@ -115,6 +115,16 @@ class Chatroom extends React.Component {
                     <input type="submit" value="Submit" />
                 </form>
             </div>
+            <div className="matches">
+                {this.state.matches.map((profile, i) => <div key={i}>
+                    <h4>{profile.firstname}</h4> 
+                    <img src={profile.profilepic} width="200px"/><br/>
+                    <Link to={'/profiles/' + this.state.id + '/view?id=' + profile.id}><button>View Profile</button></Link><br/>
+                    <Link to={'/profiles/' + this.state.id + '/chat?id=' + profile.id}><button>Chat</button></Link>
+                    </div>)}
+                <div>
+                    <Link to='/'><button>Home</button></Link><br/></div>
+            </div>
             </React.Fragment>
         );
     }
@@ -122,12 +132,5 @@ class Chatroom extends React.Component {
 
 export default Chatroom
 
-{/* <div className="matches">
-{this.state.matches.map((profile, i) => <div key={i}>
-        <Link to={'/profiles/' + this.state.userProfile.id + '/view?id=' + profile.id}><h4>{profile.firstname}</h4> 
-        <img src={profile.profilepic} width="200px"/></Link>
-        </div>)}
-    <div><Link to='/'><button>Back</button></Link><br/></div>
-</div> */}
 
 //Thanks "Kevin Hsu" for the chat framework: https://github.com/WigoHunter
