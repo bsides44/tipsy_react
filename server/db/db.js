@@ -39,13 +39,6 @@ function getLanguages (user) {
     .select().first()
 }
 
-function checkForMatch (id, query) {
-    //find the current user
-      return db("profiles")
-        .where ("id", id)
-        .select().first()
-}
-
 function insertLanguage (languageArray) {
     if (typeof languageArray == "string") {
         //single item is not in an array so .length won't work
@@ -60,13 +53,6 @@ function insertLanguage (languageArray) {
             .insert({english, spanish, te_reo})
     }
 }
-
-// function getLanguageByID (id) {
-//     return db("languages")
-//      .join("languages", "profiles.id", "languages.id")
-//      .where("profiles.id", id)
-//      .select().first()
-// }
 
 
 function updateLanguage (languageArray, id) {
@@ -128,13 +114,22 @@ function messageToDatabase (message) {
     })
 }
 
+function getMatches (user) {
+    return db("matches")
+    .where("user_id", user.id)
+}
+
+function getMatchBacks (user) {
+    return db("matches")
+    .where("match_id", user.id)
+}
+
 module.exports = {
     getLibbyProfile,
     getProfiles,
     getProfileByID,
     getLanguages,
     getProfileByQuery,
-    checkForMatch,
     insertLanguage,
     getProfilesAndLanguages,
     updateLanguage,
@@ -142,6 +137,8 @@ module.exports = {
     checkMatches,
     getFirstChats,
     getSecondChats,
-    messageToDatabase
+    messageToDatabase,
+    getMatches,
+    getMatchBacks
 }
 

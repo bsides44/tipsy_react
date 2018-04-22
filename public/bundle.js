@@ -27762,7 +27762,8 @@ var Chatroom = function (_React$Component) {
             chats: [],
             firstname: "",
             profilepic: "",
-            languages: []
+            languages: [],
+            matches: []
         };
 
         _this.submitMessage = _this.submitMessage.bind(_this);
@@ -27790,7 +27791,8 @@ var Chatroom = function (_React$Component) {
                 error: err,
                 firstname: databall.user.firstname,
                 profilepic: databall.user.profilepic,
-                languages: databall.langArray
+                languages: databall.langArray,
+                matches: databall.matchMania
             });
         }
     }, {
@@ -27865,22 +27867,35 @@ var Chatroom = function (_React$Component) {
 
 
             return _react2.default.createElement(
-                'div',
-                { className: 'chatroom' },
+                _react2.default.Fragment,
+                null,
                 _react2.default.createElement(
-                    'ul',
-                    { className: 'chats', ref: 'chats' },
-                    chats.map(function (chat) {
-                        return _react2.default.createElement(_Message2.default, { chat: chat, user: firstname });
-                    })
+                    'h2',
+                    null,
+                    'Chatroom'
                 ),
                 _react2.default.createElement(
-                    'form',
-                    { className: 'input', onSubmit: function onSubmit(e) {
-                            return _this3.submitMessage(e);
-                        } },
-                    _react2.default.createElement('input', { type: 'text', ref: 'msg' }),
-                    _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
+                    'div',
+                    { className: 'chatroom' },
+                    _react2.default.createElement(
+                        'ul',
+                        { className: 'chats', ref: 'chats' },
+                        chats.map(function (chat) {
+                            return _react2.default.createElement(
+                                'div',
+                                { key: i },
+                                _react2.default.createElement(_Message2.default, { chat: chat, user: firstname })
+                            );
+                        })
+                    ),
+                    _react2.default.createElement(
+                        'form',
+                        { className: 'input', onSubmit: function onSubmit(e) {
+                                return _this3.submitMessage(e);
+                            } },
+                        _react2.default.createElement('input', { type: 'text', ref: 'msg' }),
+                        _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
+                    )
                 )
             );
         }
@@ -27890,6 +27905,15 @@ var Chatroom = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Chatroom;
+
+
+{} /* <div className="matches">
+   {this.state.matches.map((profile, i) => <div key={i}>
+          <Link to={'/profiles/' + this.state.userProfile.id + '/view?id=' + profile.id}><h4>{profile.firstname}</h4> 
+          <img src={profile.profilepic} width="200px"/></Link>
+          </div>)}
+      <div><Link to='/'><button>Back</button></Link><br/></div>
+   </div> */
 
 //Thanks "Kevin Hsu" for the chat framework: https://github.com/WigoHunter
 

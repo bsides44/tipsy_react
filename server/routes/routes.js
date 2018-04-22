@@ -71,8 +71,6 @@ router.post("/profiles/:id/view", function (req, res) {
     var queryPieces = query.split("")
     var queryNum = queryPieces[4]
 
-    db.checkForMatch(id, queryNum)
-    .then(user => {
      db.pushMatch(id, queryNum)
      .then(irrelevantID => {
          db.checkMatches(id, queryNum)
@@ -84,16 +82,30 @@ router.post("/profiles/:id/view", function (req, res) {
             })
         })
     })
-})
+
 
 //user can chat with matches
 router.get('/profiles/:id/chat', function (req, res) {
+    let matchMania = []
     db.getProfileByID(req.params.id)
     .then(user => {
-        db.getLanguages(user)
-        .then(languages => {
-            const langArray = changeObjectToArray(languages)
-             res.json({user, langArray})
+        db.getMatchBacks(user) 
+        .then(matchBacks => {
+            db.getMatches(user)
+            .then(userMatches => {
+            matchBacks.filter(back => {
+            userMatches.filter(match => {
+                if (back.user_id == match.match_id) {
+                matchMania.push(match)
+                        }
+                    })
+                })
+                db.getLanguages(user)
+                .then(languages => {
+                    const langArray = changeObjectToArray(languages)
+                    res.json({user, langArray, matchMania})
+                })
+            }) 
         })
     })
 })
@@ -105,10 +117,8 @@ router.get('/profiles/:id/chatwith', function (req, res) {
     var queryNum = query.id
         db.getFirstChats(id, queryNum)
         .then(chats => {
-            console.log("route 1chats ", chats)
             db.getSecondChats(id, queryNum)
             .then(moreChats => {
-                console.log("route 2chats ", moreChats)
                 res.json({chats, moreChats})
         })
     })
@@ -183,6 +193,5 @@ function changeObjectToArray(obj) {
     })
     return langArr
 }
-
 
 module.exports = router

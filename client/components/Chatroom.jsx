@@ -17,6 +17,7 @@ class Chatroom extends React.Component {
             firstname: "",
             profilepic: "",
             languages: [],
+            matches: []
         };
 
         this.submitMessage = this.submitMessage.bind(this);
@@ -39,7 +40,8 @@ class Chatroom extends React.Component {
             error: err,
             firstname: databall.user.firstname,
             profilepic: databall.user.profilepic,
-            languages: databall.langArray
+            languages: databall.langArray,
+            matches: databall.matchMania
         })
     }
 
@@ -98,12 +100,14 @@ class Chatroom extends React.Component {
         const { chats } = this.state;
 
         return ( 
+            <React.Fragment>
+            <h2>Chatroom</h2>
             <div className="chatroom">
                 <ul className="chats" ref="chats">
                     {
-                        chats.map((chat) => 
+                        chats.map((chat) => <div key={i}>
                             <Message chat={chat} user={firstname}/>
-                        )
+                            </div>)
                     }
                 </ul>
                 <form className="input" onSubmit={(e) => this.submitMessage(e)}>
@@ -111,10 +115,19 @@ class Chatroom extends React.Component {
                     <input type="submit" value="Submit" />
                 </form>
             </div>
+            </React.Fragment>
         );
     }
 }
 
 export default Chatroom
+
+{/* <div className="matches">
+{this.state.matches.map((profile, i) => <div key={i}>
+        <Link to={'/profiles/' + this.state.userProfile.id + '/view?id=' + profile.id}><h4>{profile.firstname}</h4> 
+        <img src={profile.profilepic} width="200px"/></Link>
+        </div>)}
+    <div><Link to='/'><button>Back</button></Link><br/></div>
+</div> */}
 
 //Thanks "Kevin Hsu" for the chat framework: https://github.com/WigoHunter
