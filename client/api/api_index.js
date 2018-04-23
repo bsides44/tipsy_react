@@ -53,15 +53,17 @@ export function getUser(id, callback) {
     })
 }
 
-export function getUserForChat(id, callback) {
+export function getUserForChat(chatters, callback) {
+    console.log("ch1 ", chatters)
     request
-    .get(urlThing + '/profiles/' + id + '/chat')
+    .get(urlThing + '/profiles/' + chatters.id + '/chat/' + chatters.query)
     .end((err, res) => {
         callback(err, res.body)
     })
 }
 
 export function getChats(chatters, callback) {
+    console.log("ch2 ", chatters)
     request
     .get(urlThing + '/profiles/' + chatters.id + '/chatwith/' + chatters.query)
     .end((err, res) => {

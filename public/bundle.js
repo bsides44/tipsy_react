@@ -597,13 +597,15 @@ function getUser(id, callback) {
     });
 }
 
-function getUserForChat(id, callback) {
-    _superagent2.default.get(urlThing + '/profiles/' + id + '/chat').end(function (err, res) {
+function getUserForChat(chatters, callback) {
+    console.log("ch1 ", chatters);
+    _superagent2.default.get(urlThing + '/profiles/' + chatters.id + '/chat/' + chatters.query).end(function (err, res) {
         callback(err, res.body);
     });
 }
 
 function getChats(chatters, callback) {
+    console.log("ch2 ", chatters);
     _superagent2.default.get(urlThing + '/profiles/' + chatters.id + '/chatwith/' + chatters.query).end(function (err, res) {
         callback(err, res.body);
     });
@@ -27760,7 +27762,8 @@ var Chatroom = function (_React$Component) {
             firstname: "",
             profilepic: "",
             languages: [],
-            matches: []
+            matches: [],
+            matchProfile: {}
         };
 
         _this.submitMessage = _this.submitMessage.bind(_this);
@@ -27777,7 +27780,6 @@ var Chatroom = function (_React$Component) {
             var _this2 = this;
 
             this.refreshChats();
-            (0, _api_index.getUserForChat)(this.props.match.params.id, this.saveUser);
             setInterval(function () {
                 return _this2.refreshChats();
             }, 3000);
@@ -27788,6 +27790,7 @@ var Chatroom = function (_React$Component) {
             var id = this.state.id;
             var query = this.state.query;
             var chatters = { id: id, query: query };
+            (0, _api_index.getUserForChat)(chatters, this.saveUser);
             (0, _api_index.getChats)(chatters, this.saveChats);
             this.scrollToBot();
         }
@@ -27799,7 +27802,8 @@ var Chatroom = function (_React$Component) {
                 firstname: databall.user.firstname,
                 profilepic: databall.user.profilepic,
                 languages: databall.langArray,
-                matches: databall.matchMania
+                matches: databall.matchMania,
+                matchProfile: databall.matchChat
             });
         }
     }, {
@@ -27916,7 +27920,41 @@ var Chatroom = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'matches' },
-                        _react2.default.createElement('div', { className: 'common' }),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'common' },
+                            _react2.default.createElement(
+                                'h4',
+                                null,
+                                this.state.firstname,
+                                ' and ',
+                                this.state.matchProfile.firstname,
+                                ' '
+                            ),
+                            _react2.default.createElement(
+                                'h5',
+                                null,
+                                this.state.matchProfile.firstname,
+                                ' speaks '
+                            ),
+                            _react2.default.createElement(
+                                'h5',
+                                { className: this.state.matchProfile.english ? "visible" : "hidden" },
+                                'English'
+                            ),
+                            _react2.default.createElement(
+                                'h5',
+                                { className: this.state.matchProfile.spanish ? "visible" : "hidden" },
+                                'Spanish'
+                            ),
+                            _react2.default.createElement(
+                                'h5',
+                                { className: this.state.matchProfile.te_reo ? "visible" : "hidden" },
+                                'Te reo M\u0101ori'
+                            ),
+                            ' ',
+                            _react2.default.createElement('br', null)
+                        ),
                         _react2.default.createElement(
                             'h4',
                             null,
@@ -27959,7 +27997,7 @@ var Chatroom = function (_React$Component) {
                     null,
                     _react2.default.createElement(
                         _reactRouterDom.Link,
-                        { to: '/' },
+                        { to: '/profiles/' + this.state.id },
                         _react2.default.createElement(
                             'button',
                             null,

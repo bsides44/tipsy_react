@@ -17,7 +17,8 @@ class Chatroom extends React.Component {
             firstname: "",
             profilepic: "",
             languages: [],
-            matches: []
+            matches: [],
+            matchProfile: {}
         };
 
         this.submitMessage = this.submitMessage.bind(this);
@@ -28,13 +29,13 @@ class Chatroom extends React.Component {
     }
     componentDidMount() {
         this.refreshChats()
-        getUserForChat(this.props.match.params.id, this.saveUser);
         setInterval(() => this.refreshChats(), 3000)
     }
     refreshChats() {
         const id = this.state.id
         const query = this.state.query
         let chatters = ({id, query})
+        getUserForChat(chatters, this.saveUser)
         getChats(chatters, this.saveChats)
         this.scrollToBot();
     }
@@ -45,7 +46,8 @@ class Chatroom extends React.Component {
             firstname: databall.user.firstname,
             profilepic: databall.user.profilepic,
             languages: databall.langArray,
-            matches: databall.matchMania
+            matches: databall.matchMania,
+            matchProfile: databall.matchChat
         })
     }
 
@@ -125,7 +127,11 @@ class Chatroom extends React.Component {
                 </div>
                 <div className="matches">
                 <div className="common">
-                {/* <h4>{this.state.chats[0].firstname} and {this.state.chats[1].firstname} </h4> */}
+                <h4>{this.state.firstname} and {this.state.matchProfile.firstname} </h4>
+                <h5>{this.state.matchProfile.firstname} speaks </h5> 
+                <h5 className={this.state.matchProfile.english? "visible":"hidden"}>English</h5>
+                    <h5 className={this.state.matchProfile.spanish? "visible":"hidden"}>Spanish</h5>
+                    <h5 className={this.state.matchProfile.te_reo? "visible":"hidden"}>Te reo Māori</h5> <br/>
                 </div>
                     <h4>Your Matches</h4>
                     <div className="icons">
@@ -139,7 +145,7 @@ class Chatroom extends React.Component {
                 </div>
             </div>
             <div>
-                    <Link to='/'><button>Home</button></Link><br/></div>
+                    <Link to={'/profiles/' + this.state.id}><button>Home</button></Link><br/></div>
             </React.Fragment>
         );
     }

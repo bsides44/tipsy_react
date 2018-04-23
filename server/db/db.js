@@ -22,7 +22,8 @@ function getProfiles() {
 function getProfileByID (id) {
     // const conn = testDb || db
     return db("profiles")
-    .where ("id", id)
+    .join("languages", "profiles.language_id", "languages.id")
+    .where ("profiles.id", id)
     .select().first()
 }
 

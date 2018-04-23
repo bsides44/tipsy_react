@@ -89,6 +89,8 @@ router.get('/profiles/:id/chat', function (req, res) {
     let matchMania = []
     db.getProfileByID(req.params.id)
     .then(user => {
+        db.getProfileByID(req.query.id)
+        .then(matchChat => {
         db.getMatchBacks(user) 
         .then(matchBacks => {
             db.getMatches(user)
@@ -103,8 +105,9 @@ router.get('/profiles/:id/chat', function (req, res) {
                     db.getLanguages(user)
                     .then(languages => {
                         const langArray = changeObjectToArray(languages)
-                        res.json({user, langArray, matchMania})
-                })
+                        res.json({user, langArray, matchMania, matchChat})            
+                   })
+               })
             }) 
         })
     })
@@ -115,8 +118,7 @@ router.get('/profiles/:id/chatwith', function (req, res) {
     const id = req.params.id
     var query = req.query
     var queryNum = query.id
-    console.log("id", id)
-    console.log("querynum", queryNum)
+    // console.log("query2 ", query)
         db.getFirstChats(id, queryNum)
         .then(chats => {
             db.getSecondChats(id, queryNum)
