@@ -104,33 +104,39 @@ class Chatroom extends React.Component {
         console.log("success")
     }
 
-    render() {  
+    render() {      console.log(this.state)
         const firstname = this.state.firstname
         const { chats } = this.state;
 
         return ( 
             <React.Fragment>
             <h2>Chatroom</h2>
-            <div className="chatroom">
-                <ul className="chats" id="containerElement" ref="chats">
-                    {chats.map((chat, i) => <div key={i}>
-                        <Message i={i} chat={chat} user={firstname}/>
-                        </div>)}
-                </ul>
-                <form className="input" onSubmit={(e) => this.submitMessage(e)}>
-                    <input type="text" ref="msg" />
-                    <input type="submit" value="Submit" />
-                </form>
-            </div>
-            
-            <div className="matches">
-                {this.state.matches.map((profile, i) => <div key={i}>
-                    <h4>{profile.firstname}</h4> 
-                    <img src={profile.profilepic} width="200px"/><br/>
-                    <Link to={'/profiles/' + this.state.id + '/view?id=' + profile.id}><button>View Profile</button></Link><br/>
-                    <Link to={'/profiles/' + this.state.id + '/chat?id=' + profile.id}><button>Chat</button></Link>
+            <div id="chatContainer">
+                <div className="chatroom">
+                    <ul className="chats" id="containerElement" ref="chats">
+                        {chats.map((chat, i) => <div key={i}>
+                            <Message i={i} chat={chat} user={firstname}/>
+                            </div>)}
+                    </ul>
+                    <form className="input" onSubmit={(e) => this.submitMessage(e)}>
+                        <input type="text" ref="msg" />
+                        <input type="submit" value="Submit" />
+                    </form>
+                </div>
+                <div className="matches">
+                <div className="common">
+                {/* <h4>{this.state.chats[0].firstname} and {this.state.chats[1].firstname} </h4> */}
+                </div>
+                    <h4>Your Matches</h4>
+                    <div className="icons">
+                        {this.state.matches.map((profile, i) => <div id="icon"  key={i}>
+                            <h5>{profile.firstname}</h5> 
+                            <Link to={'/profiles/' + this.state.id + '/view?id=' + profile.id}><img src={profile.profilepic} width="100px" height="100px"/></Link><br/>
+                            <Link to={'/profiles/' + this.state.id + '/chat?id=' + profile.id}><button>Chat</button></Link>
+                            </div>
+                        )}
                     </div>
-                )}
+                </div>
             </div>
             <div>
                     <Link to='/'><button>Home</button></Link><br/></div>

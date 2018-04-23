@@ -27,7 +27,7 @@ router.post('/user/new', function (req, res) {
                     email: userData.email,
                     profilepic: userData.profilepic,
                     language_id: id[0]
-                }),id.then(id => {
+                }).then(id => {
                     res.json(id[0])
                 })
         })
@@ -115,6 +115,8 @@ router.get('/profiles/:id/chatwith', function (req, res) {
     const id = req.params.id
     var query = req.query
     var queryNum = query.id
+    console.log("id", id)
+    console.log("querynum", queryNum)
         db.getFirstChats(id, queryNum)
         .then(chats => {
             db.getSecondChats(id, queryNum)

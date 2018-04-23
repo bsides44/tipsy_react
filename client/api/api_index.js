@@ -66,7 +66,6 @@ export function getChats(chatters, callback) {
     .get(urlThing + '/profiles/' + chatters.id + '/chatwith/' + chatters.query)
     .end((err, res) => {
         callback(err, res.body)
-        console.log("api", res.body)
     })
 }
 

@@ -606,7 +606,6 @@ function getUserForChat(id, callback) {
 function getChats(chatters, callback) {
     _superagent2.default.get(urlThing + '/profiles/' + chatters.id + '/chatwith/' + chatters.query).end(function (err, res) {
         callback(err, res.body);
-        console.log("api", res.body);
     });
 }
 
@@ -27875,6 +27874,7 @@ var Chatroom = function (_React$Component) {
         value: function render() {
             var _this4 = this;
 
+            console.log(this.state);
             var firstname = this.state.firstname;
             var chats = this.state.chats;
 
@@ -27889,62 +27889,70 @@ var Chatroom = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'chatroom' },
+                    { id: 'chatContainer' },
                     _react2.default.createElement(
-                        'ul',
-                        { className: 'chats', id: 'containerElement', ref: 'chats' },
-                        chats.map(function (chat, i) {
-                            return _react2.default.createElement(
-                                'div',
-                                { key: i },
-                                _react2.default.createElement(_Message2.default, { i: i, chat: chat, user: firstname })
-                            );
-                        })
+                        'div',
+                        { className: 'chatroom' },
+                        _react2.default.createElement(
+                            'ul',
+                            { className: 'chats', id: 'containerElement', ref: 'chats' },
+                            chats.map(function (chat, i) {
+                                return _react2.default.createElement(
+                                    'div',
+                                    { key: i },
+                                    _react2.default.createElement(_Message2.default, { i: i, chat: chat, user: firstname })
+                                );
+                            })
+                        ),
+                        _react2.default.createElement(
+                            'form',
+                            { className: 'input', onSubmit: function onSubmit(e) {
+                                    return _this4.submitMessage(e);
+                                } },
+                            _react2.default.createElement('input', { type: 'text', ref: 'msg' }),
+                            _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
+                        )
                     ),
                     _react2.default.createElement(
-                        'form',
-                        { className: 'input', onSubmit: function onSubmit(e) {
-                                return _this4.submitMessage(e);
-                            } },
-                        _react2.default.createElement('input', { type: 'text', ref: 'msg' }),
-                        _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'matches' },
-                    this.state.matches.map(function (profile, i) {
-                        return _react2.default.createElement(
+                        'div',
+                        { className: 'matches' },
+                        _react2.default.createElement('div', { className: 'common' }),
+                        _react2.default.createElement(
+                            'h4',
+                            null,
+                            'Your Matches'
+                        ),
+                        _react2.default.createElement(
                             'div',
-                            { key: i },
-                            _react2.default.createElement(
-                                'h4',
-                                null,
-                                profile.firstname
-                            ),
-                            _react2.default.createElement('img', { src: profile.profilepic, width: '200px' }),
-                            _react2.default.createElement('br', null),
-                            _react2.default.createElement(
-                                _reactRouterDom.Link,
-                                { to: '/profiles/' + _this4.state.id + '/view?id=' + profile.id },
-                                _react2.default.createElement(
-                                    'button',
-                                    null,
-                                    'View Profile'
-                                )
-                            ),
-                            _react2.default.createElement('br', null),
-                            _react2.default.createElement(
-                                _reactRouterDom.Link,
-                                { to: '/profiles/' + _this4.state.id + '/chat?id=' + profile.id },
-                                _react2.default.createElement(
-                                    'button',
-                                    null,
-                                    'Chat'
-                                )
-                            )
-                        );
-                    })
+                            { className: 'icons' },
+                            this.state.matches.map(function (profile, i) {
+                                return _react2.default.createElement(
+                                    'div',
+                                    { id: 'icon', key: i },
+                                    _react2.default.createElement(
+                                        'h5',
+                                        null,
+                                        profile.firstname
+                                    ),
+                                    _react2.default.createElement(
+                                        _reactRouterDom.Link,
+                                        { to: '/profiles/' + _this4.state.id + '/view?id=' + profile.id },
+                                        _react2.default.createElement('img', { src: profile.profilepic, width: '100px', height: '100px' })
+                                    ),
+                                    _react2.default.createElement('br', null),
+                                    _react2.default.createElement(
+                                        _reactRouterDom.Link,
+                                        { to: '/profiles/' + _this4.state.id + '/chat?id=' + profile.id },
+                                        _react2.default.createElement(
+                                            'button',
+                                            null,
+                                            'Chat'
+                                        )
+                                    )
+                                );
+                            })
+                        )
+                    )
                 ),
                 _react2.default.createElement(
                     'div',
@@ -27994,7 +28002,7 @@ var Message = function Message(_ref) {
         user = _ref.user;
     return _react2.default.createElement(
         "li",
-        { className: "chat " + (user === chat.firstname ? "right" : "left") },
+        { id: "chat-" + i, className: "chat " + (user === chat.firstname ? "right" : "left") },
         _react2.default.createElement("img", { src: chat.profilepic }),
         _react2.default.createElement(
             "h6",

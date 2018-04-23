@@ -78,8 +78,39 @@ button:hover {
   line-height: 0px
 }
 
+#chatContainer {
+  display:-ms-flexbox;
+  display:flex;
+  -ms-flex-direction:row;
+  flex-direction:row;
+}
+
+.matches img{
+  border-radius: 100px;
+} 
+
 .matches {
-  align-content: right;
+  padding-left: 30px;
+  padding-right: 30px;
+  display:-ms-flexbox;
+  display:flex;
+  -ms-flex-direction:column;
+  flex-direction:column;
+}
+
+.icons {
+  display:-ms-flexbox;
+  display:flex;
+  -ms-flex-direction:row;
+  flex-direction:row;
+  -ms-flex-align:center;
+  align-items:center;
+  -ms-flex-pack:center;
+  justify-content:center;
+}
+
+#icon {
+  margin: 10px
 }
 
 /* iphone 4. 5s */
