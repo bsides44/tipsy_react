@@ -27,10 +27,14 @@ class Chatroom extends React.Component {
         this.nothing = this.nothing.bind(this);
     }
     componentDidMount() {
+        this.refreshChats()
+        getUserForChat(this.props.match.params.id, this.saveUser);
+        setInterval(() => this.refreshChats(), 3000)
+    }
+    refreshChats() {
         const id = this.state.id
         const query = this.state.query
         let chatters = ({id, query})
-        getUserForChat(this.props.match.params.id, this.saveUser);
         getChats(chatters, this.saveChats)
         this.scrollToBot();
     }
@@ -46,7 +50,6 @@ class Chatroom extends React.Component {
     }
 
     saveChats(err, databall){
-        console.log({databall})
         let chats = []
         databall.chats.map(obj => {
             chats.push(obj)
@@ -65,6 +68,13 @@ class Chatroom extends React.Component {
 
     scrollToBot() {
         ReactDOM.findDOMNode(this.refs.chats).scrollTop = ReactDOM.findDOMNode(this.refs.chats).scrollHeight;
+    }
+
+    componentDidUpdate() {
+        this.scrollToBot();
+    }
+
+    setIntervals() {
     }
 
     submitMessage(e) {
@@ -87,7 +97,6 @@ class Chatroom extends React.Component {
             query: this.state.query,
             message: ReactDOM.findDOMNode(this.refs.msg).value,
         }
-        console.log("msg ", message)
         pushMessageToDb(message, this.nothing)
     }
 
@@ -95,7 +104,7 @@ class Chatroom extends React.Component {
         console.log("success")
     }
 
-    render() {  console.log("state ", this.state)
+    render() {  
         const firstname = this.state.firstname
         const { chats } = this.state;
 
@@ -103,28 +112,28 @@ class Chatroom extends React.Component {
             <React.Fragment>
             <h2>Chatroom</h2>
             <div className="chatroom">
-                <ul className="chats" ref="chats">
-                    {
-                        chats.map((chat, i) => <div key={i}>
-                            <Message chat={chat} user={firstname}/>
-                            </div>)
-                    }
+                <ul className="chats" id="containerElement" ref="chats">
+                    {chats.map((chat, i) => <div key={i}>
+                        <Message i={i} chat={chat} user={firstname}/>
+                        </div>)}
                 </ul>
                 <form className="input" onSubmit={(e) => this.submitMessage(e)}>
                     <input type="text" ref="msg" />
                     <input type="submit" value="Submit" />
                 </form>
             </div>
+            
             <div className="matches">
                 {this.state.matches.map((profile, i) => <div key={i}>
                     <h4>{profile.firstname}</h4> 
                     <img src={profile.profilepic} width="200px"/><br/>
                     <Link to={'/profiles/' + this.state.id + '/view?id=' + profile.id}><button>View Profile</button></Link><br/>
                     <Link to={'/profiles/' + this.state.id + '/chat?id=' + profile.id}><button>Chat</button></Link>
-                    </div>)}
-                <div>
-                    <Link to='/'><button>Home</button></Link><br/></div>
+                    </div>
+                )}
             </div>
+            <div>
+                    <Link to='/'><button>Home</button></Link><br/></div>
             </React.Fragment>
         );
     }

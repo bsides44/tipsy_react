@@ -100,7 +100,6 @@ router.get('/profiles/:id/chat', function (req, res) {
                         }
                     })
                 })
-                    console.log({matchMania})
                     db.getLanguages(user)
                     .then(languages => {
                         const langArray = changeObjectToArray(languages)

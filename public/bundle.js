@@ -27775,10 +27775,20 @@ var Chatroom = function (_React$Component) {
     _createClass(Chatroom, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
+            var _this2 = this;
+
+            this.refreshChats();
+            (0, _api_index.getUserForChat)(this.props.match.params.id, this.saveUser);
+            setInterval(function () {
+                return _this2.refreshChats();
+            }, 3000);
+        }
+    }, {
+        key: 'refreshChats',
+        value: function refreshChats() {
             var id = this.state.id;
             var query = this.state.query;
             var chatters = { id: id, query: query };
-            (0, _api_index.getUserForChat)(this.props.match.params.id, this.saveUser);
             (0, _api_index.getChats)(chatters, this.saveChats);
             this.scrollToBot();
         }
@@ -27796,7 +27806,6 @@ var Chatroom = function (_React$Component) {
     }, {
         key: 'saveChats',
         value: function saveChats(err, databall) {
-            console.log({ databall: databall });
             var chats = [];
             databall.chats.map(function (obj) {
                 chats.push(obj);
@@ -27818,9 +27827,17 @@ var Chatroom = function (_React$Component) {
             _reactDom2.default.findDOMNode(this.refs.chats).scrollTop = _reactDom2.default.findDOMNode(this.refs.chats).scrollHeight;
         }
     }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate() {
+            this.scrollToBot();
+        }
+    }, {
+        key: 'setIntervals',
+        value: function setIntervals() {}
+    }, {
         key: 'submitMessage',
         value: function submitMessage(e) {
-            var _this2 = this;
+            var _this3 = this;
 
             e.preventDefault();
             this.setState({
@@ -27834,7 +27851,7 @@ var Chatroom = function (_React$Component) {
                     profilepic: this.state.profilepic
                 }])
             }, function () {
-                _reactDom2.default.findDOMNode(_this2.refs.msg).value = "";
+                _reactDom2.default.findDOMNode(_this3.refs.msg).value = "";
             });
             this.pushMessage();
         }
@@ -27846,7 +27863,6 @@ var Chatroom = function (_React$Component) {
                 query: this.state.query,
                 message: _reactDom2.default.findDOMNode(this.refs.msg).value
             };
-            console.log("msg ", message);
             (0, _api_index.pushMessageToDb)(message, this.nothing);
         }
     }, {
@@ -27857,9 +27873,8 @@ var Chatroom = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this4 = this;
 
-            console.log("state ", this.state);
             var firstname = this.state.firstname;
             var chats = this.state.chats;
 
@@ -27877,19 +27892,19 @@ var Chatroom = function (_React$Component) {
                     { className: 'chatroom' },
                     _react2.default.createElement(
                         'ul',
-                        { className: 'chats', ref: 'chats' },
+                        { className: 'chats', id: 'containerElement', ref: 'chats' },
                         chats.map(function (chat, i) {
                             return _react2.default.createElement(
                                 'div',
                                 { key: i },
-                                _react2.default.createElement(_Message2.default, { chat: chat, user: firstname })
+                                _react2.default.createElement(_Message2.default, { i: i, chat: chat, user: firstname })
                             );
                         })
                     ),
                     _react2.default.createElement(
                         'form',
                         { className: 'input', onSubmit: function onSubmit(e) {
-                                return _this3.submitMessage(e);
+                                return _this4.submitMessage(e);
                             } },
                         _react2.default.createElement('input', { type: 'text', ref: 'msg' }),
                         _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
@@ -27911,7 +27926,7 @@ var Chatroom = function (_React$Component) {
                             _react2.default.createElement('br', null),
                             _react2.default.createElement(
                                 _reactRouterDom.Link,
-                                { to: '/profiles/' + _this3.state.id + '/view?id=' + profile.id },
+                                { to: '/profiles/' + _this4.state.id + '/view?id=' + profile.id },
                                 _react2.default.createElement(
                                     'button',
                                     null,
@@ -27921,7 +27936,7 @@ var Chatroom = function (_React$Component) {
                             _react2.default.createElement('br', null),
                             _react2.default.createElement(
                                 _reactRouterDom.Link,
-                                { to: '/profiles/' + _this3.state.id + '/chat?id=' + profile.id },
+                                { to: '/profiles/' + _this4.state.id + '/chat?id=' + profile.id },
                                 _react2.default.createElement(
                                     'button',
                                     null,
@@ -27929,21 +27944,21 @@ var Chatroom = function (_React$Component) {
                                 )
                             )
                         );
-                    }),
+                    })
+                ),
+                _react2.default.createElement(
+                    'div',
+                    null,
                     _react2.default.createElement(
-                        'div',
-                        null,
+                        _reactRouterDom.Link,
+                        { to: '/' },
                         _react2.default.createElement(
-                            _reactRouterDom.Link,
-                            { to: '/' },
-                            _react2.default.createElement(
-                                'button',
-                                null,
-                                'Home'
-                            )
-                        ),
-                        _react2.default.createElement('br', null)
-                    )
+                            'button',
+                            null,
+                            'Home'
+                        )
+                    ),
+                    _react2.default.createElement('br', null)
                 )
             );
         }
@@ -27974,7 +27989,8 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Message = function Message(_ref) {
-    var chat = _ref.chat,
+    var i = _ref.i,
+        chat = _ref.chat,
         user = _ref.user;
     return _react2.default.createElement(
         "li",
