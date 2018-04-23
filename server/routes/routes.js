@@ -27,7 +27,7 @@ router.post('/user/new', function (req, res) {
                     email: userData.email,
                     profilepic: userData.profilepic,
                     language_id: id[0]
-                }).then(id => {
+                }),id.then(id => {
                     res.json(id[0])
                 })
         })
