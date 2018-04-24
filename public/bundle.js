@@ -550,6 +550,7 @@ exports.getChats = getChats;
 exports.pushMessageToDb = pushMessageToDb;
 exports.getUserToEdit = getUserToEdit;
 exports.editUserData = editUserData;
+exports.unmatch = unmatch;
 
 var _superagent = __webpack_require__(77);
 
@@ -598,14 +599,12 @@ function getUser(id, callback) {
 }
 
 function getUserForChat(chatters, callback) {
-    console.log("ch1 ", chatters);
     _superagent2.default.get(urlThing + '/profiles/' + chatters.id + '/chat/' + chatters.query).end(function (err, res) {
         callback(err, res.body);
     });
 }
 
 function getChats(chatters, callback) {
-    console.log("ch2 ", chatters);
     _superagent2.default.get(urlThing + '/profiles/' + chatters.id + '/chatwith/' + chatters.query).end(function (err, res) {
         callback(err, res.body);
     });
@@ -625,6 +624,13 @@ function getUserToEdit(id, callback) {
 
 function editUserData(user, callback) {
     _superagent2.default.put(urlThing + '/user/:id/edit').send(user).end(function (err, res) {
+        callback(err, res.body);
+    });
+}
+
+function unmatch(matchers, callback) {
+    console.log({ matchers: matchers });
+    _superagent2.default.del(urlThing + '/profiles/:id/chat').send({ matchers: matchers }).end(function (err, res) {
         callback(err, res.body);
     });
 }
@@ -27746,6 +27752,7 @@ var Chatroom = function (_React$Component) {
         _this.saveChats = _this.saveChats.bind(_this);
         _this.pushMessage = _this.pushMessage.bind(_this);
         _this.nothing = _this.nothing.bind(_this);
+        _this.removeMatch = _this.removeMatch.bind(_this);
         return _this;
     }
 
@@ -27795,7 +27802,7 @@ var Chatroom = function (_React$Component) {
                 return +new Date(a.created_at) - +new Date(b.created_at);
             });
             this.setState({
-                error: err,
+                errochattersr: err,
                 chats: chats
             });
         }
@@ -27809,9 +27816,6 @@ var Chatroom = function (_React$Component) {
         value: function componentDidUpdate() {
             this.scrollToBot();
         }
-    }, {
-        key: 'setIntervals',
-        value: function setIntervals() {}
     }, {
         key: 'submitMessage',
         value: function submitMessage(e) {
@@ -27849,11 +27853,23 @@ var Chatroom = function (_React$Component) {
             console.log("success");
         }
     }, {
+        key: 'removeMatch',
+        value: function removeMatch() {
+            {
+                var id = this.state.id;
+                var query = this.state.query;
+                var matchers = { id: id, query: query };
+                console.log({ matchers: matchers });
+                (0, _api_index.unmatch)(matchers, this.nothing);
+            }
+
+            this.props.history.push('/profiles/' + this.state.id);
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this4 = this;
 
-            console.log(this.state);
             var firstname = this.state.firstname;
             var chats = this.state.chats;
 
@@ -27871,25 +27887,29 @@ var Chatroom = function (_React$Component) {
                     { id: 'chatContainer' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'chatroom' },
+                        { className: 'chatbox' },
                         _react2.default.createElement(
-                            'ul',
-                            { className: 'chats', id: 'containerElement', ref: 'chats' },
-                            chats.map(function (chat, i) {
-                                return _react2.default.createElement(
-                                    'div',
-                                    { key: i },
-                                    _react2.default.createElement(_Message2.default, { i: i, chat: chat, user: firstname })
-                                );
-                            })
-                        ),
-                        _react2.default.createElement(
-                            'form',
-                            { className: 'input', onSubmit: function onSubmit(e) {
-                                    return _this4.submitMessage(e);
-                                } },
-                            _react2.default.createElement('input', { type: 'text', ref: 'msg' }),
-                            _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
+                            'div',
+                            { className: 'chatroom' },
+                            _react2.default.createElement(
+                                'ul',
+                                { className: 'chats', id: 'containerElement', ref: 'chats' },
+                                chats.map(function (chat, i) {
+                                    return _react2.default.createElement(
+                                        'div',
+                                        { key: i },
+                                        _react2.default.createElement(_Message2.default, { i: i, chat: chat, user: firstname })
+                                    );
+                                })
+                            ),
+                            _react2.default.createElement(
+                                'form',
+                                { className: 'input', onSubmit: function onSubmit(e) {
+                                        return _this4.submitMessage(e);
+                                    } },
+                                _react2.default.createElement('input', { type: 'text', ref: 'msg' }),
+                                _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
+                            )
                         )
                     ),
                     _react2.default.createElement(
@@ -27928,7 +27948,12 @@ var Chatroom = function (_React$Component) {
                                 'Te reo M\u0101ori'
                             ),
                             ' ',
-                            _react2.default.createElement('br', null)
+                            _react2.default.createElement('br', null),
+                            _react2.default.createElement(
+                                'button',
+                                { onClick: this.removeMatch },
+                                'Unmatch'
+                            )
                         ),
                         _react2.default.createElement(
                             'h4',

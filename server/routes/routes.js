@@ -187,6 +187,20 @@ router.get('/user/:id/edit', function (req, res) {
                 })
 })
 
+// user can unmatch matches
+    router.delete('/profiles/:id/chat', function (req, res) {
+        var id = req.body.matchers.id
+        var query = req.body.matchers.query
+        var queryPieces = query.split("")
+        var queryNum = queryPieces[4]
+        console.log("bosy ", queryNum)
+        db.removeMatch(id, queryNum)
+        .then(thing => {
+            res.json(201)
+        })
+
+    })
+
 //utils
 function changeObjectToArray(obj) {
     const arr = Object.keys(obj)

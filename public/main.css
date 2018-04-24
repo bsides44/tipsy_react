@@ -10,7 +10,7 @@ h1 {
   letter-spacing: 5px;
   word-spacing: 10px;
   text-shadow: 3px 2px #FFFFFF;
-  font-family:  "Verdana", monospace;
+  font-family:  "Arimo", sans-serif;
   text-align: center;
   margin-top: 60px;
 }
@@ -18,12 +18,12 @@ h1 {
 h2 {
   font-size: 40px;
   letter-spacing: 2px;
-  font-family: "Verdana", monospace;
+  font-family: "Arimo", sans-serif;
   text-align: center;
 }
 h3 {
 	  font-size: 28px;
-		font-family: "Calibri", monospace;
+		font-family: "Arimo", sans-serif;
 		position: fixed;
 		right: -.1em;
 		top: 60px;
@@ -37,7 +37,7 @@ h3 {
 
 p {
   font-size: 15px;
-  font-family:  "Verdana", monospace;
+  font-family:  "Arimo", sans-serif;
   letter-spacing: 3px;
   line-height: 30px;
 }
@@ -48,10 +48,10 @@ max-width: 30%;
 
 button {
   /* padding: 40px; */
-  border-radius: 12px;
-  font-size: 15px;
-  /* font-family: "Calibri", monospace; */
-  box-shadow: 3px 2px #7E7C74;
+  /* border-radius: 8px;
+  font-size: 11px; */
+  /* font-family: "Arimo", sans-serif; */
+  /* box-shadow: 2px 1px #7E7C74; */
   /* margin-top: 40px; */
 }
 
@@ -86,6 +86,14 @@ button:hover {
   flex-wrap: wrap
 }
 
+.chatbox {
+  height: 100%;
+}
+
+.chatroom {
+  flex-wrap: wrap  
+}
+
 .matches img{
   border-radius: 100px;
 } 
@@ -97,24 +105,29 @@ button:hover {
   display:flex;
   -ms-flex-direction:column;
   flex-direction:column;
-  flex-wrap: wrap
+  flex-wrap: wrap;
+}
+
+.common {
+  flex-wrap: wrap  
 }
 
 .icons {
   display:-ms-flexbox;
   display:flex;
-  -ms-flex-direction:row;
-  flex-direction:row;
+  /* -ms-flex-direction:row;
+  flex-direction:row; */
   -ms-flex-align:center;
   align-items:center;
   -ms-flex-pack:center;
   justify-content:center;
   padding-bottom:20px;
-  flex-wrap: wrap  
+  flex-wrap: wrap;  
 }
 
 #icon {
-  margin: 10px
+  margin: 10px;
+  flex-wrap: wrap  
 }
 
 #chatHome {
@@ -124,37 +137,104 @@ button:hover {
 /* iphone 4. 5s */
 @media only screen and (min-device-width : 320px) 
 and (max-device-width : 480px) {
-  h1 {font-size: 90px;
+  h1 {font-size: 100px;
     margin-top: 200px;}
+  h2 {font-size: 80px}
+  h4 {font-size: 50px}
+  h5 {font-size: 50px}
+  h6 {font-size: 50px}
+  h7 {font-size: 40px}
+  p {font-size: 35px}
   .chatroom {
-    width: 100%
+    width: 100%;
+    height: 1350px
+  }
+  .chatroom .chats {
+    width: 100%;
+    height: 1110px
+  }
+.chatroom .chats .chat img {
+    width: 60px;
+    height: 60px;
+    top:-32px;
+    left:-15px
+  }
+  .chatroom .input {
+  height: 210px;
+  }
+
+  .chatroom .input input[type=submit] {
+    height: 80px;
+    width: 200px
+  }
+  .chatroom .input input[type=text]{
+    height: 100px;
+    margin-top: 10px
   }
   button {font-size: 30px;
+    text-transform: none;
     /* position: fixed;
-    bottom: 180px;
+    bottom: 350px;
     left: 50%;
     transform: translate(-50%, 0);} */ }
+
+  .matches {
+    align-content: center;
+    align-items: center;
+    align-self: center;
+  }
 }
 
 /* iPhone 6+, 7, 7+, 8, 8+ */
 @media only screen 
 and (min-device-width : 414px) 
 and (max-device-height: 736px) {
-  h1 {font-size: 100px;
-    margin-top: 200px;}
-  .chatroom {
+    h1 {font-size: 100px;
+      margin-top: 200px;}
+    h2 {font-size: 80px}
+    h4 {font-size: 50px}
+    h5 {font-size: 45px}
+    h6 {font-size: 42px}
+    h7 {font-size: 40px}
+    p {font-size: 35px}
+    .chatroom {
       width: 100%;
-      height: 1000px
+      height: 1350px
+    }
+    .chatroom .chats {
+      width: 100%;
+      height: 1110px
     }
   .chatroom .chats .chat img {
-      width: 80px;
-      height: 80px
+      width: 60px;
+      height: 60px;
+      top:-32px;
+      left:-15px
     }
-  button {font-size: 30px;
-    /* position: fixed;
-    bottom: 350px;
-    left: 50%;
-    transform: translate(-50%, 0);} */ }
+    .chatroom .input {
+    height: 210px;
+    }
+  
+    .chatroom .input input[type=submit] {
+      height: 80px;
+      width: 200px
+    }
+    .chatroom .input input[type=text]{
+      height: 100px;
+      margin-top: 10px
+    }
+    button {font-size: 30px;
+      text-transform: none;
+      /* position: fixed;
+      bottom: 350px;
+      left: 50%;
+      transform: translate(-50%, 0);} */ }
+  
+    .matches {
+      align-content: center;
+      align-items: center;
+      align-self: center;
+    }
 }
 
 

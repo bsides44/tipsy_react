@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Link} from 'react-router-dom'
 import Message from './Message.js';
-import { getUserForChat } from '../api/api_index.js';
+import { getUserForChat, unmatch } from '../api/api_index.js';
 import { getChats } from '../api/api_index.js';
 import { pushMessageToDb } from '../api/api_index.js';
 
@@ -26,6 +26,7 @@ class Chatroom extends React.Component {
         this.saveChats = this.saveChats.bind(this);
         this.pushMessage = this.pushMessage.bind(this);
         this.nothing = this.nothing.bind(this);
+        this.removeMatch = this.removeMatch.bind(this)
     }
     componentDidMount() {
         this.refreshChats()
@@ -63,7 +64,7 @@ class Chatroom extends React.Component {
             return  +new Date(a.created_at) - +new Date(b.created_at)
         })
         this.setState ({
-            error: err,
+            errochattersr: err,
             chats: chats,
         })
     }
@@ -74,9 +75,6 @@ class Chatroom extends React.Component {
 
     componentDidUpdate() {
         this.scrollToBot();
-    }
-
-    setIntervals() {
     }
 
     submitMessage(e) {
@@ -106,7 +104,19 @@ class Chatroom extends React.Component {
         console.log("success")
     }
 
-    render() {      console.log(this.state)
+    removeMatch() {
+        {const id = this.state.id
+        const query = this.state.query
+        let matchers = ({id, query})
+        console.log({matchers})
+        unmatch(matchers, this.nothing)}
+        
+        this.props.history.push('/profiles/' + this.state.id) 
+
+    }
+
+
+    render() { 
         const firstname = this.state.firstname
         const { chats } = this.state;
 
@@ -114,6 +124,7 @@ class Chatroom extends React.Component {
             <React.Fragment>
             <h2>Chatroom</h2>
             <div id="chatContainer">
+                <div className='chatbox'>
                 <div className="chatroom">
                     <ul className="chats" id="containerElement" ref="chats">
                         {chats.map((chat, i) => <div key={i}>
@@ -125,6 +136,8 @@ class Chatroom extends React.Component {
                         <input type="submit" value="Submit" />
                     </form>
                 </div>
+                </div>
+
                 <div className="matches">
                 <div className="common">
                 <h4>{this.state.firstname} and {this.state.matchProfile.firstname} </h4>
@@ -132,8 +145,10 @@ class Chatroom extends React.Component {
                 <h5 className={this.state.matchProfile.english? "visible":"hidden"}>English</h5>
                     <h5 className={this.state.matchProfile.spanish? "visible":"hidden"}>Spanish</h5>
                     <h5 className={this.state.matchProfile.te_reo? "visible":"hidden"}>Te reo Māori</h5> <br/>
+                <button onClick={this.removeMatch}>Unmatch</button>
                 </div>
-                    <h4>Your Matches</h4>
+                
+                   <h4>Your Matches</h4>
                     <div className="icons">
                         {this.state.matches.map((profile, i) => <div id="icon"  key={i}>
                             <h5>{profile.firstname}</h5> 

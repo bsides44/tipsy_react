@@ -126,6 +126,14 @@ function getMatchBacks (user) {
     .where("match_id", user.id)
 }
 
+function removeMatch(id, queryNum) {
+    return db("matches")
+    .where("user_id", id)
+    .andWhere("match_id", queryNum)
+    .select().first()
+    .del()
+}
+
 module.exports = {
     getLibbyProfile,
     getProfiles,
@@ -142,5 +150,6 @@ module.exports = {
     messageToDatabase,
     getMatches,
     getMatchBacks,
+    removeMatch
 }
 
