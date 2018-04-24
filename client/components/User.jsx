@@ -33,7 +33,6 @@ render () { console.log("state ", this.state)
     return (
         <React.Fragment>
         <center>
-            <h3> TIPSY </h3><br/>
             <h4>{this.state.userProfile.firstname} {this.state.userProfile.lastname}</h4> 
             <h5>"{this.state.userProfile.tagline}"</h5>
             <h4>I speak:</h4>

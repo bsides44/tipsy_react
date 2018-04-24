@@ -61,7 +61,6 @@ filterProfiles() {
 render () { 
     return (
         <React.Fragment>
-            <h3> TIPSY</h3>
             <center>
                 <br/>
                 <h4> Welcome {this.state.userProfile.firstname}!</h4>

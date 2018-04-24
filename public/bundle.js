@@ -24791,11 +24791,6 @@ var Login = function (_React$Component) {
                 _react2.default.Fragment,
                 null,
                 _react2.default.createElement(
-                    'h3',
-                    null,
-                    ' TIPSY'
-                ),
-                _react2.default.createElement(
                     'center',
                     null,
                     _react2.default.createElement(
@@ -26981,11 +26976,6 @@ var NewUser = function (_React$Component) {
                 'form',
                 { action: 'post', id: 'niceform' },
                 _react2.default.createElement(
-                    'h3',
-                    null,
-                    'TIPSY'
-                ),
-                _react2.default.createElement(
                     'h4',
                     { id: 'formTitle' },
                     'NewYo\'Self'
@@ -27133,11 +27123,6 @@ var AllProfiles = function (_React$Component) {
             return _react2.default.createElement(
                 _react2.default.Fragment,
                 null,
-                _react2.default.createElement(
-                    'h3',
-                    null,
-                    ' TIPSY'
-                ),
                 _react2.default.createElement(
                     'center',
                     null,
@@ -27315,11 +27300,6 @@ var OneProfile = function (_React$Component) {
                 _react2.default.Fragment,
                 null,
                 _react2.default.createElement(
-                    'h3',
-                    null,
-                    ' TIPSY'
-                ),
-                _react2.default.createElement(
                     'center',
                     null,
                     _react2.default.createElement('br', null),
@@ -27468,12 +27448,6 @@ var User = function (_React$Component) {
                     'center',
                     null,
                     _react2.default.createElement(
-                        'h3',
-                        null,
-                        ' TIPSY '
-                    ),
-                    _react2.default.createElement('br', null),
-                    _react2.default.createElement(
                         'h4',
                         null,
                         this.state.userProfile.firstname,
@@ -27590,7 +27564,8 @@ var EditUser = function (_React$Component) {
             language: [],
             tagline: '',
             email: '',
-            profilepic: ''
+            profilepic: '',
+            language_id: ''
         };
         _this.saveProfile = _this.saveProfile.bind(_this);
         _this.handleChange = _this.handleChange.bind(_this);
@@ -27608,6 +27583,7 @@ var EditUser = function (_React$Component) {
     }, {
         key: 'saveProfile',
         value: function saveProfile(err, databall) {
+            console.log({ databall: databall });
             this.setState({
                 error: err,
                 firstname: databall.user.firstname,
@@ -27615,6 +27591,7 @@ var EditUser = function (_React$Component) {
                 tagline: databall.user.tagline,
                 email: databall.user.email,
                 profilepic: databall.user.profilepic,
+                language_id: databall.user.language_id,
                 language: databall.langArray
             });
         }
@@ -27623,9 +27600,7 @@ var EditUser = function (_React$Component) {
         value: function handleChange(e) {
             var key = e.target.name;
             var value = e.target.value;
-            console.log({ key: key, value: value });
             this.setState(_defineProperty({}, key, value));
-            console.log(this.state);
         }
     }, {
         key: 'handleLanguage',
@@ -27636,7 +27611,6 @@ var EditUser = function (_React$Component) {
             })) language = language.filter(function (language) {
                 return language != e.target.value;
             });else language.push(e.target.value);
-            console.log(language);
             this.setState({ language: language });
         }
     }, {
@@ -27650,6 +27624,7 @@ var EditUser = function (_React$Component) {
                 tagline: this.state.tagline,
                 email: this.state.email,
                 profilepic: this.state.profilepic,
+                language_id: this.state.language_id,
                 language: this.state.language
             };
             console.log({ editUserBomb: editUserBomb });
@@ -27980,31 +27955,35 @@ var Chatroom = function (_React$Component) {
                                     _react2.default.createElement('br', null),
                                     _react2.default.createElement(
                                         _reactRouterDom.Link,
-                                        { to: '/profiles/' + _this4.state.id + '/chat?id=' + profile.id },
+                                        { to: '/profiles/' + _this4.state.id + '/view?id=' + profile.id },
                                         _react2.default.createElement(
                                             'button',
                                             null,
-                                            'Chat'
+                                            'View'
                                         )
                                     )
                                 );
                             })
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { id: 'chatHome' },
+                            _react2.default.createElement(
+                                'center',
+                                null,
+                                _react2.default.createElement(
+                                    _reactRouterDom.Link,
+                                    { to: '/profiles/' + this.state.id },
+                                    _react2.default.createElement(
+                                        'button',
+                                        null,
+                                        'Home'
+                                    )
+                                ),
+                                _react2.default.createElement('br', null)
+                            )
                         )
                     )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        _reactRouterDom.Link,
-                        { to: '/profiles/' + this.state.id },
-                        _react2.default.createElement(
-                            'button',
-                            null,
-                            'Home'
-                        )
-                    ),
-                    _react2.default.createElement('br', null)
                 )
             );
         }
@@ -28048,7 +28027,11 @@ var Message = function Message(_ref) {
             chat.firstname,
             ":"
         ),
-        chat.message
+        _react2.default.createElement(
+            "h7",
+            null,
+            chat.message
+        )
     );
 };
 

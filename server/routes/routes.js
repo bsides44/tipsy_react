@@ -168,6 +168,8 @@ router.get('/user/:id/edit', function (req, res) {
     router.put('/user/:id/edit', function (req, res) {
         var userData = req.body
         var languageArray = req.body.language
+        console.log("routes ", userData)
+        console.log("routes lang", languageArray)
         db.getLanguages(userData)
             .then(user => {
                 db.updateLanguage(languageArray, user.id)

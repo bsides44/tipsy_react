@@ -12,7 +12,8 @@ class EditUser extends React.Component {
             language:[],
             tagline:'',
             email:'',
-            profilepic:''
+            profilepic:'',
+            language_id:''
         }
         this.saveProfile = this.saveProfile.bind(this)
         this.handleChange = this.handleChange.bind(this)
@@ -26,6 +27,7 @@ class EditUser extends React.Component {
 }
 
 saveProfile(err, databall) {
+    console.log({databall})
       this.setState({
         error: err,
         firstname:databall.user.firstname,
@@ -33,6 +35,7 @@ saveProfile(err, databall) {
         tagline:databall.user.tagline,
         email:databall.user.email,
         profilepic:databall.user.profilepic,
+        language_id: databall.user.language_id,
         language: databall.langArray
     })
 }
@@ -41,16 +44,13 @@ saveProfile(err, databall) {
 handleChange(e) {
     let key = e.target.name 
     let value = e.target.value 
-    console.log({key, value})
     this.setState ({[key] : value})
-    console.log(this.state)
 }
 
 handleLanguage(e) {
     let language = this.state.language
     if (language.find(language => language == e.target.value)) language = language.filter(language => language != e.target.value)
     else language.push(e.target.value)
-    console.log(language)
     this.setState({language})
 }
 
@@ -63,6 +63,7 @@ editUser(e){
         tagline: this.state.tagline,
         email: this.state.email,
         profilepic: this.state.profilepic,
+        language_id: this.state.language_id,
         language: this.state.language
     }
     console.log({editUserBomb})

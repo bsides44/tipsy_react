@@ -138,14 +138,14 @@ class Chatroom extends React.Component {
                         {this.state.matches.map((profile, i) => <div id="icon"  key={i}>
                             <h5>{profile.firstname}</h5> 
                             <Link to={'/profiles/' + this.state.id + '/view?id=' + profile.id}><img src={profile.profilepic} width="100px" height="100px"/></Link><br/>
-                            <Link to={'/profiles/' + this.state.id + '/chat?id=' + profile.id}><button>Chat</button></Link>
+                            <Link to={'/profiles/' + this.state.id + '/view?id=' + profile.id}><button>View</button></Link>
                             </div>
                         )}
                     </div>
+                    <div id="chatHome"><center>
+                    <Link to={'/profiles/' + this.state.id}><button>Home</button></Link><br/></center></div>
                 </div>
             </div>
-            <div>
-                    <Link to={'/profiles/' + this.state.id}><button>Home</button></Link><br/></div>
             </React.Fragment>
         );
     }

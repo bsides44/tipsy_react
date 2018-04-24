@@ -54,7 +54,6 @@ class OneProfile extends React.Component {
 render () { 
     return (
         <React.Fragment>
-            <h3> TIPSY</h3>
             <center>
                 <br/>
                 <h4> Yo'Mate </h4>

@@ -26,7 +26,6 @@ class Login extends React.Component {
 render () {
     return (
             <React.Fragment>
-            <h3> TIPSY</h3>
                 <center>
                     <h4> Who are you? </h4>
                     <div><Link to='/profiles/1'><h4>{this.state.libby.firstname}</h4>
