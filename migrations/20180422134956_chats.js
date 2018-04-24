@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
         table.increments('id').primary()
         table.integer('user_id')
         table.integer('match_id')
-        table.string('message')
+        table.text('message')
         table.timestamp('created_at').defaultTo(knex.fn.now())
 })
 };

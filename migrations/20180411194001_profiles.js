@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
         table.increments('id').primary()
         table.string('firstname')
         table.string('lastname')
-        table.string('tagline')
+        table.text('tagline')
         table.string('email')
         table.string('profilepic')
         table.integer('language_id')
