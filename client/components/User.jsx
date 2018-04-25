@@ -33,7 +33,7 @@ render () { console.log("state ", this.state)
     return (
         <React.Fragment>
         <center>
-            <h4>{this.state.userProfile.firstname} {this.state.userProfile.lastname}</h4> 
+            <h2>{this.state.userProfile.firstname} {this.state.userProfile.lastname}</h2> 
             <h5>"{this.state.userProfile.tagline}"</h5>
             <h4>I speak:</h4>
                 <h5 className={this.state.language1? "visible":"hidden"}>English</h5>
@@ -41,12 +41,12 @@ render () { console.log("state ", this.state)
                 <h5 className={this.state.language3? "visible":"hidden"}>Te reo Māori</h5> 
             <img src={this.state.userProfile.profilepic} width = "300px" />
             <br/>
-            <h6>{this.state.userProfile.email}</h6> 
+            <h5>{this.state.userProfile.email}</h5> 
             <br/>
             <Link to={"/user/" + this.state.userProfile.id + "/edit"}><button>Edit Profile</button></Link>
             <br/>
             <br/>
-            <Link to={"/profiles/" + this.state.userProfile.id}><button>Back</button></Link>
+            <Link to={"/profiles/" + this.state.userProfile.id}><button>Back</button></Link><br/><br/>
             </center>
         </React.Fragment>
     )

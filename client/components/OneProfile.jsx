@@ -56,22 +56,22 @@ render () {
         <React.Fragment>
             <center>
                 <br/>
-                <h4> Yo'Mate </h4>
-                <h4>{this.state.userProfile.firstname} {this.state.userProfile.lastname}</h4> 
-                <h5>"{this.state.userProfile.tagline}"</h5> 
+                <h2 id="allprofilesName">{this.state.userProfile.firstname} {this.state.userProfile.lastname}</h2> 
+                <h4>"{this.state.userProfile.tagline}"</h4> 
                 <h4>I speak:</h4>
-                    <h5 className={this.state.language1? "visible":"hidden"}>English</h5>
+                    <h4 className={this.state.language1? "visible":"hidden"}>English</h4>
                     <h5 className={this.state.language2? "visible":"hidden"}>Spanish</h5>
                     <h5 className={this.state.language3? "visible":"hidden"}>Te reo Māori</h5> 
                 <img src={this.state.userProfile.profilepic} width = "300px" />
                 <br />
                 <br />
                 <form action="post" >
-                <input type='submit' onClick={this.runMatch} value="MATCH" />
+                <input type='submit' onClick={this.runMatch} value="Match" />
                 </form>
 
                 <div><Link to={'/profiles/' + this.state.id}><button>Home</button></Link></div>
-                
+                <br/>
+                <br/>
             </center>
         </React.Fragment>
     )

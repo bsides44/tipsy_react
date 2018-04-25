@@ -140,25 +140,25 @@ class Chatroom extends React.Component {
 
                 <div className="matches">
                 <div className="common">
-                <h4>{this.state.firstname} and {this.state.matchProfile.firstname} </h4>
+                <center><h4>{this.state.firstname} and {this.state.matchProfile.firstname} </h4>
                 <h5>{this.state.matchProfile.firstname} speaks </h5> 
                 <h5 className={this.state.matchProfile.english? "visible":"hidden"}>English</h5>
                     <h5 className={this.state.matchProfile.spanish? "visible":"hidden"}>Spanish</h5>
                     <h5 className={this.state.matchProfile.te_reo? "visible":"hidden"}>Te reo Māori</h5> <br/>
                 <button onClick={this.removeMatch}>Unmatch</button>
-                </div>
-                
-                   <h4>Your Matches</h4>
+                </center></div>
+                    <br/>
+                    <br/>
+                   <center><h4>Your Matches</h4></center>
                     <div className="icons">
                         {this.state.matches.map((profile, i) => <div id="icon"  key={i}>
-                            <h5>{profile.firstname}</h5> 
-                            <Link to={'/profiles/' + this.state.id + '/view?id=' + profile.id}><img src={profile.profilepic} width="100px" height="100px"/></Link><br/>
-                            <Link to={'/profiles/' + this.state.id + '/view?id=' + profile.id}><button>View</button></Link>
+                            <center><h5>{profile.firstname}</h5> 
+                            <Link to={'/profiles/' + this.state.id + '/view?id=' + profile.id}><img src={profile.profilepic} width="100px" height="100px"/></Link><br/></center>
                             </div>
                         )}
                     </div>
                     <div id="chatHome"><center>
-                    <Link to={'/profiles/' + this.state.id}><button>Home</button></Link><br/></center></div>
+                    <Link to={'/profiles/' + this.state.id}><button>Home</button></Link><br/></center><br/><br/></div>
                 </div>
             </div>
             </React.Fragment>

@@ -8,7 +8,10 @@
     "dev": "nodemon server & webpack --watch",
     "start": "node server",
     "knex": "knex",
-    "postinstall": "webpack && knex migrate:latest"
+    "postinstall": "webpack && knex migrate:latest",
+    "h:migrate": "heroku run knex migrate:latest",
+    "h:rollback": "heroku run knex migrate:rollback",
+    "h:seed": "heroku run knex seed:run"
   },
   "babel": {
     "presets": [

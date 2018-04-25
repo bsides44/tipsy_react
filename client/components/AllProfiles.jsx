@@ -63,7 +63,7 @@ render () {
         <React.Fragment>
             <center>
                 <br/>
-                <h4> Welcome {this.state.userProfile.firstname}!</h4>
+                <h2> Welcome {this.state.userProfile.firstname}!</h2>
                 <div><Link to={'/user/' + this.state.userProfile.id}><button>Your Profile</button></Link><br/></div>
                 <div><Link to={'/user/'+this.state.userProfile.id +'/edit'}><button>Edit profile</button></Link><br/></div>
                 <br/>
@@ -73,6 +73,8 @@ render () {
                     <img src={profile.profilepic} width="200px"/></Link>
                     </div>)}
                 <div><Link to='/'><button>Back</button></Link><br/></div>
+                <br/>
+                <br/>
             </center>
         </React.Fragment>
 

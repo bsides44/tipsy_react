@@ -50,17 +50,17 @@ handleLanguage(e) {
 
 render(){
     return <form action="post" id="niceform">
-    <h4 id="formTitle">NewYo'Self</h4>
+    <center><h4 id="formTitle">NewYo'Self</h4>
     <input onChange={this.handleChange} name="firstname" type="text" placeholder="First Name"/><br/>
     <input onChange={this.handleChange} name="lastname" type="text" placeholder="Last Name"/><br/>
-    <input onChange={this.handleChange} name="tagline" type="text" placeholder="Tagline"/><br/>
-        <input onChange={this.handleLanguage} name="language" id="english" value="english" type="checkbox" /> English<br />
-        <input onChange={this.handleLanguage}name="language" id="spanish" value="spanish" type="checkbox" /> Spanish<br />
-        <input onChange={this.handleLanguage}name="language" id="te_reo" value="te_reo" type="checkbox" /> Te reo Māori<br />
+    <input onChange={this.handleChange} name="tagline" type="text" placeholder="Tagline"/><br/></center><div id="formLang">
+        <input onChange={this.handleLanguage} name="language" id="english" value="english" type="checkbox" /><p> English</p><br />
+        <input onChange={this.handleLanguage}name="language" id="spanish" value="spanish" type="checkbox" /><p> Spanish</p><br />
+        <input onChange={this.handleLanguage}name="language" id="te_reo" value="te_reo" type="checkbox" /><p> Te reo Māori</p><br /></div><center>
     <input onChange={this.handleChange} name="email" type="text" placeholder="Email"/><br/>
-    <input onChange={this.handleChange} name="profilepic" type="text" placeholder="Profile Pic URL"/><br/>
-    <input type="submit" onClick={this.addUser} value="Let's go!"/>
-    <br/><Link to='/'><button>Back</button></Link>
+    <input onChange={this.handleChange} name="profilepic" type="text" placeholder="Profile Pic URL"/><br/><br/>
+    <input type="submit" onClick={this.addUser} value="Let's go!"/><br/>
+    <br/><Link to='/'><button>Back</button></Link></center>
 </form>
 }
 }

@@ -558,7 +558,7 @@ var _superagent2 = _interopRequireDefault(_superagent);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var urlThing = 'http://localhost:3000/api/v1/';
+var urlThing = '/api/v1/';
 
 //functions go here
 
@@ -24805,7 +24805,7 @@ var Login = function (_React$Component) {
                     'center',
                     null,
                     _react2.default.createElement(
-                        'h4',
+                        'h2',
                         null,
                         ' Who are you? '
                     ),
@@ -24827,6 +24827,8 @@ var Login = function (_React$Component) {
                             )
                         )
                     ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('br', null),
                     _react2.default.createElement(
                         'div',
                         null,
@@ -26987,38 +26989,64 @@ var NewUser = function (_React$Component) {
                 'form',
                 { action: 'post', id: 'niceform' },
                 _react2.default.createElement(
-                    'h4',
-                    { id: 'formTitle' },
-                    'NewYo\'Self'
-                ),
-                _react2.default.createElement('input', { onChange: this.handleChange, name: 'firstname', type: 'text', placeholder: 'First Name' }),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleChange, name: 'lastname', type: 'text', placeholder: 'Last Name' }),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleChange, name: 'tagline', type: 'text', placeholder: 'Tagline' }),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'english', value: 'english', type: 'checkbox' }),
-                ' English',
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'spanish', value: 'spanish', type: 'checkbox' }),
-                ' Spanish',
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'te_reo', value: 'te_reo', type: 'checkbox' }),
-                ' Te reo M\u0101ori',
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleChange, name: 'email', type: 'text', placeholder: 'Email' }),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleChange, name: 'profilepic', type: 'text', placeholder: 'Profile Pic URL' }),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { type: 'submit', onClick: this.addUser, value: 'Let\'s go!' }),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    { to: '/' },
+                    'center',
+                    null,
                     _react2.default.createElement(
-                        'button',
+                        'h4',
+                        { id: 'formTitle' },
+                        'NewYo\'Self'
+                    ),
+                    _react2.default.createElement('input', { onChange: this.handleChange, name: 'firstname', type: 'text', placeholder: 'First Name' }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { onChange: this.handleChange, name: 'lastname', type: 'text', placeholder: 'Last Name' }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { onChange: this.handleChange, name: 'tagline', type: 'text', placeholder: 'Tagline' }),
+                    _react2.default.createElement('br', null)
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { id: 'formLang' },
+                    _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'english', value: 'english', type: 'checkbox' }),
+                    _react2.default.createElement(
+                        'p',
                         null,
-                        'Back'
+                        ' English'
+                    ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'spanish', value: 'spanish', type: 'checkbox' }),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        ' Spanish'
+                    ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'te_reo', value: 'te_reo', type: 'checkbox' }),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        ' Te reo M\u0101ori'
+                    ),
+                    _react2.default.createElement('br', null)
+                ),
+                _react2.default.createElement(
+                    'center',
+                    null,
+                    _react2.default.createElement('input', { onChange: this.handleChange, name: 'email', type: 'text', placeholder: 'Email' }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { onChange: this.handleChange, name: 'profilepic', type: 'text', placeholder: 'Profile Pic URL' }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { type: 'submit', onClick: this.addUser, value: 'Let\'s go!' }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { to: '/' },
+                        _react2.default.createElement(
+                            'button',
+                            null,
+                            'Back'
+                        )
                     )
                 )
             );
@@ -27139,7 +27167,7 @@ var AllProfiles = function (_React$Component) {
                     null,
                     _react2.default.createElement('br', null),
                     _react2.default.createElement(
-                        'h4',
+                        'h2',
                         null,
                         ' Welcome ',
                         this.state.userProfile.firstname,
@@ -27203,7 +27231,9 @@ var AllProfiles = function (_React$Component) {
                             )
                         ),
                         _react2.default.createElement('br', null)
-                    )
+                    ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('br', null)
                 )
             );
         }
@@ -27315,19 +27345,14 @@ var OneProfile = function (_React$Component) {
                     null,
                     _react2.default.createElement('br', null),
                     _react2.default.createElement(
-                        'h4',
-                        null,
-                        ' Yo\'Mate '
-                    ),
-                    _react2.default.createElement(
-                        'h4',
-                        null,
+                        'h2',
+                        { id: 'allprofilesName' },
                         this.state.userProfile.firstname,
                         ' ',
                         this.state.userProfile.lastname
                     ),
                     _react2.default.createElement(
-                        'h5',
+                        'h4',
                         null,
                         '"',
                         this.state.userProfile.tagline,
@@ -27339,7 +27364,7 @@ var OneProfile = function (_React$Component) {
                         'I speak:'
                     ),
                     _react2.default.createElement(
-                        'h5',
+                        'h4',
                         { className: this.state.language1 ? "visible" : "hidden" },
                         'English'
                     ),
@@ -27359,7 +27384,7 @@ var OneProfile = function (_React$Component) {
                     _react2.default.createElement(
                         'form',
                         { action: 'post' },
-                        _react2.default.createElement('input', { type: 'submit', onClick: this.runMatch, value: 'MATCH' })
+                        _react2.default.createElement('input', { type: 'submit', onClick: this.runMatch, value: 'Match' })
                     ),
                     _react2.default.createElement(
                         'div',
@@ -27373,7 +27398,9 @@ var OneProfile = function (_React$Component) {
                                 'Home'
                             )
                         )
-                    )
+                    ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('br', null)
                 )
             );
         }
@@ -27459,7 +27486,7 @@ var User = function (_React$Component) {
                     'center',
                     null,
                     _react2.default.createElement(
-                        'h4',
+                        'h2',
                         null,
                         this.state.userProfile.firstname,
                         ' ',
@@ -27495,7 +27522,7 @@ var User = function (_React$Component) {
                     _react2.default.createElement('img', { src: this.state.userProfile.profilepic, width: '300px' }),
                     _react2.default.createElement('br', null),
                     _react2.default.createElement(
-                        'h6',
+                        'h5',
                         null,
                         this.state.userProfile.email
                     ),
@@ -27519,7 +27546,9 @@ var User = function (_React$Component) {
                             null,
                             'Back'
                         )
-                    )
+                    ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('br', null)
                 )
             );
         }
@@ -27653,38 +27682,62 @@ var EditUser = function (_React$Component) {
                 'form',
                 { action: 'put', id: 'niceform' },
                 _react2.default.createElement(
-                    'h4',
-                    { id: 'formTitle' },
-                    ' Edit Yo\'Self '
-                ),
-                _react2.default.createElement('input', { onChange: this.handleChange, name: 'firstname', type: 'text', placeholder: this.state.firstname }),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleChange, name: 'lastname', type: 'text', placeholder: this.state.lastname }),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleChange, name: 'tagline', type: 'text', placeholder: this.state.tagline }),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'english', value: 'english', type: 'checkbox', checked: this.state.language.includes("english") }),
-                ' English',
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'spanish', value: 'spanish', type: 'checkbox', checked: this.state.language.includes("spanish") }),
-                ' Spanish',
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'te_reo', value: 'te_reo', type: 'checkbox', checked: this.state.language.includes("te_reo") }),
-                ' Te reo M\u0101ori',
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleChange, name: 'email', type: 'text', placeholder: this.state.email }),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { onChange: this.handleChange, name: 'profilepic', type: 'text', placeholder: this.state.profilepic }),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement('input', { type: 'submit', onClick: this.editUser, value: 'I\'m awesome!' }),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    { to: '/profiles/' + this.props.match.params.id },
+                    'center',
+                    null,
                     _react2.default.createElement(
-                        'button',
+                        'h4',
+                        { id: 'formTitle' },
+                        ' Edit Yo\'Self '
+                    ),
+                    _react2.default.createElement('input', { onChange: this.handleChange, name: 'firstname', type: 'text', placeholder: this.state.firstname }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { onChange: this.handleChange, name: 'lastname', type: 'text', placeholder: this.state.lastname }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { onChange: this.handleChange, name: 'tagline', type: 'text', placeholder: this.state.tagline }),
+                    _react2.default.createElement('br', null)
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { id: 'formLang' },
+                    _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'english', value: 'english', type: 'checkbox', checked: this.state.language.includes("english") }),
+                    _react2.default.createElement(
+                        'p',
                         null,
-                        'Home'
+                        ' English'
+                    ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'spanish', value: 'spanish', type: 'checkbox', checked: this.state.language.includes("spanish") }),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        ' Spanish'
+                    ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { onChange: this.handleLanguage, name: 'language', id: 'te_reo', value: 'te_reo', type: 'checkbox', checked: this.state.language.includes("te_reo") }),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        ' Te reo M\u0101ori'
+                    ),
+                    _react2.default.createElement('br', null)
+                ),
+                _react2.default.createElement(
+                    'center',
+                    null,
+                    _react2.default.createElement('input', { onChange: this.handleChange, name: 'email', type: 'text', placeholder: this.state.email }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { onChange: this.handleChange, name: 'profilepic', type: 'text', placeholder: this.state.profilepic }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement('input', { type: 'submit', onClick: this.editUser, value: 'I\'m awesome!' }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { to: '/profiles/' + this.props.match.params.id },
+                        _react2.default.createElement(
+                            'button',
+                            null,
+                            'Home'
+                        )
                     )
                 )
             );
@@ -27924,46 +27977,56 @@ var Chatroom = function (_React$Component) {
                             'div',
                             { className: 'common' },
                             _react2.default.createElement(
-                                'h4',
+                                'center',
                                 null,
-                                this.state.firstname,
-                                ' and ',
-                                this.state.matchProfile.firstname,
-                                ' '
-                            ),
-                            _react2.default.createElement(
-                                'h5',
-                                null,
-                                this.state.matchProfile.firstname,
-                                ' speaks '
-                            ),
-                            _react2.default.createElement(
-                                'h5',
-                                { className: this.state.matchProfile.english ? "visible" : "hidden" },
-                                'English'
-                            ),
-                            _react2.default.createElement(
-                                'h5',
-                                { className: this.state.matchProfile.spanish ? "visible" : "hidden" },
-                                'Spanish'
-                            ),
-                            _react2.default.createElement(
-                                'h5',
-                                { className: this.state.matchProfile.te_reo ? "visible" : "hidden" },
-                                'Te reo M\u0101ori'
-                            ),
-                            ' ',
-                            _react2.default.createElement('br', null),
-                            _react2.default.createElement(
-                                'button',
-                                { onClick: this.removeMatch },
-                                'Unmatch'
+                                _react2.default.createElement(
+                                    'h4',
+                                    null,
+                                    this.state.firstname,
+                                    ' and ',
+                                    this.state.matchProfile.firstname,
+                                    ' '
+                                ),
+                                _react2.default.createElement(
+                                    'h5',
+                                    null,
+                                    this.state.matchProfile.firstname,
+                                    ' speaks '
+                                ),
+                                _react2.default.createElement(
+                                    'h5',
+                                    { className: this.state.matchProfile.english ? "visible" : "hidden" },
+                                    'English'
+                                ),
+                                _react2.default.createElement(
+                                    'h5',
+                                    { className: this.state.matchProfile.spanish ? "visible" : "hidden" },
+                                    'Spanish'
+                                ),
+                                _react2.default.createElement(
+                                    'h5',
+                                    { className: this.state.matchProfile.te_reo ? "visible" : "hidden" },
+                                    'Te reo M\u0101ori'
+                                ),
+                                ' ',
+                                _react2.default.createElement('br', null),
+                                _react2.default.createElement(
+                                    'button',
+                                    { onClick: this.removeMatch },
+                                    'Unmatch'
+                                )
                             )
                         ),
+                        _react2.default.createElement('br', null),
+                        _react2.default.createElement('br', null),
                         _react2.default.createElement(
-                            'h4',
+                            'center',
                             null,
-                            'Your Matches'
+                            _react2.default.createElement(
+                                'h4',
+                                null,
+                                'Your Matches'
+                            )
                         ),
                         _react2.default.createElement(
                             'div',
@@ -27973,24 +28036,19 @@ var Chatroom = function (_React$Component) {
                                     'div',
                                     { id: 'icon', key: i },
                                     _react2.default.createElement(
-                                        'h5',
+                                        'center',
                                         null,
-                                        profile.firstname
-                                    ),
-                                    _react2.default.createElement(
-                                        _reactRouterDom.Link,
-                                        { to: '/profiles/' + _this4.state.id + '/view?id=' + profile.id },
-                                        _react2.default.createElement('img', { src: profile.profilepic, width: '100px', height: '100px' })
-                                    ),
-                                    _react2.default.createElement('br', null),
-                                    _react2.default.createElement(
-                                        _reactRouterDom.Link,
-                                        { to: '/profiles/' + _this4.state.id + '/view?id=' + profile.id },
                                         _react2.default.createElement(
-                                            'button',
+                                            'h5',
                                             null,
-                                            'View'
-                                        )
+                                            profile.firstname
+                                        ),
+                                        _react2.default.createElement(
+                                            _reactRouterDom.Link,
+                                            { to: '/profiles/' + _this4.state.id + '/view?id=' + profile.id },
+                                            _react2.default.createElement('img', { src: profile.profilepic, width: '100px', height: '100px' })
+                                        ),
+                                        _react2.default.createElement('br', null)
                                     )
                                 );
                             })
@@ -28011,7 +28069,9 @@ var Chatroom = function (_React$Component) {
                                     )
                                 ),
                                 _react2.default.createElement('br', null)
-                            )
+                            ),
+                            _react2.default.createElement('br', null),
+                            _react2.default.createElement('br', null)
                         )
                     )
                 )
@@ -28082,6 +28142,8 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(5);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Welcome = function Welcome() {
@@ -28091,12 +28153,31 @@ var Welcome = function Welcome() {
         _react2.default.createElement(
             'center',
             null,
-            _react2.default.createElement('div', { id: 'welcome' }),
-            _react2.default.createElement('img', { src: 'tongue.png', className: 'slide-in-elliptic-top-fwd', height: '200px' }),
             _react2.default.createElement(
-                'h2',
-                { className: 'logo' },
-                'Lengua Libre'
+                'div',
+                { id: 'welcome' },
+                _react2.default.createElement('img', { src: 'tongue.png', className: 'slide-in-elliptic-top-fwd', height: '200px' }),
+                _react2.default.createElement(
+                    'h2',
+                    { id: 'logo' },
+                    'Lengua Libre'
+                ),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                    'h4',
+                    { className: 'animated bounceInLeft', id: 'welcometag' },
+                    'Chat For Language Learning!'
+                ),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { to: '/' },
+                    _react2.default.createElement(
+                        'button',
+                        null,
+                        'Login'
+                    )
+                )
             )
         )
     );

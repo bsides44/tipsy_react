@@ -76,17 +76,17 @@ redirect(err, thing){
 
 render() {
     return <form action="put" id="niceform">
-    <h4 id="formTitle"> Edit Yo'Self </h4>
+    <center><h4 id="formTitle"> Edit Yo'Self </h4>
     <input onChange={this.handleChange} name="firstname" type="text" placeholder={this.state.firstname}/><br/>
     <input onChange={this.handleChange} name="lastname" type="text" placeholder={this.state.lastname}/><br/>
-    <input onChange={this.handleChange} name="tagline" type="text" placeholder={this.state.tagline}/><br/>
-        <input onChange={this.handleLanguage} name="language" id="english" value="english" type="checkbox" checked={this.state.language.includes("english")}/> English<br />
-        <input onChange={this.handleLanguage}name="language" id="spanish" value="spanish" type="checkbox" checked={this.state.language.includes("spanish")}/> Spanish<br />
-        <input onChange={this.handleLanguage}name="language" id="te_reo" value="te_reo" type="checkbox" checked={this.state.language.includes("te_reo")}/> Te reo Māori<br />
+    <input onChange={this.handleChange} name="tagline" type="text" placeholder={this.state.tagline}/><br/></center><div id="formLang">
+        <input onChange={this.handleLanguage} name="language" id="english" value="english" type="checkbox" checked={this.state.language.includes("english")}/><p> English</p><br />
+        <input onChange={this.handleLanguage}name="language" id="spanish" value="spanish" type="checkbox" checked={this.state.language.includes("spanish")}/><p> Spanish</p><br />
+        <input onChange={this.handleLanguage}name="language" id="te_reo" value="te_reo" type="checkbox" checked={this.state.language.includes("te_reo")}/><p> Te reo Māori</p><br /></div><center>
     <input onChange={this.handleChange} name="email" type="text" placeholder={this.state.email}/><br/>
     <input onChange={this.handleChange} name="profilepic" type="text" placeholder={this.state.profilepic}/><br/>
     <input type="submit" onClick={this.editUser} value="I'm awesome!"/>
-    <br/><Link to={'/profiles/' + this.props.match.params.id}><button>Home</button></Link>
+    <br/><Link to={'/profiles/' + this.props.match.params.id}><button>Home</button></Link></center>
     </form>
 }
 }
