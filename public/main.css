@@ -16,6 +16,7 @@ h1 {
 }
 
 h2 {
+  margin-top: 30px;
   font-size: 40px;
   letter-spacing: 2px;
   font-family:  'Cedarville Cursive', cursive, "Raleway", sans-serif;
@@ -56,15 +57,6 @@ p {
 max-width: 30%;
 }
 
-button {
-  /* padding: 40px; */
-  /* border-radius: 8px;
-  font-size: 11px; */
-  /* font-family: "Arimo", sans-serif; */
-  /* box-shadow: 2px 1px #7E7C74; */
-  /* margin-top: 40px; */
-}
-
 button:hover {
   background-color: #e8f0ff;
   color: rgb(66, 60, 60);
@@ -93,7 +85,7 @@ button:hover {
   display:flex;
   -ms-flex-direction:row;
   flex-direction:row;
-  flex-wrap: wrap
+  flex-wrap: wrap;
 }
 
 .chatbox {
@@ -101,7 +93,7 @@ button:hover {
 }
 
 .chatroom {
-  flex-wrap: wrap  
+  flex-wrap: wrap;
 }
 
 .matches img{
