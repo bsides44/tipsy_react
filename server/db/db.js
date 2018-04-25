@@ -44,14 +44,14 @@ function insertLanguage (languageArray) {
     if (typeof languageArray == "string") {
         //single item is not in an array so .length won't work
         return db("languages")
-            .insert({english, spanish, te_reo}),id
+            .insert({english, spanish, te_reo}, "id")
         }
     else {
         var english = !!languageArray.find(language => language == 'english')
         var spanish = !!languageArray.find(language => language == 'spanish')
         var te_reo = !!languageArray.find(language => language == 'te_reo')
         return db("languages")
-            .insert({english, spanish, te_reo}),id
+            .insert({english, spanish, te_reo},"id")
     }
 }
 
@@ -78,7 +78,7 @@ function updateLanguage (languageArray, id) {
 
 function pushMatch (user, profile) {
     return db("matches")
-        .insert({"user_id": user, "match_id": profile}),id
+        .insert({"user_id": user, "match_id": profile},"id")
 }
 
 function checkMatches (userid, profileid) {
@@ -112,7 +112,7 @@ function messageToDatabase (message) {
         user_id: message.id,
         match_id: queryNum,
         message: message.message,
-    }),id
+    }, "id")
 }
 
 function getMatches (user) {
