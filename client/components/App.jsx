@@ -8,6 +8,7 @@ import OneProfile from './OneProfile'
 import User from './User'
 import EditUser from './EditUser'
 import Chatroom from './Chatroom'
+import Welcome from './Welcome'
 
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
     <React.Fragment>
       <Router>
         <div>
+          <Route exact path='/welcome' component={Welcome}/>
           <Route exact path='/' component={Login}/>
           <Route exact path='/user/new' component= {NewUser} />
           <Route exact path='/user/:id' component= {User} />

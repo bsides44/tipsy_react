@@ -24707,6 +24707,10 @@ var _Chatroom = __webpack_require__(88);
 
 var _Chatroom2 = _interopRequireDefault(_Chatroom);
 
+var _Welcome = __webpack_require__(90);
+
+var _Welcome2 = _interopRequireDefault(_Welcome);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
@@ -24719,6 +24723,7 @@ var App = function App() {
       _react2.default.createElement(
         'div',
         null,
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/welcome', component: _Welcome2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Login2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/user/new', component: _NewUser2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/user/:id', component: _User2.default }),
@@ -28061,6 +28066,43 @@ var Message = function Message(_ref) {
 };
 
 exports.default = Message;
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Welcome = function Welcome() {
+    return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+            'center',
+            null,
+            _react2.default.createElement('div', { id: 'welcome' }),
+            _react2.default.createElement('img', { src: 'tongue.png', className: 'slide-in-elliptic-top-fwd', height: '200px' }),
+            _react2.default.createElement(
+                'h2',
+                { className: 'logo' },
+                'Lengua Libre'
+            )
+        )
+    );
+};
+
+exports.default = Welcome;
 
 /***/ })
 /******/ ]);
