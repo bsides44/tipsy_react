@@ -89,6 +89,10 @@ button:hover {
   flex-wrap: wrap;
 }
 
+#allprofiles img {
+  border-radius: 100px;
+}
+
 .chatbox {
   height: 100%;
 }

@@ -40,17 +40,17 @@ function getLanguages (user) {
     .select().first()
 }
 
-function insertLanguage (languageArray) {
+function insertLanguage (languageArray, testDb) {
+    const conn = testDb || db
     if (typeof languageArray == "string") {
-        //single item is not in an array so .length won't work
-        return db("languages")
+        return conn("languages")
             .insert({english, spanish, te_reo}, "id")
         }
     else {
         var english = !!languageArray.find(language => language == 'english')
         var spanish = !!languageArray.find(language => language == 'spanish')
         var te_reo = !!languageArray.find(language => language == 'te_reo')
-        return db("languages")
+        return conn("languages")
             .insert({english, spanish, te_reo},"id")
     }
 }
@@ -90,7 +90,6 @@ function checkMatches (userid, profileid) {
 function getFirstChats (userid, profileid) {
     return db("chats")
     .join("profiles", "chats.user_id", "profiles.id")
-    // .join("profiles", "chats.match_id", "profiles.id")
     .where("match_id", userid)
     .andWhere("user_id", profileid)
 } 
@@ -98,7 +97,6 @@ function getFirstChats (userid, profileid) {
 function getSecondChats (userid, profileid) {
     return db("chats")
     .join("profiles", "chats.user_id", "profiles.id")
-    // .join("profiles", "chats.match_id", "profiles.id")
     .where("match_id", profileid)
     .andWhere("user_id", userid)
 } 

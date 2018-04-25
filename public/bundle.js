@@ -27169,7 +27169,11 @@ var AllProfiles = function (_React$Component) {
                     _react2.default.createElement(
                         'h2',
                         null,
-                        ' Welcome ',
+                        ' Welcome '
+                    ),
+                    _react2.default.createElement(
+                        'h2',
+                        null,
                         this.state.userProfile.firstname,
                         '!'
                     ),
@@ -27202,22 +27206,26 @@ var AllProfiles = function (_React$Component) {
                         _react2.default.createElement('br', null)
                     ),
                     _react2.default.createElement('br', null),
-                    this.state.filteredProfiles.map(function (profile, i) {
-                        return _react2.default.createElement(
-                            'div',
-                            { key: i },
-                            _react2.default.createElement(
-                                _reactRouterDom.Link,
-                                { to: '/profiles/' + _this3.state.userProfile.id + '/view?id=' + profile.id },
+                    _react2.default.createElement(
+                        'div',
+                        { id: 'allprofiles' },
+                        this.state.filteredProfiles.map(function (profile, i) {
+                            return _react2.default.createElement(
+                                'div',
+                                { key: i },
                                 _react2.default.createElement(
-                                    'h4',
-                                    null,
-                                    profile.firstname
-                                ),
-                                _react2.default.createElement('img', { src: profile.profilepic, width: '200px' })
-                            )
-                        );
-                    }),
+                                    _reactRouterDom.Link,
+                                    { to: '/profiles/' + _this3.state.userProfile.id + '/view?id=' + profile.id },
+                                    _react2.default.createElement(
+                                        'h4',
+                                        null,
+                                        profile.firstname
+                                    ),
+                                    _react2.default.createElement('img', { src: profile.profilepic, width: '200px', height: '200px' })
+                                )
+                            );
+                        })
+                    ),
                     _react2.default.createElement(
                         'div',
                         null,

@@ -63,16 +63,25 @@ render () {
         <React.Fragment>
             <center>
                 <br/>
-                <h2> Welcome {this.state.userProfile.firstname}!</h2>
-                <div><Link to={'/user/' + this.state.userProfile.id}><button>Your Profile</button></Link><br/></div>
-                <div><Link to={'/user/'+this.state.userProfile.id +'/edit'}><button>Edit profile</button></Link><br/></div>
+                <h2> Welcome </h2><h2>{this.state.userProfile.firstname}!</h2>
+                <div>
+                    <Link to={'/user/' + this.state.userProfile.id}>
+                    <button>Your Profile</button></Link><br/>
+                </div>
+                <div>
+                    <Link to={'/user/'+this.state.userProfile.id +'/edit'}>
+                    <button>Edit profile</button></Link><br/>
+                </div>
                 <br/>
-
-                {this.state.filteredProfiles.map((profile, i) => <div key={i}>
-                    <Link to={'/profiles/' + this.state.userProfile.id + '/view?id=' + profile.id}><h4>{profile.firstname}</h4> 
-                    <img src={profile.profilepic} width="200px"/></Link>
+                <div id="allprofiles">
+                    {this.state.filteredProfiles.map((profile, i) => 
+                    <div key={i}>
+                        <Link to={'/profiles/' + this.state.userProfile.id + '/view?id=' + profile.id}><h4>{profile.firstname}</h4> 
+                        <img src={profile.profilepic} width="200px" height="200px"/></Link>
                     </div>)}
-                <div><Link to='/'><button>Back</button></Link><br/></div>
+                </div>
+                <div>
+                    <Link to='/'><button>Back</button></Link><br/></div>
                 <br/>
                 <br/>
             </center>

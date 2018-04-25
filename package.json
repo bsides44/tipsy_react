@@ -8,6 +8,7 @@
     "dev": "nodemon server & webpack --watch",
     "start": "node server",
     "knex": "knex",
+    "test": "jest --watchAll",
     "postinstall": "webpack && knex migrate:latest",
     "h:migrate": "heroku run knex migrate:latest",
     "h:rollback": "heroku run knex migrate:rollback",
@@ -22,23 +23,25 @@
   "author": "EDA",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.2",
-    "express": "^4.16.2",
-    "knex": "^0.14.6",
-    "pg": "^7.4.1",
-    "sqlite3": "^4.0.0",
-    "superagent": "^3.8.2",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "body-parser": "^1.18.2",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.3",
+    "knex": "^0.14.6",
+    "pg": "^7.4.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
+    "sqlite3": "^4.0.0",
+    "superagent": "^3.8.2",
     "webpack": "^3.10.0"
   },
   "devDependencies": {
-    "supertest": "^3.0.0",
-    "nodemon": "^1.17.3"
+    "jest": "^22.4.3",
+    "nodemon": "^1.17.3",
+    "supertest": "^3.0.0"
   }
 }

@@ -9,8 +9,6 @@ const server = express()
 server.use(bodyParser.json())
 server.use(express.static(path.join(__dirname, '../public')))
 
-module.exports = server
-
 
 // const posts = require('./routes/posts')
 
@@ -18,3 +16,5 @@ module.exports = server
 
 server.use('/api/v1', router)
 // server.use('/v1/comments', comments)
+
+module.exports = server
